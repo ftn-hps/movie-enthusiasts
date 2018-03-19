@@ -40,3 +40,12 @@ a:hover {
 .fab, .fas, .far, .fal {
 	font-size: 1.4rem;
 }
+
+.navbar {
+	background-color: var(--bg_color);
+}
+
+.navbar-brand {
+	color: var(--selected_bg_color) !important;
+	font-size: 2rem;
+}

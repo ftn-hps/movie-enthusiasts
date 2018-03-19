@@ -14,7 +14,10 @@
 	<title>Hello, world!</title>
 </head>
 <body>
-	<h1>Hello, world! <i class="fas fa-globe"></i></h1>
+	<my-header></my-header>
+	<div class="container">
+		<ui-view></ui-view>
+	</div>
 
 	<!-- Javascript -->
 	<!-- jQuery Slim -->
@@ -26,5 +29,9 @@
 	<!-- AngularJS -->
 	<script src="js/lib/angular-1.6.9.js"></script>
 	<script src="js/lib/angular-ui-router.js"></script>
+	<script src="js/app.module.js"></script>
+	<script src="js/app.config.js"></script>
+	<script src="part/header/header.module.js"></script>
+	<script src="part/header/header.component.js"></script>
 </body>
 </html>
