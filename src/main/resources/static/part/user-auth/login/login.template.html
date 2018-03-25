@@ -1,0 +1,22 @@
+<h2>Log in:</h2>
+<form name="login">
+	<input type="email"
+		class="form-group form-control"
+		placeholder="Email*"
+		ng-model="$ctrl.user.email"
+		required
+		autofocus/>
+	<input type="password"
+		class="form-group form-control"
+		placeholder="Password*"
+		ng-model="$ctrl.user.password"
+		minlength="6"
+		required/>
+	<input type="submit"
+		class="btn btn-custom"
+		value="Log in"
+		ng-click="login.$valid && $ctrl.send()"/>
+	<p>
+		{{$ctrl.user | json}}
+	</p>
+</form>
