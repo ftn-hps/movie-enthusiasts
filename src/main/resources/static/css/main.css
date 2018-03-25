@@ -49,3 +49,14 @@ a:hover {
 	color: var(--selected_bg_color) !important;
 	font-size: 2rem;
 }
+
+my-registration, my-login {
+	background-color: var(--bg_color);
+	border: 1px solid var(--border_color);
+	padding: 2rem;
+}
+
+.btn-custom {
+	color: var(--selected_fg_color);
+	background-color: var(--selected_bg_color);
+}

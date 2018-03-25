@@ -2,5 +2,6 @@
 
 angular.module('movie-enthusiasts', [
 	'ui.router',
-	'header'
+	'header',
+	'userAuth'
 ]);
