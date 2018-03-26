@@ -30,16 +30,16 @@ public class User {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
-	@Pattern(regexp = "(?U)\\p{Alpha}+")
+	@Pattern(regexp = "(?U)\\p{Alpha}*")
 	private String name;
 
-	@Pattern(regexp = "(?U)\\p{Alpha}+")
+	@Pattern(regexp = "(?U)\\p{Alpha}*")
 	private String lastName;
 
-	@Pattern(regexp = "(?U)[\\p{Alpha}\\h]+")
+	@Pattern(regexp = "(?U)[\\p{Alpha}\\h]*")
 	private String city;
 
-	@Pattern(regexp = "\\d{9,10}")
+	@Pattern(regexp = "(\\d{9,10})|(^$)")
 	private String phoneNumber;
 
 	public User() {}
