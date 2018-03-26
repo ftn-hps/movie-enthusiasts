@@ -3,9 +3,16 @@
 angular.module('userAuth.login')
 	.component('myLogin', {
 		templateUrl: '/part/user-auth/login/login.template.html',
-		controller: function() {
+		controller: function(UserAuthService, $rootScope, $state) {
 			this.send = () => {
-				this.user.sent = 'Sent to server';
+				UserAuthService.logIn(this.user).then(
+					(response) => {
+						$rootScope.user = response.data;
+						$state.go('home');
+					},
+					(response) => {
+						this.status = response.status;
+					});
 			};
 		}
 	});
