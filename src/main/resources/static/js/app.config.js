@@ -5,7 +5,7 @@ angular.module('movie-enthusiasts')
 		$stateProvider
 			.state({
 				name: 'home',
-				url: '/home',
+				url: '/',
 				template: '<h1>Home page</h1>'
 			})
 			.state({
@@ -20,6 +20,6 @@ angular.module('movie-enthusiasts')
 			});
 
 		$urlRouterProvider
-			.when('', '/home')
+			.when('', '/')
 			.otherwise('/error');
 	});
