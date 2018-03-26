@@ -22,4 +22,13 @@ angular.module('movie-enthusiasts')
 		$urlRouterProvider
 			.when('', '/')
 			.otherwise('/error');
+	})
+	.run(function($rootScope, UserAuthService) {
+		UserAuthService.getUser().then(
+			(response) => {
+				$rootScope.user = response.data;
+			},
+			() => {
+				$rootScope.user = null;
+			});
 	});

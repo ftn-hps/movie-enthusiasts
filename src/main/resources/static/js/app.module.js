@@ -3,5 +3,6 @@
 angular.module('movie-enthusiasts', [
 	'ui.router',
 	'header',
-	'userAuth'
+	'userAuth',
+	'core.user'
 ]);
