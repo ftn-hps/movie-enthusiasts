@@ -6,12 +6,42 @@ angular.module('movie-enthusiasts')
 			.state({
 				name: 'home',
 				url: '/',
-				template: '<h1>Home page</h1>'
+				component: 'myHome'
+			})
+			.state({
+				name: 'home.theaters',
+				url: '^/theaters',
+				template: '<h1>Theaters</h1>'
+			})
+			.state({
+				name: 'home.cinemas',
+				url: '^/cinemas',
+				template: '<h1>Cinemas</h1>'
+			})
+			.state({
+				name: 'home.reservations',
+				url: '^/reservations',
+				template: '<h1>Reservations</h1>'
+			})
+			.state({
+				name: 'home.history',
+				url: '^/history',
+				template: '<h1>Attendance History</h1>'
 			})
 			.state({
 				name: 'userAuth',
 				url: '/user-auth',
 				component: 'myUserAuth'
+			})
+			.state({
+				name: 'profile',
+				url: '/profile',
+				template: '<h1>User Profile</h1>'
+			})
+			.state({
+				name: 'fan-zone',
+				url: '/fan-zone',
+				template: '<h1>Fan Zone</h1>'
 			})
 			.state({
 				name: 'error',
@@ -20,7 +50,8 @@ angular.module('movie-enthusiasts')
 			});
 
 		$urlRouterProvider
-			.when('', '/')
+			.when('', '/theaters')
+			.when('/', '/theaters')
 			.otherwise('/error');
 	})
 	.run(function($rootScope, UserAuthService) {

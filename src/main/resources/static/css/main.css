@@ -61,3 +61,13 @@ my-registration, my-login {
 	color: var(--selected_fg_color);
 	background-color: var(--selected_bg_color);
 }
+
+my-sidebar {
+	background-color: var(--bg_color);
+	font-size: 1.1rem;
+}
+
+.active {
+	color: var(--selected_fg_color);
+	background-color: var(--selected_bg_color);
+}
