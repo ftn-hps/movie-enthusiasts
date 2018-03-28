@@ -34,18 +34,19 @@ a {
 
 a:hover {
     color: var(--selected_fg_color);
-	text-decoration: underline;
+	text-decoration: underline !important;
 }
 
 .fab, .fas, .far, .fal {
 	font-size: 1.4rem;
+	margin: 0 0.2rem;
 }
 
-.navbar {
+my-header .navbar {
 	background-color: var(--bg_color);
 }
 
-.navbar-brand {
+my-header .navbar-brand {
 	color: var(--selected_bg_color) !important;
 	font-size: 2rem;
 }

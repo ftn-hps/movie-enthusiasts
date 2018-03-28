@@ -4,17 +4,26 @@
 	</a>
 	<button class="navbar-toggler"
 		data-toggle="collapse"
-		data-target="#navContent,.sidebar">
+		data-target=".nav-toggled">
 			<span class="navbar-toggler-icon"></span>
 	</button>
 
-	<div class="collapse navbar-collapse" id="navContent">
+	<div class="collapse navbar-collapse nav-toggled">
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item" ng-if="$root.user">
 				<a class="nav-link"
 					ui-sref="profile"
 					ui-sref-active="active">
+						<i class="fas fa-user-circle"></i>
 						{{$root.user.email}}
+				</a>
+			</li>
+			<li class="nav-item" ng-if="$root.user">
+				<a class="nav-link"
+					ui-sref="fan-zone"
+					ui-sref-active="active">
+						<i class="fas fa-shopping-cart"></i>
+						Fan Zone
 				</a>
 			</li>
 			<li class="nav-item" ng-if="$root.user">
