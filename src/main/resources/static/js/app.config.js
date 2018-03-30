@@ -9,14 +9,14 @@ angular.module('movie-enthusiasts')
 				component: 'myHome'
 			})
 			.state({
-				name: 'home.theaters',
-				url: '^/theaters',
-				template: '<h1>Theaters</h1>'
+				name: 'home.places',
+				url: '^/places/{placeType:theater|cinema}',
+				component: 'myPlaceList'
 			})
 			.state({
-				name: 'home.cinemas',
-				url: '^/cinemas',
-				template: '<h1>Cinemas</h1>'
+				name: 'home.placeDetail',
+				url: '^/place/{id}',
+				template: '<h1>Theater/Cinema Detail</h1>'
 			})
 			.state({
 				name: 'home.reservations',
@@ -50,8 +50,8 @@ angular.module('movie-enthusiasts')
 			});
 
 		$urlRouterProvider
-			.when('', '/theaters')
-			.when('/', '/theaters')
+			.when('', '/places/theater')
+			.when('/', '/places/theater')
 			.otherwise('/error');
 	})
 	.run(function($rootScope, UserAuthService) {

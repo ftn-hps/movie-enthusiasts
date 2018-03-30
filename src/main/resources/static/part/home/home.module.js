@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('home', [
-	'home.sidebar'
+	'home.sidebar',
+	'placeList'
 ]);

@@ -1,14 +1,18 @@
 <ul class="nav flex-column">
 	<li class="nav-item">
-		<a class="nav-link" ui-sref="home.theaters" ui-sref-active="active">
-			<i class="fas fa-building"></i>
-			Theaters
+		<a class="nav-link"
+			ui-sref="home.places({placeType: 'theater'})"
+			ui-sref-active="active">
+				<i class="fas fa-building"></i>
+				Theaters
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" ui-sref="home.cinemas" ui-sref-active="active">
-			<i class="fas fa-film"></i>
-			Cinemas
+		<a class="nav-link"
+			ui-sref="home.places({placeType: 'cinema'})"
+			ui-sref-active="active">
+				<i class="fas fa-film"></i>
+				Cinemas
 		</a>
 	</li>
 	<li class="nav-item">
