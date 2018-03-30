@@ -71,3 +71,8 @@ my-sidebar {
 	color: var(--selected_fg_color);
 	background-color: var(--selected_bg_color);
 }
+
+my-stars .fa-star {
+	font-size: inherit;
+	margin: 0;
+}
