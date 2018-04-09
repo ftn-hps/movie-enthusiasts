@@ -29,4 +29,18 @@ public class PlaceServiceImpl implements PlaceService {
 		return placeRepository.findByType(type);
 	}
 
+	@Override
+	public Place add(Place input) {
+		return placeRepository.save(input);
+	}
+
+	@Override
+	public Place edit(Long id, Place input) {
+		if(findOne(id) == null)
+			return null;
+
+		input.setId(id);
+		return placeRepository.save(input);
+	}
+
 }

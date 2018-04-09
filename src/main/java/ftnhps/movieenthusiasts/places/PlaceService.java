@@ -10,4 +10,8 @@ public interface PlaceService {
 	
 	List<Place> findAll(PlaceType type);
 	
+	Place add(Place input);
+	
+	Place edit(Long id, Place input);
+	
 }
