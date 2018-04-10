@@ -15,13 +15,13 @@
 				Cinemas
 		</a>
 	</li>
-	<li class="nav-item">
+	<li class="nav-item" ng-if="$root.user">
 		<a class="nav-link" ui-sref="home.reservations" ui-sref-active="active">
 			<i class="fas fa-ticket-alt"></i>
 			Reservations
 		</a>
 	</li>
-	<li class="nav-item">
+	<li class="nav-item" ng-if="$root.user">
 		<a class="nav-link" ui-sref="home.history" ui-sref-active="active">
 			<i class="fas fa-history"></i>
 			Attendance History

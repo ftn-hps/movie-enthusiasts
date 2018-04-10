@@ -5,7 +5,7 @@
 
 	<groupId>ftn-hps</groupId>
 	<artifactId>movie-enthusiasts</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 	<packaging>jar</packaging>
 
 	<name>movie-enthusiasts</name>
