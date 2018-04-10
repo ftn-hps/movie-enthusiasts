@@ -1,19 +1,17 @@
-<div class="row no-gutters">
-	<div ng-repeat="place in $ctrl.places" class="col-lg-4 col-md-6">
-		<div class="card m-1">
-			<div class="card-body">
-				<h3 class="card-title">
-					<a ui-sref="home.placeDetail({id: place.id})">
-						{{place.name}}
-					</a>
-				</h3>
-				<div class="card-subtitle mb-2 text-muted">
-					<my-stars rating="place.rating" max="5"></my-stars>
-					{{place.rating}}/5
-					<address>{{place.address}}</address>
-				</div>
-				<p class="card-text">{{place.description}}</p>
+<div class="row align-items-stretch">
+	<div ng-repeat="place in $ctrl.places" class="card mx-md-1 col-lg-4 col-md-6">
+		<div class="card-body">
+			<h3 class="card-title">
+				<a ui-sref="home.placeDetail({id: place.id})">
+					{{place.name}}
+				</a>
+			</h3>
+			<div class="card-subtitle mb-2 text-muted">
+				<my-stars rating="place.rating" max="5"></my-stars>
+				{{place.rating}}/5
+				<address>{{place.address}}</address>
 			</div>
+			<p class="card-text">{{place.description}}</p>
 		</div>
 	</div>
 </div>
