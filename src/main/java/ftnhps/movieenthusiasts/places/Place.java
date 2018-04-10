@@ -37,7 +37,6 @@ public class Place {
 	@NotBlank
 	private String address;
 	
-	@Pattern(regexp = "(?U)[\\p{Alpha}\\s]+")
 	@NotBlank
 	private String description;
 
