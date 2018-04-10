@@ -3,12 +3,14 @@
 angular.module('placeList')
 	.component('myPlaceList', {
 		templateUrl: '/part/place-list/place-list.template.html',
-		controller: function($stateParams) {
+		controller: function($stateParams, PlaceService) {
 			this.placeType = $stateParams.placeType.toUpperCase();
-			//TODO fetch real data
-			this.places = [
-				{id:1, name:'Test 1', address:'address1', description:'description1', rating:4},
-				{id:2, name:'Test 2', address:'address2', description:'description2', rating:3}
-			];
+
+			PlaceService.getAllOfType(this.placeType)
+				.then( (response) => {
+					this.places = response.data;
+				}, () => {
+					this.places = null;
+				});
 		}
 	});

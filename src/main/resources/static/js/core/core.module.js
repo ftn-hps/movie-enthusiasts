@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('core', [
-	'core.user'
+	'core.user',
+	'core.place'
 ]);

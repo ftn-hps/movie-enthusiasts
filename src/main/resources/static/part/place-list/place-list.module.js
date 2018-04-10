@@ -2,5 +2,6 @@
 
 angular.module('placeList', [
 	'ui.router',
-	'stars'
+	'stars',
+	'core.place'
 ]);
