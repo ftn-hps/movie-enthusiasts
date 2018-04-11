@@ -26,3 +26,8 @@ nbdist/
 ### H2 Database file ###
 dbtest*
 
+
+# eclipse project file
+.settings/
+.classpath
+.project

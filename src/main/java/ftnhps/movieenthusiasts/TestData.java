@@ -3,11 +3,14 @@ package ftnhps.movieenthusiasts;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.stereotype.Component;
 
 import ftnhps.movieenthusiasts.places.Place;
 import ftnhps.movieenthusiasts.places.PlaceService;
 import ftnhps.movieenthusiasts.places.PlaceType;
+import ftnhps.movieenthusiasts.projections.Projection;
+import ftnhps.movieenthusiasts.projections.ProjectionService;
 import ftnhps.movieenthusiasts.users.User;
 import ftnhps.movieenthusiasts.users.UserService;
 
@@ -18,6 +21,8 @@ public class TestData {
 	private UserService userService;
 	@Autowired
 	private PlaceService placeService;
+	@Autowired
+	private ProjectionService projectionService;
 	
 	@PostConstruct
 	private void init() {
@@ -45,5 +50,47 @@ public class TestData {
 				"Novi Sad",
 				"Pozoriste mladih osnovano je 1932. godine kao Lutkarsko pozoriste, pri Sokolskom drustvu u Novom Sadu.");
 		placeService.add(place3);
+		
+		Projection projection1 = new Projection(place1,
+				"R&J",
+				"{artists:[\"Paja\" , \"Jare\"]}",
+				"Drama", 
+				"Paja",
+				120, 
+				"/",
+				3, 
+				"Klasicni romeo i julija",
+				"{projectionHalls: [11-c, 20-a, 3-a]}",
+				"{projectionTimes:[\"12:30\",\"15:40\"]}",
+				333.00);
+		projectionService.add(projection1);
+		
+		Projection projection2 = new Projection(place1,
+				"aaa",
+				"{artists:[\"aa\" , \"Aa\"]}",
+				"Aaaaa", 
+				"Aaaaa",
+				120, 
+				"/",
+				5, 
+				"Aaaaaaa",
+				"{projectionHalls: [11-c, 20-a, 3-a]}",
+				"{projectionTimes:[\"12:30\",\"15:40\"]}",
+				333.00);
+		projectionService.add(projection2);
+		
+		Projection projection3 = new Projection(place2,
+				"Bbbb",
+				"{artists:[\"bbbb\" , \"Bbbbb\"]}",
+				"Bbbbbbb", 
+				"Bbbbbb",
+				120, 
+				"/",
+				5, 
+				"Bbbbbbbbb",
+				"{projectionHalls: [11-c, 20-a, 3-a]}",
+				"{projectionTimes:[\"22:30\",\"23:40\"]}",
+				333.00);
+		projectionService.add(projection3);
 	}
 }
