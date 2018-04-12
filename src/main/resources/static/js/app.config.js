@@ -19,6 +19,11 @@ angular.module('movie-enthusiasts')
 				template: '<h1>Theater/Cinema Detail</h1>'
 			})
 			.state({
+				name: 'home.placeDetailAdmin',
+				url: '^/placesAdmin/{id:\\d+}',
+				component: 'myPlaceEdit'
+			})
+			.state({
 				name: 'home.reservations',
 				url: '^/reservations',
 				template: '<h1>Reservations</h1>'

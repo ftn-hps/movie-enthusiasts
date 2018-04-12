@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core', [
-	'core.user',
+angular.module('placeEdit', [
+	'ui.router',
 	'core.place',
 	'core.projection'
 ]);

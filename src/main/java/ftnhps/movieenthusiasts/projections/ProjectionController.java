@@ -2,11 +2,17 @@ package ftnhps.movieenthusiasts.projections;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,6 +56,22 @@ public class ProjectionController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(projections, HttpStatus.OK);
 	}
+	
+	@PostMapping
+	public ResponseEntity<Projection> add (@RequestBody @Valid Projection input)
+	{
+		Projection projection = projectionService.add(input);
+		return new ResponseEntity<Projection>(projection,HttpStatus.OK);
+	}
+	
+	@PutMapping("/{id://d+}")
+	public ResponseEntity<Projection> edit(@PathVariable Long id, @RequestBody @Valid Projection input){
+		Projection projection = projectionService.edit(id, input);
+		return new ResponseEntity<Projection>(projection,HttpStatus.OK);
+	}
+	
+	
+	
 	
 	
 }

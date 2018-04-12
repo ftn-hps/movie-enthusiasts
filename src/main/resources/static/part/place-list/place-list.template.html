@@ -4,6 +4,10 @@
 			<h3 class="card-title">
 				<a ui-sref="home.placeDetail({id: place.id})">
 					{{place.name}}
+				</a><br>
+				<!- TODO kad se u USER doda type staviti $root.user.type == ADMIN da se proveri -->
+				<a ng-if="$root.user" ui-sref="home.placeDetailAdmin({id: place.id})">
+					Edit(Admin)
 				</a>
 			</h3>
 			<div class="card-subtitle mb-2 text-muted">

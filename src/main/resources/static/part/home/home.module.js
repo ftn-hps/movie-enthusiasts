@@ -2,5 +2,6 @@
 
 angular.module('home', [
 	'home.sidebar',
-	'placeList'
+	'placeList',
+	'placeEdit'
 ]);
