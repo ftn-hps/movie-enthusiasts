@@ -41,7 +41,7 @@ angular.module('movie-enthusiasts')
 			.state({
 				name: 'profile',
 				url: '/profile',
-				template: '<h1>User Profile</h1>'
+				component: 'myProfile'
 			})
 			.state({
 				name: 'fan-zone',

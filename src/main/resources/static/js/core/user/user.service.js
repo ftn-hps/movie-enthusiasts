@@ -14,4 +14,7 @@ angular.module('core.user')
 		this.getUser = () => {
 			return $http.get('/api/user-auth/');
 		};
+		this.editUser = (data) => {
+			return $http.put('/api/user-auth/edit', data);
+		};
 	});

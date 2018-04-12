@@ -5,5 +5,6 @@ angular.module('movie-enthusiasts', [
 	'header',
 	'userAuth',
 	'core.user',
+	'profile',
 	'home'
 ]);
