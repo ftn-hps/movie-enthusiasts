@@ -3,9 +3,9 @@
 angular.module('placeEdit')
 	.component('myPlaceEdit',{
 		templateUrl: '/part/place-edit/place-edit.template.html',
-		controller: function($stateParams, ProjectionService, PlaceService){
+		controller: function($stateParams, PlaceService){
 			
-			this.placeId = 1;
+			this.placeId = $stateParams.id;
 			
 			PlaceService.getOne(this.placeId)
 			.then( (response) => {
@@ -13,13 +13,17 @@ angular.module('placeEdit')
 			}, () => {
 				this.place = null;
 			});
-	
 			
-			ProjectionService.getProjectionsByPlaceId(this.place.id)
-				.then( (response) => {
-					this.projections = response.data;
-				}, () =>{
-					this.projections = null;
-				});
+			this.send = () => {
+				PlaceService.edit(this.placeId,this.place)
+				.then(
+						(response) =>{
+							this.status = response.status;
+						},
+						() =>{
+							this.status = 'Editing failed';
+						}
+				);
+			};
 		}
 	});

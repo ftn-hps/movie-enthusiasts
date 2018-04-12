@@ -9,7 +9,7 @@ angular.module('core.projection')
 			return $http.get('/api/projections/${id}');
 		};
 		this.getProjectionsByPlaceId = (id) =>{
-			return $http.get('/api/projections/place/${id}');
+			return $http.get('/api/projections/place/'+id);
 		};
 		this.add = (data) => {
 			return $http.post('/api/projections/', data);
