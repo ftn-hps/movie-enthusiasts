@@ -60,4 +60,15 @@ public class UserAuthController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
+	@PutMapping("/edit")
+	public ResponseEntity<User> editUser(@RequestBody User input) {
+		User sessionUser = (User) session.getAttribute("user");
+		if(sessionUser == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+		User newUser = userService.edit(sessionUser.getId(), input);
+		session.setAttribute("user", newUser);
+		return new ResponseEntity<>(newUser, HttpStatus.OK);
+	}
+
 }
