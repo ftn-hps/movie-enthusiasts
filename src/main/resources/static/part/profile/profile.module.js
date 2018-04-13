@@ -2,5 +2,6 @@
 
 angular.module('profile', [
 	'profile.userEdit',
-	'profile.friendAdd'
+	'profile.friendAdd',
+	'profile.friendList'
 ]);
