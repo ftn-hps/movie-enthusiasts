@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('profile', [
-	'profile.userEdit'
+	'profile.userEdit',
+	'profile.friendAdd'
 ]);

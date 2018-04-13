@@ -1,0 +1,16 @@
+<h2>Add a friend:</h2>
+<form name="addFriendForm">
+	<input type="text"
+		class="form-group form-control"
+		placeholder="User ID*"
+		ng-model="$ctrl.search"
+		required
+		autofocus/>
+	<input type="submit"
+		class="btn btn-custom"
+		value="Send request"
+		ng-click="addFriendForm.$valid && $ctrl.send()"/>
+	<p>
+		{{$ctrl.status}}
+	</p>
+</form>

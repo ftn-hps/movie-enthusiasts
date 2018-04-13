@@ -51,7 +51,7 @@ my-header .navbar-brand {
 	font-size: 2rem;
 }
 
-my-registration, my-login, my-user-edit {
+my-registration, my-login, my-user-edit, my-friend-add {
 	background-color: var(--bg_color);
 	border: 1px solid var(--border_color);
 	padding: 2rem;
