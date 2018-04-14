@@ -6,7 +6,11 @@ angular.module('movie-enthusiasts')
 			.state({
 				name: 'home',
 				url: '/',
-				component: 'myHome'
+				component: 'myHome',
+				redirectTo: {
+					state: 'home.places',
+					params: {placeType: 'theater'}
+				}
 			})
 			.state({
 				name: 'home.places',
@@ -46,7 +50,7 @@ angular.module('movie-enthusiasts')
 			.state({
 				name: 'profile',
 				url: '/profile',
-				template: '<h1>User Profile</h1>'
+				component: 'myProfile'
 			})
 			.state({
 				name: 'fan-zone',
@@ -60,8 +64,7 @@ angular.module('movie-enthusiasts')
 			});
 
 		$urlRouterProvider
-			.when('', '/places/theater')
-			.when('/', '/places/theater')
+			.when('', '/')
 			.otherwise('/error');
 	})
 	.run(function($rootScope, UserAuthService) {

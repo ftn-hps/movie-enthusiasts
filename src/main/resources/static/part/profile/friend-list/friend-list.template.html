@@ -1,0 +1,23 @@
+<div ng-if="!$ctrl.friendships" class="placeholder">
+	Add some friends to see them here.
+</div>
+
+<div ng-repeat="friendship in $ctrl.friendships" class="card">
+	<div class="card-body">
+		<h3 class="card-title">
+			{{friendship.friend.email}}
+		</h3>
+		<div class="card-subtitle mb-2 text-muted">
+			{{friendship.friend.name}} {{friendship.friend.lastName}}
+		</div>
+		<a ng-if="friendship.pending"
+			ng-click="$ctrl.accept(friendship)" class="card-link">
+				<i class="fas fa-check-circle"></i>
+				Accept
+		</a>
+		<a ng-click="$ctrl.remove(friendship)" class="card-link">
+			<i class="fas fa-minus-circle"></i>
+			Remove
+		</a>
+	</div>
+</div>

@@ -3,5 +3,6 @@
 angular.module('core', [
 	'core.user',
 	'core.place',
-	'core.projection'
+	'core.projection',
+	'core.friendship'
 ]);

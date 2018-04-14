@@ -45,4 +45,16 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	@Override
+	public User edit(Long id, User user) {
+		User existing = findOne(id);
+		if(existing == null)
+			return null;
+
+		user.setId(id);
+		user.setEmail(existing.getEmail());
+		user.setPassword(existing.getPassword());
+		return userRepository.save(user);
+	}
+
 }
