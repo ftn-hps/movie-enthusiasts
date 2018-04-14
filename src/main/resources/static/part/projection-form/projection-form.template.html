@@ -1,7 +1,8 @@
-<h2> You are now in admin view of place {{ $ctrl.placeId }} </h2>
+<h1>Projection form {{$ctrl.projectionId}}</h1>
+
 
 <div class="row justify-content-md-left">
-	<form name="place-edit-form">
+	<form name="projection-form">
 	
 	<div class="form-group row">
     <label for="nameInput">Name:</label>
@@ -9,9 +10,20 @@
 		id="nameInput"
 		class="form-group form-control"
 		placeholder="Name"
-		ng-model="$ctrl.place.name"
+		ng-model="$ctrl.projection.name"
 		required/>
 	</div>
+	
+	<div class="form-group row">
+    <label for="artistsInput">List of artists:</label>
+	<input type="text"
+		id="artistsInput"
+		class="form-group form-control"
+		placeholder="Artists list"
+		ng-model="$ctrl.projection.listOfActers"
+		required/>
+	</div>
+	
 	
 	<div class="form-group row">
     <label for="nameInput">Rating:</label>
@@ -35,20 +47,6 @@
 		required/>
 	</div>
 	
-	<div class="form-group row">
-    <label for="nameInput">Description:</label>
-	<textarea type="text"
-		id="nameInput"
-		class="form-group form-control input-lg"
-		placeholder="Description"
-		ng-model="$ctrl.place.description"
-		rows = 5
-		required>
-		
-		</textarea>
-	</div>
-	
-	
 	<input type="submit"
 		class="btn btn-custom"
 		value="Change"
@@ -60,10 +58,11 @@
 	</form>
 	
 </div>
-<h2> Projections: </h2><br>
-<a ui-sref="home.projectionForm({id: -1})">
-	<button type="button" class="btn btn-custom"  >Add new projection</button>
-</a>
-<br><br>
-<my-projection-list ></my-projection-list>
-
+	
+	
+	
+	
+	
+	
+	
+	

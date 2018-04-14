@@ -24,6 +24,11 @@ angular.module('movie-enthusiasts')
 				component: 'myPlaceEdit'
 			})
 			.state({
+				name: 'home.projectionForm',
+				url: '^/projectionForm/{id}',
+				component: 'myProjectionForm'
+			})
+			.state({
 				name: 'home.reservations',
 				url: '^/reservations',
 				template: '<h1>Reservations</h1>'

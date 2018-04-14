@@ -12,8 +12,6 @@ angular.module('projectionList')
 				}, () =>{
 					this.projections = null;
 				});
-			
 	
-			
 		}
 	});

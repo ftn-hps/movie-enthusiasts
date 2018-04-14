@@ -3,5 +3,6 @@
 angular.module('home', [
 	'home.sidebar',
 	'placeList',
-	'placeEdit'
+	'placeEdit',
+	'projectionForm'
 ]);
