@@ -60,7 +60,6 @@ public class TestData {
 				"/",
 				3, 
 				"Klasicni romeo i julija",
-				"{projectionHalls: [11-c, 20-a, 3-a]}",
 				"{projectionTimes:[\"12:30\",\"15:40\"]}",
 				333.00);
 		projectionService.add(projection1);
@@ -74,7 +73,6 @@ public class TestData {
 				"/",
 				5, 
 				"Aaaaaaa",
-				"{projectionHalls: [11-c, 20-a, 3-a]}",
 				"{projectionTimes:[\"12:30\",\"15:40\"]}",
 				333.00);
 		projectionService.add(projection2);
@@ -88,7 +86,6 @@ public class TestData {
 				"/",
 				5, 
 				"Bbbbbbbbb",
-				"{projectionHalls: [11-c, 20-a, 3-a]}",
 				"{projectionTimes:[\"22:30\",\"23:40\"]}",
 				333.00);
 		projectionService.add(projection3);

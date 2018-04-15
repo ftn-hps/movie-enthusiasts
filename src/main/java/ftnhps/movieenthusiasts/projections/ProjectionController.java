@@ -67,6 +67,8 @@ public class ProjectionController {
 	@PutMapping("/{id://d+}")
 	public ResponseEntity<Projection> edit(@PathVariable Long id, @RequestBody @Valid Projection input){
 		Projection projection = projectionService.edit(id, input);
+		if(projection == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<Projection>(projection,HttpStatus.OK);
 	}
 	

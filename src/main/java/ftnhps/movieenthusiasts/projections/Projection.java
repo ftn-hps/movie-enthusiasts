@@ -9,6 +9,9 @@ import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import ftnhps.movieenthusiasts.places.Place;
 
 
@@ -16,6 +19,7 @@ import ftnhps.movieenthusiasts.places.Place;
 public class Projection {
 	
 	@Id
+	@JsonProperty(access = Access.READ_ONLY)
 	@GeneratedValue
 	private Long id;
 	
@@ -50,8 +54,6 @@ public class Projection {
 	//samo kao plaint string ili ce biti posebne tabele
 	//za sad su json string
 	
-	@NotBlank
-	private String projectionHalls;
 	
 	@NotBlank
 	private String projectionTimes;
@@ -70,7 +72,6 @@ public class Projection {
 			String imagePath,
 			int averateRating,
 			String shortDescription,
-			String projectionHalls,
 			String projectionTimes,
 			double price) {
 		super();
@@ -83,7 +84,6 @@ public class Projection {
 		this.imagePath = imagePath;
 		this.averateRating = averateRating;
 		this.shortDescription = shortDescription;
-		this.projectionHalls = projectionHalls;
 		this.projectionTimes = projectionTimes;
 		this.price = price;
 	}
@@ -166,14 +166,6 @@ public class Projection {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
-	}
-
-	public String getProjectionHalls() {
-		return projectionHalls;
-	}
-
-	public void setProjectionHalls(String projectionHalls) {
-		this.projectionHalls = projectionHalls;
 	}
 
 	public String getProjectionTimes() {
