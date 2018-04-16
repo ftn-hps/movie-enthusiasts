@@ -11,11 +11,16 @@ import ftnhps.movieenthusiasts.users.User;
 public class FriendshipConverter {
 	
 	public FriendshipDTO toDTO(Friendship input, User forUser) {
-		FriendshipDTO dto;
+		FriendshipDTO dto = null;
 		if(forUser.getId() == input.getSender().getId())
-			dto = new FriendshipDTO(input.getId(), input.getReceiver(), false);
+		{
+			if(input.isAccepted())
+				dto = new FriendshipDTO(input.getId(), input.getReceiver(), false);
+		}
 		else
+		{
 			dto = new FriendshipDTO(input.getId(), input.getSender(), !input.isAccepted());
+		}
 		
 		return dto;
 	}
@@ -24,7 +29,9 @@ public class FriendshipConverter {
 		List<FriendshipDTO> dto = new ArrayList<>();
 		for(Friendship friendship : input)
 		{
-			dto.add(toDTO(friendship, forUser));
+			FriendshipDTO temp = toDTO(friendship, forUser);
+			if(temp != null)
+				dto.add(temp);
 		}
 		return dto;
 	}
