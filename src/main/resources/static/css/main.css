@@ -33,8 +33,9 @@ a {
 }
 
 a:hover {
-    color: var(--selected_fg_color);
+	color: var(--selected_fg_color);
 	text-decoration: underline !important;
+	cursor: pointer;
 }
 
 .fab, .fas, .far, .fal {
@@ -51,7 +52,7 @@ my-header .navbar-brand {
 	font-size: 2rem;
 }
 
-my-registration, my-login, my-user-edit, my-friend-add {
+.panel {
 	background-color: var(--bg_color);
 	border: 1px solid var(--border_color);
 	padding: 2rem;
