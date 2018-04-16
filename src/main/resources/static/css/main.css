@@ -92,3 +92,7 @@ my-stars .fa-star {
 	color: var(--placeholder_text_color);
 	font-size: 2rem;
 }
+
+.order-item::after {
+	content: ' | ';
+}

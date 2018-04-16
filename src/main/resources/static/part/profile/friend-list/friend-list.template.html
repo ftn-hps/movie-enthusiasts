@@ -2,22 +2,50 @@
 	Add some friends to see them here.
 </div>
 
-<div ng-repeat="friendship in $ctrl.friendships" class="card">
-	<div class="card-body">
-		<h3 class="card-title">
-			{{friendship.friend.email}}
-		</h3>
-		<div class="card-subtitle mb-2 text-muted">
-			{{friendship.friend.name}} {{friendship.friend.lastName}}
+<div ng-if="$ctrl.friendships">
+	<h2>Friend list:</h2>
+	Order by:
+	<ul class="list-inline d-inline">
+		<li class="list-inline-item order-item">
+			<a ng-click="$ctrl.orderBy('friend.email')">Email</a>
+			<span ng-show="$ctrl.order === 'friend.email'">
+				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
+				<i class="fas fa-sort-down" ng-show="$ctrl.isReverse"></i>
+			</span>
+		</li>
+		<li class="list-inline-item order-item">
+			<a ng-click="$ctrl.orderBy('friend.name')">Name</a>
+			<span ng-show="$ctrl.order === 'friend.name'">
+				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
+				<i class="fas fa-sort-down" ng-show="$ctrl.isReverse"></i>
+			</span>
+		</li>
+		<li class="list-inline-item order-item">
+			<a ng-click="$ctrl.orderBy('friend.lastName')">Last name</a>
+			<span ng-show="$ctrl.order === 'friend.lastName'">
+				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
+				<i class="fas fa-sort-down" ng-show="$ctrl.isReverse"></i>
+			</span>
+		</li>
+	</ul>
+</div>
+<div ng-repeat="friendship in $ctrl.friendships | orderBy:$ctrl.order:$ctrl.isReverse"
+	class="card">
+		<div class="card-body">
+			<h3 class="card-title">
+				{{friendship.friend.email}}
+			</h3>
+			<div class="card-subtitle mb-2 text-muted">
+				{{friendship.friend.name}} {{friendship.friend.lastName}}
+			</div>
+			<a ng-if="friendship.pending"
+				ng-click="$ctrl.accept(friendship)" class="card-link">
+					<i class="fas fa-check-circle"></i>
+					Accept
+			</a>
+			<a ng-click="$ctrl.remove(friendship)" class="card-link">
+				<i class="fas fa-minus-circle"></i>
+				Remove
+			</a>
 		</div>
-		<a ng-if="friendship.pending"
-			ng-click="$ctrl.accept(friendship)" class="card-link">
-				<i class="fas fa-check-circle"></i>
-				Accept
-		</a>
-		<a ng-click="$ctrl.remove(friendship)" class="card-link">
-			<i class="fas fa-minus-circle"></i>
-			Remove
-		</a>
-	</div>
 </div>
