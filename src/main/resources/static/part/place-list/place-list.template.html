@@ -1,21 +1,50 @@
+<div>
+	<h2>{{$ctrl.placeType}} list:</h2>
+	Order by:
+	<ul class="list-inline d-inline">
+		<li class="list-inline-item order-item">
+			<a ng-click="$ctrl.orderBy('name')">Name</a>
+			<span ng-show="$ctrl.order === 'name'">
+				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
+				<i class="fas fa-sort-down" ng-show="$ctrl.isReverse"></i>
+			</span>
+		</li>
+		<li class="list-inline-item order-item">
+			<a ng-click="$ctrl.orderBy('rating')">Rating</a>
+			<span ng-show="$ctrl.order === 'rating'">
+				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
+				<i class="fas fa-sort-down" ng-show="$ctrl.isReverse"></i>
+			</span>
+		</li>
+		<li class="list-inline-item order-item">
+			<a ng-click="$ctrl.orderBy('address')">Address</a>
+			<span ng-show="$ctrl.order === 'address'">
+				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
+				<i class="fas fa-sort-down" ng-show="$ctrl.isReverse"></i>
+			</span>
+		</li>
+	</ul>
+</div>
 <div class="row align-items-stretch">
-	<div ng-repeat="place in $ctrl.places" class="card mx-md-1 col-lg-4 col-md-6">
-		<div class="card-body">
-			<h3 class="card-title">
-				<a ui-sref="home.placeDetail({id: place.id})">
-					{{place.name}}
-				</a><br>
-				<!- TODO kad se u USER doda type staviti $root.user.type == ADMIN da se proveri -->
-				<a ng-if="$root.user" ui-sref="home.placeDetailAdmin({id: place.id})">
-					Edit
-				</a>
-			</h3>
-			<div class="card-subtitle mb-2 text-muted">
-				<my-stars rating="place.rating" max="5"></my-stars>
-				{{place.rating}}/5
-				<address>{{place.address}}</address>
+	<div ng-repeat="place in $ctrl.places | orderBy:$ctrl.order:$ctrl.isReverse"
+		class="card mx-md-1 col-lg-4 col-md-6">
+			<div class="card-body">
+				<h3 class="card-title">
+					<a ui-sref="home.placeDetail({id: place.id})">
+						{{place.name}}
+					</a>
+					<!- TODO kad se u USER doda type staviti $root.user.type == ADMIN da se proveri -->
+					<a ng-if="$root.user"
+						ui-sref="home.placeDetailAdmin({id: place.id})">
+							<i class="fas fa-edit"></i>
+					</a>
+				</h3>
+				<div class="card-subtitle mb-2 text-muted">
+					<my-stars rating="place.rating" max="5"></my-stars>
+					{{place.rating}}/5
+					<address>{{place.address}}</address>
+				</div>
+				<p class="card-text">{{place.description}}</p>
 			</div>
-			<p class="card-text">{{place.description}}</p>
-		</div>
 	</div>
 </div>
