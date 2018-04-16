@@ -1,0 +1,10 @@
+
+<form name="propused">
+	<input type="text" class="form-group form-control" placeholder="Name" ng-model="$ctrl.prop.name"/>
+	<input type="text" class="form-group form-control" placeholder="Description" ng-model="$ctrl.prop.description"/>
+	<input type="text" class="form-group form-control" placeholder="End Date" ng-model="$ctrl.prop.date"/>
+	<input type="submit" class="btn btn-custom" value="Add" ng-click="propused.$valid && $ctrl.send()"/>
+	<p>
+		{{$ctrl.status}}
+	</p>
+</form>

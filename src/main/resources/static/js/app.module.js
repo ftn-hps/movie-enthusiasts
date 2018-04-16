@@ -6,5 +6,7 @@ angular.module('movie-enthusiasts', [
 	'userAuth',
 	'core.user',
 	'profile',
-	'home'
+	'home',
+	'propsnew',
+	'propsused'
 ]);

@@ -58,9 +58,39 @@ angular.module('movie-enthusiasts')
 				component: 'myProfile'
 			})
 			.state({
-				name: 'fan-zone',
-				url: '/fan-zone',
-				template: '<h1>Fan Zone</h1>'
+				name: 'propsnew',
+				url: '/fanzone/propsnew',
+				component: 'myPropsNew'
+			})
+			.state({
+				name: 'propsnew.placeList',
+				url: '/{placeType:theater|cinema}',
+				component: 'myPlacesDisplay'
+			})
+			.state({
+				name: 'propsnew.place',
+				url: '/{placeType:theater|cinema}/{placeId:\\d+}',
+				component: 'myPropsNewDisplay'
+			})
+			.state({
+				name: 'propsnew.prop',
+				url: '/{id:\\d+}',
+				component: 'myPropNewDisplay'
+			})
+			.state({
+				name: 'propsused',
+				url: '/fanzone/propsused',
+				component: 'myPropsUsed'
+			})
+			.state({
+				name: 'propsused.prop',
+				url: '/{id:\\d+}',
+				component: 'myPropUsedDisplay'
+			})
+			.state({
+				name: 'propsused.add',
+				url: '/add',
+				component: 'myPropUsedForm'
 			})
 			.state({
 				name: 'error',

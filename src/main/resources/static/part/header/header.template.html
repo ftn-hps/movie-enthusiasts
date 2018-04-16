@@ -19,12 +19,15 @@
 				</a>
 			</li>
 			<li class="nav-item" ng-if="$root.user">
-				<a class="nav-link"
-					ui-sref="fan-zone"
-					ui-sref-active="active">
-						<i class="fas fa-shopping-cart"></i>
-						Fan Zone
-				</a>
+				<div class="dropdown">
+  					<button class="btn btn-custom dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    					<i class="fas fa-shopping-cart"></i> Fan Zone
+  					</button>
+  					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					    <a class="dropdown-item" ui-sref-active="active" ui-sref="propsnew">New props</a>
+					    <a class="dropdown-item" ui-sref-active="active" ui-sref="propsused">Used props</a>
+  					</div>
+				</div>
 			</li>
 			<li class="nav-item" ng-if="$root.user">
 				<a class="nav-link"
