@@ -69,8 +69,8 @@ my-sidebar {
 }
 
 .active {
-	color: var(--selected_fg_color);
-	background-color: var(--selected_bg_color);
+	color: var(--selected_fg_color) !important;
+	background-color: var(--selected_bg_color) !important;
 }
 
 .card {
@@ -95,4 +95,26 @@ my-stars .fa-star {
 
 .order-item::after {
 	content: ' | ';
+}
+
+.dropdown-menu {
+	 background-color: var(--bg_color);
+}
+
+.dropdown-item {
+	color: var(--selected_bg_color);
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  color: var(--selected_fg_color);
+  text-decoration: none;
+  background-color: var(--bg_color);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--selected_bg_color);
+}
+
+.bg-dark {
+	background-color: var(--bg_color) !important;
 }

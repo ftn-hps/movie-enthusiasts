@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeService;
+import ftnhps.movieenthusiasts.fanzone.PropNew;
+import ftnhps.movieenthusiasts.fanzone.PropNewService;
+import ftnhps.movieenthusiasts.fanzone.PropUsed;
+import ftnhps.movieenthusiasts.fanzone.PropUsedService;
 import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.hall.HallService;
 import ftnhps.movieenthusiasts.places.Place;
@@ -33,6 +37,10 @@ public class TestData {
 	private HallService hallService;
 	@Autowired
 	private DateAndTimeService dateAndTimeOfProjectionService;
+	@Autowired
+	private PropNewService propNewService;
+	@Autowired
+	private PropUsedService propUsedService;
 	
 	
 	@PostConstruct
@@ -111,5 +119,12 @@ public class TestData {
 				projection1,
 				hall1);
 		dateAndTimeOfProjectionService.add(dateAndTime);
+		
+		PropNew propnew1 = new PropNew(place1.getId(), "rekbioskop1", "opsi opis", "");
+		propNewService.add(propnew1);
+		
+		PropUsed propused1 = new PropUsed(user1.getId(), "koriscenirek1", "opis opis opis", "datum", "");
+		propused1.setApproved(true);
+		propUsedService.add(propused1);
 	}
 }
