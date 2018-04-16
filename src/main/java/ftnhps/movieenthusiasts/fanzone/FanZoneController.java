@@ -1,6 +1,5 @@
 package ftnhps.movieenthusiasts.fanzone;
 
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import java.util.List;
 
