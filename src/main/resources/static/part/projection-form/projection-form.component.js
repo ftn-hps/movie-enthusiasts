@@ -53,7 +53,7 @@ angular.module('projectionForm')
 					this.newDateTime.time += ':0'+(this.time.getMinutes())
 				else 
 					this.newDateTime.time += ':'+(this.time.getMinutes())
-				//TODO ovo je samo test
+				
 				this.newDateTime.reservationLayout = 'o'.repeat(this.newDateTime.hall.rows * this.newDateTime.hall.columns);
 				DateTimeService.add(this.newDateTime)
 				.then(

@@ -1,0 +1,65 @@
+<h1>Add Hall</h1>
+
+<div class="row justify-content-md-left">
+	<form name="hallForm">
+	
+	<div class="form-group row">
+    <label for="nameInput">Name:</label>
+	<input type="text"
+		id="nameInput"
+		class="form-group form-control"
+		placeholder="Name"
+		ng-model="$ctrl.hall.name"
+		ng-required="true"/>
+	</div>
+	
+	<div class="form-group row">
+    <label for="nameInput">Rows:</label>
+	<input type="number"
+		value = 2
+		max = 500
+		min = 1
+		id="furationInput"
+		class="form-group form-control"
+		placeholder="Rows"
+		ng-model="$ctrl.hall.rows"
+		ng-required="true"
+		ng-change='hallForm.$valid && $ctrl.changedR_C()'/>
+	</div>
+	
+	<div class="form-group row">
+    <label for="nameInput">Columns:</label>
+	<input type="number"
+		value = 2
+		max = 500
+		min = 1
+		id="furationInput"
+		class="form-group form-control"
+		placeholder="Columns"
+		ng-model="$ctrl.hall.columns"
+		ng-required="true"
+		ng-change='hallForm.$valid && $ctrl.changedR_C()'/>
+	</div>
+	<table>
+	     <tr ng-repeat="i in $ctrl.rowsArrey">
+	        <td ng-repeat="j in $ctrl.columnsArray">
+	           <button class="btn btn-custom"
+					ng-click="$ctrl.toggleSeat(i,j)"><label >{{$ctrl.hall.layout[i*$ctrl.hall.columns +j]}}</label>
+				</button> 
+	        </td>
+  		</tr>
+  	</table>
+  	<br><br><br>
+  	<p>
+  		{{$ctrl.hall.layout}}
+  	</p>
+	<button class="btn btn-custom"
+		ng-click="hallForm.$valid && $ctrl.send()">Send
+	</button>
+	<p>
+		{{$ctrl.status}}
+	</p>
+	</form>
+	
+</div>
+	

@@ -4,5 +4,6 @@ angular.module('home', [
 	'home.sidebar',
 	'placeList',
 	'placeEdit',
-	'projectionForm'
+	'projectionForm',
+	'hallForm'
 ]);

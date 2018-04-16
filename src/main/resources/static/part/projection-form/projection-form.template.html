@@ -107,7 +107,13 @@
 <div ng-if = "$ctrl.projectionId > 0">
 	<h2> Add new date,time and hall of projection:</h2>
 	<form name="dateTimeForm">
-	    <label for="singleSelect"> Select Hall: </label><br>
+	    <label for="singleSelect"> Select Hall:</label> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	    <a ui-sref="home.hallForm({placeId: $ctrl.placeId})">
+		    <button class="btn btn-custom">
+		    Add New Hall
+			</button>
+	    </a>
+	    <br>
 	    <select name="singleSelect" ng-model = '$ctrl.newDateTime.hall' ng-required="true" >
 	       <option ng-repeat="hall in $ctrl.halls" ng-value="hall" >{{hall.name}}</option>
 	    </select><br>

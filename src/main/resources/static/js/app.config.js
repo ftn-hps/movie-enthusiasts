@@ -33,6 +33,11 @@ angular.module('movie-enthusiasts')
 				component: 'myProjectionForm'
 			})
 			.state({
+				name: 'home.hallForm',
+				url: '^/hallForm/{placeId:\\d+}',
+				component: 'myHallForm'
+			})
+			.state({
 				name: 'home.reservations',
 				url: '^/reservations',
 				template: '<h1>Reservations</h1>'
