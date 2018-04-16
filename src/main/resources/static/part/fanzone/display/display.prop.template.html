@@ -1,0 +1,9 @@
+<div class="card">
+  <h5 class="card-header">{{$ctrl.prop.name}}</h5>
+  <div class="card-body">
+    <h5 class="card-title">Description</h5>
+    <p class="card-text">{{$ctrl.prop.description}}</p>
+    <a ng-if="$ctrl.prop.placeId" class="btn btn-custom">Reservation</a>
+    <a ng-if="$ctrl.prop.userId" class="btn btn-custom">Bid</a>
+  </div>
+</div>
