@@ -20,10 +20,8 @@ public class Hall {
 
 	@Id
 	@GeneratedValue
-	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@Pattern(regexp = "(?U)[\\p{Alpha}\\h]+")
 	@NotBlank
 	private String name;
 	
@@ -46,6 +44,7 @@ public class Hall {
 	@ManyToOne(optional = false)
 	private Place place;
 
+	public Hall() {}
 	public Hall(String name, int rows, int columns, String layout, Place place) {
 		super();
 		this.name = name;

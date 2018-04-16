@@ -1,5 +1,6 @@
 package ftnhps.movieenthusiasts.places;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,7 +20,6 @@ public class Place {
 	
 	@Id
 	@GeneratedValue
-	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)

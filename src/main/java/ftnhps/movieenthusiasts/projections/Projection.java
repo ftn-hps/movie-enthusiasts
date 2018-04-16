@@ -1,12 +1,15 @@
 package ftnhps.movieenthusiasts.projections;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import javax.persistence.CascadeType;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,12 +22,11 @@ import ftnhps.movieenthusiasts.places.Place;
 public class Projection {
 	
 	@Id
-	@JsonProperty(access = Access.READ_ONLY)
 	@GeneratedValue
 	private Long id;
 	
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Place place;
 	
 	@NotBlank
@@ -43,20 +45,10 @@ public class Projection {
 	
 	private String imagePath;
 	
-	@Max(5)
-	@Min(1)
 	private int averateRating;
 	
 	@NotBlank
 	private String shortDescription;
-	
-	//TODO dodati jos salu i termine i odluciti da li ce se oni cuvati
-	//samo kao plaint string ili ce biti posebne tabele
-	//za sad su json string
-	
-	
-	@NotBlank
-	private String projectionTimes;
 	
 	@Min(0)
 	private double price;
@@ -72,7 +64,6 @@ public class Projection {
 			String imagePath,
 			int averateRating,
 			String shortDescription,
-			String projectionTimes,
 			double price) {
 		super();
 		this.place = place;
@@ -84,7 +75,6 @@ public class Projection {
 		this.imagePath = imagePath;
 		this.averateRating = averateRating;
 		this.shortDescription = shortDescription;
-		this.projectionTimes = projectionTimes;
 		this.price = price;
 	}
 
@@ -166,14 +156,6 @@ public class Projection {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
-	}
-
-	public String getProjectionTimes() {
-		return projectionTimes;
-	}
-
-	public void setProjectionTimes(String projectionTimes) {
-		this.projectionTimes = projectionTimes;
 	}
 
 	public double getPrice() {

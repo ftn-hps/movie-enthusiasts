@@ -29,7 +29,7 @@ angular.module('movie-enthusiasts')
 			})
 			.state({
 				name: 'home.projectionForm',
-				url: '^/projectionForm/{id}',
+				url: '^/projectionForm/:idPlace?idProjection',
 				component: 'myProjectionForm'
 			})
 			.state({

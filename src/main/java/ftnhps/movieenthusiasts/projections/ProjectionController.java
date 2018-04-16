@@ -60,16 +60,19 @@ public class ProjectionController {
 	@PostMapping
 	public ResponseEntity<Projection> add (@RequestBody @Valid Projection input)
 	{
+//		Place place = placeService.findOne(input.getPlace().getId());
+//		input.setPlace(place);
+		input.getPlace().setId(new Long(1));
 		Projection projection = projectionService.add(input);
-		return new ResponseEntity<Projection>(projection,HttpStatus.OK);
+		return new ResponseEntity<>(projection,HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id://d+}")
-	public ResponseEntity<Projection> edit(@PathVariable Long id, @RequestBody @Valid Projection input){
-		Projection projection = projectionService.edit(id, input);
+	@PostMapping("/edit")
+	public ResponseEntity<Projection> edit( @RequestBody @Valid Projection input){
+		Projection projection = projectionService.edit(input.getId(), input);
 		if(projection == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<Projection>(projection,HttpStatus.OK);
+		return new ResponseEntity<>(projection,HttpStatus.OK);
 	}
 	
 	

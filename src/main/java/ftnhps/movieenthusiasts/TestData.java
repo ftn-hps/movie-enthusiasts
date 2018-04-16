@@ -1,11 +1,17 @@
 package ftnhps.movieenthusiasts;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.stereotype.Component;
 
+import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
+import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeService;
+import ftnhps.movieenthusiasts.hall.Hall;
+import ftnhps.movieenthusiasts.hall.HallService;
 import ftnhps.movieenthusiasts.places.Place;
 import ftnhps.movieenthusiasts.places.PlaceService;
 import ftnhps.movieenthusiasts.places.PlaceType;
@@ -23,6 +29,11 @@ public class TestData {
 	private PlaceService placeService;
 	@Autowired
 	private ProjectionService projectionService;
+	@Autowired
+	private HallService hallService;
+	@Autowired
+	private DateAndTimeService dateAndTimeOfProjectionService;
+	
 	
 	@PostConstruct
 	private void init() {
@@ -60,7 +71,6 @@ public class TestData {
 				"/",
 				3, 
 				"Klasicni romeo i julija",
-				"{projectionTimes:[\"12:30\",\"15:40\"]}",
 				333.00);
 		projectionService.add(projection1);
 		
@@ -73,7 +83,6 @@ public class TestData {
 				"/",
 				5, 
 				"Aaaaaaa",
-				"{projectionTimes:[\"12:30\",\"15:40\"]}",
 				333.00);
 		projectionService.add(projection2);
 		
@@ -86,8 +95,21 @@ public class TestData {
 				"/",
 				5, 
 				"Bbbbbbbbb",
-				"{projectionTimes:[\"22:30\",\"23:40\"]}",
 				333.00);
 		projectionService.add(projection3);
+		
+		Hall hall1 = new Hall("sala1",3,4,"layout",place1);
+		hallService.add(hall1);
+		
+		Hall hall2 = new Hall("sala2",3,3,"layout",place1);
+		hallService.add(hall2);
+		
+		DateAndTime dateAndTime = new DateAndTime(
+				LocalDate.of(2000,2,2),
+				LocalTime.of(22, 22),
+				"oooooooooooooooooooooooo",
+				projection1,
+				hall1);
+		dateAndTimeOfProjectionService.add(dateAndTime);
 	}
 }

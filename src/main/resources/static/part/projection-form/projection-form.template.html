@@ -1,8 +1,8 @@
-<h1>Projection form {{$ctrl.projectionId}}</h1>
-
+<h1 ng-if = "$ctrl.projectionId != -1">Edit Projection {{$ctrl.placeId}}/{{$ctrl.projectionId}}</h1>
+<h1 ng-if = "$ctrl.projectionId == -1">Add new Projection</h1>
 
 <div class="row justify-content-md-left">
-	<form name="projection-form">
+	<form name="projectionForm">
 	
 	<div class="form-group row">
     <label for="nameInput">Name:</label>
@@ -11,7 +11,7 @@
 		class="form-group form-control"
 		placeholder="Name"
 		ng-model="$ctrl.projection.name"
-		required/>
+		ng-required="true"/>
 	</div>
 	
 	<div class="form-group row">
@@ -21,42 +21,114 @@
 		class="form-group form-control"
 		placeholder="Artists list"
 		ng-model="$ctrl.projection.listOfActers"
-		required/>
+		ng-required="true"/>
 	</div>
 	
 	
 	<div class="form-group row">
-    <label for="nameInput">Rating:</label>
-	<input type="number"
-		max = 5
-		min = 0
-		id="nameInput"
-		class="form-group form-control"
-		placeholder="rating"
-		ng-model="$ctrl.place.rating"
-		required/>
-	</div>
-	
-	<div class="form-group row">
-    <label for="nameInput">Adress:</label>
+    <label for="nameInput">Genre:</label>
 	<input type="text"
-		id="nameInput"
+		id="genreInput"
 		class="form-group form-control"
-		placeholder="Address"
-		ng-model="$ctrl.place.address"
-		required/>
+		placeholder="Genre"
+		ng-model="$ctrl.projection.genre"
+		ng-required="true"/>
 	</div>
 	
-	<input type="submit"
-		class="btn btn-custom"
-		value="Change"
-		ng-click="$ctrl.send()"/>
-		
+	<div class="form-group row">
+    <label for="nameInput">Producer:</label>
+	<input type="text"
+		id="producesInput"
+		class="form-group form-control"
+		placeholder="Producer"
+		ng-model="$ctrl.projection.producer"
+		ng-required="true"/>
+	</div>
+	
+	<div class="form-group row">
+    <label for="nameInput">Duration:</label>
+	<input type="number"
+		max = 500
+		min = 0
+		id="furationInput"
+		class="form-group form-control"
+		placeholder="duration"
+		ng-model="$ctrl.projection.duration"
+		ng-required="true"/>
+	</div>
+	
+	<div class="form-group row">
+    <label for="nameInput">Short Descpritpin:</label>
+	<input type="text"
+		id="descriptionInput"
+		class="form-group form-control"
+		placeholder="Producer"
+		ng-model="$ctrl.projection.shortDescription"
+		ng-required="true"/>
+	</div>
+	
+	
+	<div class="form-group row">
+    <label for="nameInput">Price:</label>
+	<input type="number"
+		step = 'any',
+		max = 50000
+		min = 0
+		id="priceInput"
+		class="form-group form-control"
+		placeholder="duration"
+		ng-model="$ctrl.projection.price"
+		ng-required="true"/>
+	</div>
+	
+	
+	
+	<div class="form-group row">
+    <label for="nameInput">PosterPicture:(//TODO)</label>
+	<input type="file"
+		step = 'any'
+		id="fileInput"
+		class="form-group form-control"
+		ng-model = "$ctrl.uploadedFile"
+		placeholder="filePath"/>
+	</div>
+	
+	
+	<button class="btn btn-custom"
+		ng-click="projectionForm.$valid && $ctrl.send()">Send
+	</button>
 	<p>
 		{{$ctrl.status}}
 	</p>
 	</form>
 	
 </div>
+
+<div ng-if = "$ctrl.projectionId > 0">
+	<h2> Add new date,time and hall of projection:</h2>
+	<form name="dateTimeForm">
+	    <label for="singleSelect"> Select Hall: </label><br>
+	    <select name="singleSelect" ng-model = '$ctrl.newDateTime.hall' ng-required="true" >
+	       <option ng-repeat="hall in $ctrl.halls" ng-value="hall" >{{hall.name}}</option>
+	    </select><br>
+	    
+	    Date:<br>
+	    <input type="date" ng-model = '$ctrl.date' name="Date" id="inputDate" ng-required="true" >
+	    
+	    <br>Time<br>
+	    <input type="time" ng-model = '$ctrl.time' name="time" id="inputTime" ng-required="true" >
+	     
+	    <br><br>
+	   	<button
+		class="btn btn-custom"
+		ng-click="dateTimeForm.$valid && $ctrl.sendDateTime()">Send
+		</button>
+		
+	<p>
+		{{$ctrl.status1}}
+	</p>
+    </form>
+</div>
+
 	
 	

@@ -1,4 +1,4 @@
-package ftnhps.movieentusiasts.DateAndTimeOfProjection;
+package ftnhps.movieenthusiasts.DateAndTime;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -15,13 +17,14 @@ import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.projections.Projection;
 
 @Entity
-public class DateAndTimeOfProjection {
+public class DateAndTime {
 
 	@Id
 	@JsonProperty(access = Access.READ_ONLY)
 	@GeneratedValue
 	private Long id;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 	
 	private LocalTime time;
@@ -43,11 +46,10 @@ public class DateAndTimeOfProjection {
 	@ManyToOne(optional = false)
 	private Hall hall;
 
-
-	public DateAndTimeOfProjection(Long id, LocalDate date, LocalTime time, String reservationLayout,
+	public DateAndTime() {}
+	public DateAndTime(LocalDate date, LocalTime time, String reservationLayout,
 			Projection projection, Hall hall) {
 		super();
-		this.id = id;
 		this.date = date;
 		this.time = time;
 		this.reservationLayout = reservationLayout;

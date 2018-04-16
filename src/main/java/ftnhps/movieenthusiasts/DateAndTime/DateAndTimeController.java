@@ -1,4 +1,4 @@
-package ftnhps.movieentusiasts.DateAndTimeOfProjection;
+package ftnhps.movieenthusiasts.DateAndTime;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import ftnhps.movieenthusiasts.projections.ProjectionService;
 
 @RestController
 @RequestMapping("/api/dateAndTimeOfProjections")
-public class DateAndTimeOfProjectionController {
+public class DateAndTimeController {
 
 
 	@Autowired
@@ -31,11 +31,11 @@ public class DateAndTimeOfProjectionController {
 	@Autowired
 	private HallService hallService;
 	@Autowired 
-	private DateAndTimeOfProjectionService dateAndTimeOfProjectionService;
+	private DateAndTimeService dateAndTimeOfProjectionService;
 	
 	@GetMapping
-	public ResponseEntity<List<DateAndTimeOfProjection>> getDateAndTimeOfProjections(){
-		List<DateAndTimeOfProjection> dateAndTimeOfProjections = dateAndTimeOfProjectionService.findAll();
+	public ResponseEntity<List<DateAndTime>> getDateAndTimeOfProjections(){
+		List<DateAndTime> dateAndTimeOfProjections = dateAndTimeOfProjectionService.findAll();
 		if(dateAndTimeOfProjections == null || dateAndTimeOfProjections.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(dateAndTimeOfProjections,HttpStatus.OK);
@@ -43,8 +43,8 @@ public class DateAndTimeOfProjectionController {
 	}
 	
 	@GetMapping("/{id:\\d+}")
-	public ResponseEntity<DateAndTimeOfProjection> getDateAndTimeOfProjection(@PathVariable Long id){
-		DateAndTimeOfProjection dateAndTimeOfProjection = dateAndTimeOfProjectionService.findOne(id);
+	public ResponseEntity<DateAndTime> getDateAndTimeOfProjection(@PathVariable Long id){
+		DateAndTime dateAndTimeOfProjection = dateAndTimeOfProjectionService.findOne(id);
 		if(dateAndTimeOfProjection == null )
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(dateAndTimeOfProjection,HttpStatus.OK);
@@ -52,14 +52,27 @@ public class DateAndTimeOfProjectionController {
 	}
 	
 	@GetMapping("/projectionAndHall/{idProjection:\\d+}/{idHall:\\\\d+}")
-	public ResponseEntity<List<DateAndTimeOfProjection>> getDateAndTimeOfProjection(@PathVariable Long idProjection,
+	public ResponseEntity<List<DateAndTime>> getDateAndTimeOfProjection(@PathVariable Long idProjection,
 			@PathVariable Long idHall){
 		Projection projection = projectionService.findOne(idProjection);
 		Hall hall = hallService.findOne(idHall);
 		
 		if(projection == null || hall == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		List<DateAndTimeOfProjection> dateAndTimeOfProjection = dateAndTimeOfProjectionService.findByProjectionAndHall(projection, hall);
+		List<DateAndTime> dateAndTimeOfProjection = dateAndTimeOfProjectionService.findByProjectionAndHall(projection, hall);
+		if(dateAndTimeOfProjection == null )
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(dateAndTimeOfProjection,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/projection/{idProjection:\\d+}")
+	public ResponseEntity<List<DateAndTime>> getDateAndTimeOfProjectionByProjId(@PathVariable Long idProjection){
+		Projection projection = projectionService.findOne(idProjection);
+		
+		if(projection == null )
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		List<DateAndTime> dateAndTimeOfProjection = dateAndTimeOfProjectionService.findByProjection(projection);
 		if(dateAndTimeOfProjection == null )
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(dateAndTimeOfProjection,HttpStatus.OK);
@@ -68,19 +81,19 @@ public class DateAndTimeOfProjectionController {
 	
 	
 	@PostMapping
-	public ResponseEntity<DateAndTimeOfProjection> add (@RequestBody @Valid DateAndTimeOfProjection input)
+	public ResponseEntity<DateAndTime> add (@RequestBody @Valid DateAndTime input)
 	{
-		DateAndTimeOfProjection dateAndTimeOfProjection = dateAndTimeOfProjectionService.add(input);
-		return new ResponseEntity<DateAndTimeOfProjection>(dateAndTimeOfProjection,HttpStatus.OK);
+		DateAndTime dateAndTimeOfProjection = dateAndTimeOfProjectionService.add(input);
+		return new ResponseEntity<DateAndTime>(dateAndTimeOfProjection,HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id://d+}")
-	public ResponseEntity<DateAndTimeOfProjection> edit (@PathVariable Long id,@RequestBody @Valid DateAndTimeOfProjection input)
+	public ResponseEntity<DateAndTime> edit (@PathVariable Long id,@RequestBody @Valid DateAndTime input)
 	{
-		DateAndTimeOfProjection dateAndTimeOfProjection = dateAndTimeOfProjectionService.edit(id,input);
+		DateAndTime dateAndTimeOfProjection = dateAndTimeOfProjectionService.edit(id,input);
 		if(dateAndTimeOfProjection == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<DateAndTimeOfProjection>(dateAndTimeOfProjection,HttpStatus.OK);
+		return new ResponseEntity<DateAndTime>(dateAndTimeOfProjection,HttpStatus.OK);
 	}
 	
 	

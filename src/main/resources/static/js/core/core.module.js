@@ -4,5 +4,7 @@ angular.module('core', [
 	'core.user',
 	'core.place',
 	'core.projection',
-	'core.friendship'
+	'core.friendship',
+	'core.hall',
+	'core.dateTime'
 ]);

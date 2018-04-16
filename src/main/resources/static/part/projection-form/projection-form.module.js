@@ -2,5 +2,7 @@
 
 angular.module('projectionForm', [
 	'ui.router',
-	'core.projection'
+	'core.projection',
+	'core.hall',
+	'core.dateTime'
 ]);

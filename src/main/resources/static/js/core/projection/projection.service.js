@@ -6,7 +6,7 @@ angular.module('core.projection')
 			return $http.get('/api/projections');
 		};
 		this.getOne = (id) => {
-			return $http.get('/api/projections/${id}');
+			return $http.get('/api/projections/'+id);
 		};
 		this.getProjectionsByPlaceId = (id) =>{
 			return $http.get('/api/projections/place/'+id);
@@ -15,6 +15,6 @@ angular.module('core.projection')
 			return $http.post('/api/projections/', data);
 		};
 		this.edit = (id, data) => {
-			return $http.put('/api/projections/${id}', data);
+			return $http.post('/api/projections/edit/', data);
 		};
 	});
