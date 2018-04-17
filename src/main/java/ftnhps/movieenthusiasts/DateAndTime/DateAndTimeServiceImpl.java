@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftnhps.movieenthusiasts.hall.Hall;
+import ftnhps.movieenthusiasts.hall.HallRepository;
 import ftnhps.movieenthusiasts.projections.Projection;
-import ftnhps.movieenthusiasts.users.User;
+import ftnhps.movieenthusiasts.projections.ProjectionRepository;
 
 
 @Transactional
@@ -18,6 +19,12 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 
 	@Autowired
 	private DateAndTimeRepository dateAndTimeOfProjectionRepository;
+	
+	@Autowired
+	private HallRepository hallRepository;
+	
+	@Autowired
+	private ProjectionRepository projectionRepository;
 	
 	@Override
 	public DateAndTime findOne(Long id) {
@@ -36,6 +43,16 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 
 	@Override
 	public DateAndTime add(DateAndTime input) {
+		Hall hall = input.getHall();
+		input.setHall( hallRepository.findOne(hall.getId()) );
+		if(input.getHall() == null)
+			return null;
+		
+		Projection projection = input.getProjection();
+		input.setProjection(projectionRepository.findOne(projection.getId()));
+		if(input.getProjection() == null)
+			return null;
+		
 		return dateAndTimeOfProjectionRepository.save(input);
 	}
 

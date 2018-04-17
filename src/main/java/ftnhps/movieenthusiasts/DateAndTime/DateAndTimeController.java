@@ -22,6 +22,7 @@ import ftnhps.movieenthusiasts.hall.HallService;
 import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.projections.ProjectionService;
 import ftnhps.movieenthusiasts.users.User;
+import ftnhps.movieenthusiasts.users.UserType;
 
 @RestController
 @RequestMapping("/api/dateAndTimeOfProjections")
@@ -88,19 +89,23 @@ public class DateAndTimeController {
 	public ResponseEntity<DateAndTime> add (@RequestBody @Valid DateAndTime input)
 	{
 		User user = (User) session.getAttribute("user");
-		//TODO Check in user in admin of place
 		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		
 		DateAndTime dateAndTimeOfProjection = dateAndTimeOfProjectionService.add(input);
+		if(dateAndTimeOfProjection == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		return new ResponseEntity<DateAndTime>(dateAndTimeOfProjection,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> remove(@PathVariable Long id) {
 		User user = (User) session.getAttribute("user");
-		//TODO Check in user in admin of place
 		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		
 		if(dateAndTimeOfProjectionService.remove(id)) {

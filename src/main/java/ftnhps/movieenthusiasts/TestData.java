@@ -25,6 +25,7 @@ import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.projections.ProjectionService;
 import ftnhps.movieenthusiasts.users.User;
 import ftnhps.movieenthusiasts.users.UserService;
+import ftnhps.movieenthusiasts.users.UserType;
 
 @Component
 public class TestData {
@@ -49,6 +50,10 @@ public class TestData {
 	private void init() {
 		User user1 = new User("ddd@ddd.com", "dddddd", "Ddd", "Ddd", "Ddd", null);
 		userService.register(user1);
+		
+		User user2 = new User("placeAdmin@aaa.com", "aaaaaa", "Aaa", "Aaa", "Aaa", null);
+		user2.setUserType(UserType.PLACEADMIN);
+		userService.register(user2);
 		
 		Place place1 = new Place(PlaceType.CINEMA,
 				"Arena Cineplex",
