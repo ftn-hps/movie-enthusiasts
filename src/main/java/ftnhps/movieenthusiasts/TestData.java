@@ -1,7 +1,9 @@
 package ftnhps.movieenthusiasts;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 
 import javax.annotation.PostConstruct;
 
@@ -123,7 +125,7 @@ public class TestData {
 		PropNew propnew1 = new PropNew(place1.getId(), "rekbioskop1", "opsi opis", "");
 		propNewService.add(propnew1);
 		
-		PropUsed propused1 = new PropUsed(user1.getId(), "koriscenirek1", "opis opis opis", "datum", "");
+		PropUsed propused1 = new PropUsed(user1.getId(), "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "");
 		propused1.setApproved(true);
 		propUsedService.add(propused1);
 	}

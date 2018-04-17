@@ -57,13 +57,50 @@ angular.module('propsused.display').component('myPropsUsedDisplay', {
 
 angular.module('propsused.display').component('myPropUsedDisplay', {
 	templateUrl: '/part/fanzone/display/display.prop.template.html',
-	controller: function(FanZoneService, $stateParams) {
+	controller: function(FanZoneService, $stateParams, $rootScope, $state) {
+		if($rootScope.user == null)
+			$state.go('home');
 		this.propId = $stateParams.id;
 		FanZoneService.getPropUsed(this.propId).then( (response) => {
 			this.prop = response.data;
+			var date = new Date();
+			var offset = - (date.getTimezoneOffset()/60);
+			this.prop.date = new Date(this.prop.date[0], this.prop.date[1] - 1, this.prop.date[2], this.prop.date[3] + offset, this.prop.date[4]);
+			if($rootScope.user.id == this.prop.userId) {
+				this.canAccept = true;
+			}
 		}, () => {
 			this.prop = null;
 		});
+		
+		FanZoneService.getBids(this.propId).then( (response) => {
+			this.bids = response.data;
+		}, () => {
+			this.bids = null;
+		});
+		
+		this.send = () => {
+			var d = new Date();
+			if(d.valueOf() < this.prop.date.valueOf()) {
+				this.bid.bidderId = $rootScope.user.id;
+				this.bid.bidderName = $rootScope.user.name + " " + $rootScope.user.lastName; 
+				this.bid.propId = this.prop.id;
+				FanZoneService.addBid(this.bid).then(
+					() => {
+						this.status = 'Added succesfully!';
+						FanZoneService.getBids(this.propId).then( (response) => {
+							this.bids = response.data;
+						}, () => {
+							this.bids = null;
+						});
+					},
+					(response) => {
+						this.status = response.status;
+					});
+			} else {
+				this.status = "Too late!"
+			}
+		};
 	}
 });
 
@@ -73,6 +110,7 @@ angular.module('propsused.display').component('myPropUsedForm', {
 		if($rootScope.user == null)
 			$state.go('home');
 		this.propType = 'used';
+		this.date = new Date();
 		this.send = () => {
 			this.prop.userId = $rootScope.user.id;
 			this.prop.approved = false;

@@ -32,4 +32,10 @@ angular.module('core.fanzone').service('FanZoneService', function($http) {
 		this.editPropUsed = (id, data) => {
 			return $http.put(`/api/fanzone/propsused/edit/${id}`, data);
 		};
+		this.getBids = (propId)  => {
+			return $http.get(`/api/fanzone/propsused/bids/${propId}`);
+		};
+		this.addBid = (data) => {
+			return $http.post('/api/fanzone/propsused/bids/add', data);
+		};
 });

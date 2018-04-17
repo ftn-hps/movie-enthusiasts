@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -23,6 +25,9 @@ public class Bid {
 	@NotNull
 	private Long bidderId;
 	
+	@NotBlank
+	private String bidderName;
+
 	@NotNull
 	@Min(0)
 	private Double bid;
@@ -57,6 +62,14 @@ public class Bid {
 
 	public void setBidderId(Long bidderId) {
 		this.bidderId = bidderId;
+	}
+	
+	public String getBidderName() {
+		return bidderName;
+	}
+
+	public void setBidderName(String bidderName) {
+		this.bidderName = bidderName;
 	}
 
 	public Double getBid() {

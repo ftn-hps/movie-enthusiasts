@@ -1,5 +1,7 @@
 package ftnhps.movieenthusiasts.fanzone;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,8 +29,8 @@ public class PropUsed {
 	@NotBlank
 	private String description;
 	
-	@NotBlank
-	private String date;
+	@NotNull
+	private LocalDateTime date;
 	
 	@NotNull
 	private Boolean approved;
@@ -37,7 +39,7 @@ public class PropUsed {
 	
 	public PropUsed() {}
 
-	public PropUsed(Long userId, String name, String description, String date, String imagePath) {
+	public PropUsed(Long userId, String name, String description, LocalDateTime date, String imagePath) {
 		this.userId = userId;
 		this.name = name;
 		this.description = description;
@@ -78,11 +80,11 @@ public class PropUsed {
 		this.description = description;
 	}
 
-	public String getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

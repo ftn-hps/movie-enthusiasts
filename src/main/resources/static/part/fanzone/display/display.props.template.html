@@ -1,5 +1,5 @@
 <div>
-	<table align="center">
+	<table class="table">
 		<tr ng-repeat="prop in $ctrl.props">
 			<td ng-if="prop.placeId"><a ui-sref="propsnew.prop({id: prop.id})">{{prop.name}}</a></td>
 			<td ng-if="prop.userId"><a ui-sref="propsused.prop({id: prop.id})">{{prop.name}}</a></td>

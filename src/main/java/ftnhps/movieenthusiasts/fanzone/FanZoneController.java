@@ -1,6 +1,8 @@
 package ftnhps.movieenthusiasts.fanzone;
 
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +29,8 @@ public class FanZoneController {
 	private PropNewService propNewService;
 	@Autowired
 	private PropUsedService propUsedService;
+	@Autowired
+	private BidService bidService;
 	@Autowired
 	private HttpSession session;
 	
@@ -112,5 +116,28 @@ public class FanZoneController {
 		if(propUsed == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(propUsed, HttpStatus.OK);
+	}
+	
+	@GetMapping("/propsused/bids/{propId:\\d+}")
+	public ResponseEntity<List<Bid>> getBids(@PathVariable Long propId) {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		List<Bid> bids = bidService.findAll(propId);
+		if(bids == null || bids.isEmpty())
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(bids, HttpStatus.OK);
+	}
+	
+	@PostMapping("/propsused/bids/add")
+	public ResponseEntity<Bid> add(@RequestBody @Valid Bid input) {
+		User user = (User) session.getAttribute("user");
+		PropUsed prop = propUsedService.findOne(input.getPropId());
+		if(user == null || prop.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z"))))
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		input.setBidderId(user.getId());
+		input.setBidderName(user.getName() + " " + user.getLastName());
+		Bid bid = bidService.add(input);
+		return new ResponseEntity<>(bid, HttpStatus.OK);
 	}
 }

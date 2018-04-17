@@ -1,10 +1,11 @@
-
-<form name="propused">
-	<input type="text" class="form-group form-control" placeholder="Name" ng-model="$ctrl.prop.name"/>
-	<input type="text" class="form-group form-control" placeholder="Description" ng-model="$ctrl.prop.description"/>
-	<input type="text" class="form-group form-control" placeholder="End Date" ng-model="$ctrl.prop.date"/>
-	<input type="submit" class="btn btn-custom" value="Add" ng-click="propused.$valid && $ctrl.send()"/>
-	<p>
-		{{$ctrl.status}}
-	</p>
-</form>
+<div class="col-md-4 order-2 order-md-0">
+	<form name="propused">
+		<input type="text" class="form-group form-control" placeholder="Name" ng-model="$ctrl.prop.name" required/>
+		<input type="text" class="form-group form-control" placeholder="Description" ng-model="$ctrl.prop.description" required/>
+		<input type="datetime-local" class="form-group form-control" ng-model = '$ctrl.prop.date' min="{{$ctrl.date.toISOString()}}" required/>
+		<input type="submit" class="btn btn-custom" value="Add" ng-click="propused.$valid && $ctrl.send()"/>
+		<p>
+			{{$ctrl.status}}
+		</p>
+	</form>
+</div>

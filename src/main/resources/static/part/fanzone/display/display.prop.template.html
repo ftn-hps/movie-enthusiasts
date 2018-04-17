@@ -1,9 +1,38 @@
-<div class="card">
-  <h5 class="card-header">{{$ctrl.prop.name}}</h5>
-  <div class="card-body">
-    <h5 class="card-title">Description</h5>
-    <p class="card-text">{{$ctrl.prop.description}}</p>
-    <a ng-if="$ctrl.prop.placeId" class="btn btn-custom">Reservation</a>
-    <a ng-if="$ctrl.prop.userId" class="btn btn-custom">Bid</a>
-  </div>
+<div ng-if="$ctrl.prop.userId" class="card text-center">
+	<h5 class="card-header">{{$ctrl.prop.name}}</h5>
+  	<div class="card-body">
+    	<h5 class="card-title">Description</h5>
+    	<p class="card-text">{{$ctrl.prop.description}}</p>
+    	<h5 class="card-title">Ends on</h5>
+    	<p class="card-text">{{$ctrl.prop.date.toLocaleString()}}</p>
+	    <form name="bid" class="form-inline">
+			<div class="form-group mx-sm-3 mb-2">
+			    <input type="number" step="any" class="form-control" placeholder="Your bid" ng-model="$ctrl.bid.bid" required>
+			</div>
+	  		<input type="submit" value="Bid" class="btn btn-custom mb-2" ng-click="bid.$valid && $ctrl.send()"/>
+	  		<p class="mx-sm-3 mb-2">{{$ctrl.status}}</p>
+		</form>
+		<h5 class="card-title">Bids</h5>
+		<table class="table">
+			<tr>
+				<th>User</th>
+				<th>Bid</th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="bid in $ctrl.bids">
+				<td>{{bid.bidderName}}</td>
+				<td>{{bid.bid}}</td>
+				<td ng-if="$ctrl.canAccept"><a class="btn btn-custom">Accept</a></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div ng-if="$ctrl.prop.placeId" class="card text-center">
+	<h5 class="card-header">{{$ctrl.prop.name}}</h5>
+	<div class="card-body">
+	    <h5 class="card-title">Description</h5>
+	    <p class="card-text">{{$ctrl.prop.description}}</p>
+	    <a ng-if="$ctrl.prop.placeId" class="btn btn-custom">Reservation</a>
+	</div>
 </div>
