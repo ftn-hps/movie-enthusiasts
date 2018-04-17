@@ -1,6 +1,5 @@
 package ftnhps.movieenthusiasts.reservations;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,9 @@ import org.springframework.stereotype.Service;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeService;
 import ftnhps.movieenthusiasts.places.Place;
+import ftnhps.movieenthusiasts.places.PlaceService;
 import ftnhps.movieenthusiasts.projections.Projection;
+import ftnhps.movieenthusiasts.projections.ProjectionService;
 import ftnhps.movieenthusiasts.users.User;
 
 @Transactional
@@ -23,7 +24,10 @@ public class ReservationServiceImpl implements ReservationService{
 	private ReservationRepository reservationRepository;
 	@Autowired
 	private DateAndTimeService dateAndTimeService;
-	
+	@Autowired
+	private ProjectionService projectionService;
+	@Autowired 
+	private PlaceService placeService;
 	
 	@Override
 	public Reservation findOne(Long id) {
@@ -106,7 +110,10 @@ public class ReservationServiceImpl implements ReservationService{
 		reservation.setAmbientRating(input.getRateAmbient());
 		reservation.setProjectionRating(input.getRateProjection());
 		
-		return reservationRepository.save(reservation);
+		Reservation ret = reservationRepository.save(reservation); 
+		placeService.recalculateRating( ret.getDateTime().getProjection().getPlace());
+		projectionService.recalculateRation(ret.getDateTime().getProjection());
+		return ret;
 	}
 
 	@Override

@@ -13,5 +13,7 @@ public interface PlaceService {
 	Place add(Place input);
 	
 	Place edit(Long id, Place input);
+
+	void recalculateRating( Place place);
 	
 }
