@@ -50,17 +50,19 @@ public class Reservation {
 	
 	public Reservation () {}
 
-	public Reservation(double priceWithDiscount,
-			double dicount,
+	public Reservation(double dicount,
 			DateAndTime dateTime,
 			int seat,
 			User user) {
 		super();
-		this.priceWithDiscount = priceWithDiscount;
+		this.priceWithDiscount = dateTime.getProjection().getPrice() - dateTime.getProjection().getPrice()*(dicount/100);
 		this.dicount = dicount;
 		this.dateTime = dateTime;
 		this.seat = seat;
 		this.user = user;
+		
+		this.ambientRating = 0;
+		this.projectionRating = 0;
 	}
 
 	public Long getId() {

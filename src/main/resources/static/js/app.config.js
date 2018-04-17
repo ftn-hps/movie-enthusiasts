@@ -45,7 +45,7 @@ angular.module('movie-enthusiasts')
 			.state({
 				name: 'home.history',
 				url: '^/history',
-				template: '<h1>Attendance History</h1>'
+				component: 'myAttendanceHistory'
 			})
 			.state({
 				name: 'userAuth',

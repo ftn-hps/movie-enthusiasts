@@ -1,5 +1,6 @@
 package ftnhps.movieenthusiasts.reservations;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +96,29 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public List<Reservation> findByDateTimeProjectionPlace(Place place) {
 		return reservationRepository.findByDateTime_Projection_Place(place);
+	}
+
+	@Override
+	public Reservation rate(Reservation reservation, RateDTO input, User user) {
+		List<Reservation> userReservations = findByUser(user);
+		if(!userReservations.contains(reservation))
+			return null;
+		reservation.setAmbientRating(input.getRateAmbient());
+		reservation.setProjectionRating(input.getRateProjection());
+		
+		return reservationRepository.save(reservation);
+	}
+
+	@Override
+	public List<Reservation> findHistory(User user) {
+		List<Reservation> reservations = reservationRepository.findByUser(user);
+		Long timestamp = System.currentTimeMillis()/1000;
+		List<Reservation> ret = new ArrayList<Reservation>();
+		for(Reservation reservation : reservations) {
+			if(timestamp >reservation.getDateTime().getTimeStamp())
+				ret.add(reservation);
+		}
+		return ret;
 	}
 
 

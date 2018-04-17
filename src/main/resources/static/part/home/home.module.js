@@ -5,5 +5,6 @@ angular.module('home', [
 	'placeList',
 	'placeEdit',
 	'projectionForm',
-	'hallForm'
+	'hallForm',
+	'attendanceHistory'
 ]);

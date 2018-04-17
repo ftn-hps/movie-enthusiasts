@@ -28,5 +28,9 @@ public interface ReservationService {
 	boolean remove(Long id, User user);
 
 	Reservation edit(Long id, Reservation reservation);
+
+	Reservation rate(Reservation reservation, RateDTO input, User user);
+
+	List<Reservation> findHistory(User user);
 	
 }

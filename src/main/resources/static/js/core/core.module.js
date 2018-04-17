@@ -6,5 +6,6 @@ angular.module('core', [
 	'core.projection',
 	'core.friendship',
 	'core.hall',
-	'core.dateTime'
+	'core.dateTime',
+	'core.reservation'
 ]);
