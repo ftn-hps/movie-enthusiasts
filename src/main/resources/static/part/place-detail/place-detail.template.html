@@ -32,9 +32,10 @@
 				</p>
 			</div>
 			<div class="card-footer">
-				<input type="button"
-					class="btn btn-custom"
-					value="Reserve seats"/>
+				<a class="btn btn-custom"
+					ui-sref="home.reserve({placeId: $ctrl.placeId, projectionId: projection.id})">
+					Reserve seats for {{ projection.price | currency}}
+				</a>
 			</div>
 	</div>
 </div>
