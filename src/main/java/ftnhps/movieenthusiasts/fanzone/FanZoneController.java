@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftnhps.movieenthusiasts.fanzone.bid.Bid;
+import ftnhps.movieenthusiasts.fanzone.bid.BidService;
+import ftnhps.movieenthusiasts.fanzone.propnew.PropNew;
+import ftnhps.movieenthusiasts.fanzone.propnew.PropNewService;
+import ftnhps.movieenthusiasts.fanzone.propused.PropUsed;
+import ftnhps.movieenthusiasts.fanzone.propused.PropUsedService;
 import ftnhps.movieenthusiasts.users.User;
 
 @RestController
