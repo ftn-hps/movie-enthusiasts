@@ -3,7 +3,7 @@
 angular.module('hallForm')
 	.component('myHallForm',{
 		templateUrl: '/part/hall-form/hall-form.template.html',
-		controller: function($stateParams, PlaceService, HallService){
+		controller: function($stateParams, PlaceService, HallService, $window){
 			
 			String.prototype.replaceAt=function(index, replacement) {
 			    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
@@ -41,6 +41,7 @@ angular.module('hallForm')
 				.then(
 						(response) =>{
 							this.status = response.status;
+							$window.location.href = '#!/placesAdmin/'+response.data.place.id;
 						},
 						() =>{
 							this.status = 'Adding failed';

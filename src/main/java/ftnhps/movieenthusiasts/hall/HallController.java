@@ -2,6 +2,7 @@ package ftnhps.movieenthusiasts.hall;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftnhps.movieenthusiasts.places.Place;
 import ftnhps.movieenthusiasts.places.PlaceService;
+import ftnhps.movieenthusiasts.users.User;
+import ftnhps.movieenthusiasts.users.UserType;
 
 @RestController
 @RequestMapping("/api/halls")
@@ -26,6 +29,8 @@ public class HallController {
 	private HallService hallService;
 	@Autowired
 	private PlaceService placeService;
+	@Autowired
+	private HttpSession session;
 	
 	@GetMapping
 	public ResponseEntity<List<Hall>> getHalls()
@@ -60,12 +65,24 @@ public class HallController {
 	@PostMapping
 	public ResponseEntity<Hall> add (@RequestBody @Valid Hall input)
 	{
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		Hall hall = hallService.add(input);
 		return new ResponseEntity<Hall>(hall,HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id://d+}")
 	public ResponseEntity<Hall> edit(@PathVariable Long id, @RequestBody @Valid Hall input){
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		Hall hall = hallService.edit(id, input);
 		return new ResponseEntity<Hall>(hall,HttpStatus.OK);
 	}
