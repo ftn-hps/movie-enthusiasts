@@ -23,6 +23,11 @@ angular.module('movie-enthusiasts')
 				component: 'myPlaceDetail'
 			})
 			.state({
+				name: 'home.reserve',
+				url: '^/places/{placeId:\\d+}/reserve/{projectionId:\\d+}',
+				component: 'myReservation'
+			})
+			.state({
 				name: 'home.placeDetailAdmin',
 				url: '^/placesAdmin/{id:\\d+}',
 				component: 'myPlaceEdit'
