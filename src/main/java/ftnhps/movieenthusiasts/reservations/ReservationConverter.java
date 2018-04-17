@@ -46,6 +46,8 @@ public class ReservationConverter {
 				dateAndTime,
 				dto.getSeats().get(0),
 				forUser));
+		if(dto.getFriends() == null)
+			return ret;
 		// Reserve for friends
 		for(int i = 0; i < dto.getFriends().size(); i++)
 		{

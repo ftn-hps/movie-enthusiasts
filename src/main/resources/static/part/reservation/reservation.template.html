@@ -10,7 +10,9 @@
 					class="form-control"
 					ng-model="$ctrl.selectedDate"
 					ng-options="(date.timeStamp*1000 | date:'medium') for date in $ctrl.dates track by date.id"
-					ng-change="$ctrl.selectedDateChanged()">
+					ng-change="$ctrl.selectedDateChanged()"
+					required>
+						<option value="">---Please select a date---</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -20,7 +22,9 @@
 				<select id="hallSelect"
 					class="form-control"
 					ng-model="$ctrl.selectedFilteredDate"
-					ng-options="date.hall.name for date in $ctrl.filteredDates track by date.hall.id">
+					ng-options="date.hall.name for date in $ctrl.filteredDates track by date.hall.id"
+					required>
+						<option value="">---Please select a hall---</option>
 				</select>
 			</div>
 			<p>

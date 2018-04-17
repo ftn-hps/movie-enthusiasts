@@ -3,7 +3,7 @@
 angular.module('reservation')
 	.component('myReservation', {
 		templateUrl: '/part/reservation/reservation.template.html',
-		controller: function($stateParams, ProjectionService, DateTimeService) {
+		controller: function($stateParams, ProjectionService, DateTimeService, ReservationService) {
 			this.placeId = $stateParams.placeId;
 			this.projectionId = $stateParams.projectionId;
 
@@ -31,6 +31,19 @@ angular.module('reservation')
 						this.filteredDates.push(date);
 					}
 				}
+			};
+
+			this.send = () => {
+				let reservation = {
+					dateAndTimeId: this.selectedFilteredDate.id,
+					seats: [2]
+				};
+				ReservationService.add(reservation)
+					.then( () => {
+						this.status = 'Reservation created successfully';
+					}, () => {
+						this.status = 'Error';
+					});
 			};
 		}
 	});
