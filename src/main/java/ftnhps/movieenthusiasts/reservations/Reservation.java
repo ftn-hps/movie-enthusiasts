@@ -7,6 +7,9 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
 import ftnhps.movieenthusiasts.users.User;
 
@@ -16,15 +19,16 @@ public class Reservation {
 	
 	@Id
 	@GeneratedValue
+	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
 	@Min(0)
 	@Max(5)
-	private int ambientRating;
+	private Integer ambientRating;
 	
 	@Min(0)
 	@Max(5)
-	private int projectionRating;
+	private Integer projectionRating;
 	
 	@Min(0)
 	private double priceWithDiscount;
@@ -32,9 +36,11 @@ public class Reservation {
 	@Min(0)
 	private double dicount;
 	
-	
 	@ManyToOne(optional = false)
 	private DateAndTime dateTime;
+	
+	@Min(0)
+	private int seat;
 	
 	/*
 	 * Ako nema korisnika onda je to ona karta za brzu rezervaciju
@@ -44,15 +50,16 @@ public class Reservation {
 	
 	public Reservation () {}
 
-	public Reservation(Long id, int ambientRating, int projectionRating, double priceWithDiscount, double dicount,
-			DateAndTime dateTime, User user) {
+	public Reservation(double priceWithDiscount,
+			double dicount,
+			DateAndTime dateTime,
+			int seat,
+			User user) {
 		super();
-		this.id = id;
-		this.ambientRating = ambientRating;
-		this.projectionRating = projectionRating;
 		this.priceWithDiscount = priceWithDiscount;
 		this.dicount = dicount;
 		this.dateTime = dateTime;
+		this.seat = seat;
 		this.user = user;
 	}
 
@@ -102,6 +109,14 @@ public class Reservation {
 
 	public void setDateTime(DateAndTime dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	public int getSeat() {
+		return seat;
+	}
+
+	public void setSeat(int seat) {
+		this.seat = seat;
 	}
 
 	public User getUser() {
