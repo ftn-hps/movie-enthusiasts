@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftnhps.movieenthusiasts.places.Place;
 import ftnhps.movieenthusiasts.places.PlaceService;
-import ftnhps.movieenthusiasts.projections.Projection;
 
 @RestController
 @RequestMapping("/api/halls")

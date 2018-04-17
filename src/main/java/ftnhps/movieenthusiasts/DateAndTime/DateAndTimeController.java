@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.hall.HallService;
-import ftnhps.movieenthusiasts.places.PlaceService;
 import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.projections.ProjectionService;
 
