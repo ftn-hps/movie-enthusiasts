@@ -62,7 +62,6 @@ public class ProjectionController {
 	{
 //		Place place = placeService.findOne(input.getPlace().getId());
 //		input.setPlace(place);
-		input.getPlace().setId(new Long(1));
 		Projection projection = projectionService.add(input);
 		return new ResponseEntity<>(projection,HttpStatus.OK);
 	}
