@@ -6,21 +6,21 @@
 	<h2>Friend list:</h2>
 	Order by:
 	<ul class="list-inline d-inline">
-		<li class="list-inline-item order-item">
+		<li class="list-inline-item separate">
 			<a ng-click="$ctrl.orderBy('friend.email')">Email</a>
 			<span ng-show="$ctrl.order === 'friend.email'">
 				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
 				<i class="fas fa-sort-down" ng-show="$ctrl.isReverse"></i>
 			</span>
 		</li>
-		<li class="list-inline-item order-item">
+		<li class="list-inline-item separate">
 			<a ng-click="$ctrl.orderBy('friend.name')">Name</a>
 			<span ng-show="$ctrl.order === 'friend.name'">
 				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
 				<i class="fas fa-sort-down" ng-show="$ctrl.isReverse"></i>
 			</span>
 		</li>
-		<li class="list-inline-item order-item">
+		<li class="list-inline-item separate">
 			<a ng-click="$ctrl.orderBy('friend.lastName')">Last name</a>
 			<span ng-show="$ctrl.order === 'friend.lastName'">
 				<i class="fas fa-sort-up" ng-show="!$ctrl.isReverse"></i>
