@@ -6,5 +6,6 @@ angular.module('home', [
 	'placeEdit',
 	'projectionForm',
 	'hallForm',
-	'attendanceHistory'
+	'attendanceHistory',
+	'rateReservation'
 ]);

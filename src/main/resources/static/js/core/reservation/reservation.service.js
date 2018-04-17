@@ -3,8 +3,8 @@
 angular.module('core.reservation')
 	.service('ReservationService', function($http) {
 		
-		this.rate = (id) => {
-			return $http.put('/api/reservations/rate/'+id, data);
+		this.rate = (id,data) => {
+			return $http.post('/api/reservations/rate/'+id, data);
 		};
 		
 		this.history = () => {
