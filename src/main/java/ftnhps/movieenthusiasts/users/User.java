@@ -41,6 +41,8 @@ public class User {
 
 	@Pattern(regexp = "(\\d{9,10})|(^$)")
 	private String phoneNumber;
+	
+	private UserType userType;
 
 	public User() {}
 
@@ -112,6 +114,14 @@ public class User {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
 	}
 
 }
