@@ -27,7 +27,7 @@ public class Projection {
 	private String name;
 	
 	@NotBlank
-	private String listOfActers;
+	private String listOfActors;
 	
 	@NotBlank
 	private String genre;
@@ -39,7 +39,7 @@ public class Projection {
 	
 	private String imagePath;
 	
-	private int averateRating;
+	private int averageRating;
 	
 	@NotBlank
 	private String shortDescription;
@@ -51,23 +51,23 @@ public class Projection {
 	
 	public Projection(Place place,
 			String name,
-			String listOfActers,
+			String listOfActors,
 			String genre,
 			String producer,
 			int duration,
 			String imagePath,
-			int averateRating,
+			int averageRating,
 			String shortDescription,
 			double price) {
 		super();
 		this.place = place;
 		this.name = name;
-		this.listOfActers = listOfActers;
+		this.listOfActors = listOfActors;
 		this.genre = genre;
 		this.producer = producer;
 		this.duration = duration;
 		this.imagePath = imagePath;
-		this.averateRating = averateRating;
+		this.averageRating = averageRating;
 		this.shortDescription = shortDescription;
 		this.price = price;
 	}
@@ -96,12 +96,12 @@ public class Projection {
 		this.name = name;
 	}
 
-	public String getListOfActers() {
-		return listOfActers;
+	public String getListOfActors() {
+		return listOfActors;
 	}
 
-	public void setListOfActers(String listOfActers) {
-		this.listOfActers = listOfActers;
+	public void setListOfActors(String listOfActors) {
+		this.listOfActors = listOfActors;
 	}
 
 	public String getGenre() {
@@ -136,12 +136,12 @@ public class Projection {
 		this.imagePath = imagePath;
 	}
 
-	public int getAverateRating() {
-		return averateRating;
+	public int getAverageRating() {
+		return averageRating;
 	}
 
-	public void setAverateRating(int averateRating) {
-		this.averateRating = averateRating;
+	public void setAverageRating(int averageRating) {
+		this.averageRating = averageRating;
 	}
 
 	public String getShortDescription() {
