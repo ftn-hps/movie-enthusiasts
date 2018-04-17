@@ -23,6 +23,10 @@ public interface ReservationService {
 	
 	Reservation add(Reservation reservation);
 	
+	List<Reservation> add(List<Reservation> reservations);
+	
+	boolean remove(Long id, User user);
+
 	Reservation edit(Long id, Reservation reservation);
 	
 }
