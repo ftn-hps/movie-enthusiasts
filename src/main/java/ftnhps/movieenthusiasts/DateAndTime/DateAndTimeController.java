@@ -2,11 +2,13 @@ package ftnhps.movieenthusiasts.DateAndTime;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.hall.HallService;
 import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.projections.ProjectionService;
+import ftnhps.movieenthusiasts.users.User;
 
 @RestController
 @RequestMapping("/api/dateAndTimeOfProjections")
@@ -31,6 +34,8 @@ public class DateAndTimeController {
 	private HallService hallService;
 	@Autowired 
 	private DateAndTimeService dateAndTimeOfProjectionService;
+	@Autowired
+	private HttpSession session;
 	
 	@GetMapping
 	public ResponseEntity<List<DateAndTime>> getDateAndTimeOfProjections(){
@@ -82,17 +87,28 @@ public class DateAndTimeController {
 	@PostMapping
 	public ResponseEntity<DateAndTime> add (@RequestBody @Valid DateAndTime input)
 	{
+		User user = (User) session.getAttribute("user");
+		//TODO Check in user in admin of place
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		DateAndTime dateAndTimeOfProjection = dateAndTimeOfProjectionService.add(input);
 		return new ResponseEntity<DateAndTime>(dateAndTimeOfProjection,HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id://d+}")
-	public ResponseEntity<DateAndTime> edit (@PathVariable Long id,@RequestBody @Valid DateAndTime input)
-	{
-		DateAndTime dateAndTimeOfProjection = dateAndTimeOfProjectionService.edit(id,input);
-		if(dateAndTimeOfProjection == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<DateAndTime>(dateAndTimeOfProjection,HttpStatus.OK);
+	@DeleteMapping("/{id:\\d+}")
+	public ResponseEntity<?> remove(@PathVariable Long id) {
+		User user = (User) session.getAttribute("user");
+		//TODO Check in user in admin of place
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		if(dateAndTimeOfProjectionService.remove(id)) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
 	}
 	
 	

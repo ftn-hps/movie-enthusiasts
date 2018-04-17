@@ -115,8 +115,7 @@ public class TestData {
 		hallService.add(hall2);
 		
 		DateAndTime dateAndTime = new DateAndTime(
-				LocalDate.of(2000,2,2),
-				LocalTime.of(22, 22),
+				new Long(946684800),
 				"oooooooooooooooooooooooo",
 				projection1,
 				hall1);

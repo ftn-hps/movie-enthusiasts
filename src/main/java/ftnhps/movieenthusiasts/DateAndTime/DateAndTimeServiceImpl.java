@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.projections.Projection;
+import ftnhps.movieenthusiasts.users.User;
 
 
 @Transactional
@@ -50,6 +51,16 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 	@Override
 	public List<DateAndTime> findByProjection(Projection projection) {
 		return dateAndTimeOfProjectionRepository.findByProjection(projection);
+	}
+
+	@Override
+	public boolean remove(Long id) {
+		DateAndTime dateAndTime = dateAndTimeOfProjectionRepository.findOne(id);
+		if(dateAndTime == null)
+			return false;
+		dateAndTimeOfProjectionRepository.delete(dateAndTime);
+		return true;
+		
 	}
 
 	
