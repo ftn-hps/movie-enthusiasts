@@ -20,7 +20,7 @@ angular.module('movie-enthusiasts')
 			.state({
 				name: 'home.placeDetail',
 				url: '^/places/{id:\\d+}',
-				template: '<h1>Theater/Cinema Detail</h1>'
+				component: 'myPlaceDetail'
 			})
 			.state({
 				name: 'home.placeDetailAdmin',

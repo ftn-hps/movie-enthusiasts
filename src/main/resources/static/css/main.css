@@ -93,7 +93,7 @@ my-stars .fa-star {
 	font-size: 2rem;
 }
 
-.order-item::after {
+.separate::after {
 	content: ' | ';
 }
 

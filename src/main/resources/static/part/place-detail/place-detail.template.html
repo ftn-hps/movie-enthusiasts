@@ -1,0 +1,40 @@
+<h2> Repertoire of {{$ctrl.place.name}}: </h2>
+
+<div class="row no-gutters align-items-stretch">
+	<div ng-repeat="projection in $ctrl.projections"
+		class="card m-md-1 col-lg-4 col-md-6">
+			<img class="card-img-top" src="/img/placeholder.png"/>
+			<div class="card-body">
+				<h3 class="card-title">
+					{{projection.name}}
+				</h3>
+				<div class="card-subtitle mb-2 text-muted">
+					<span class="separate">
+						<my-stars rating="projection.averageRating" max="5"></my-stars>
+						{{projection.averageRating}}/5
+					</span>
+					<span class="separate">
+						<i class="fas fa-stopwatch"></i>
+						{{projection.duration}}
+					</span>
+					<span class="separate">
+						<i class="fas fa-tag"></i>
+						{{projection.genre}}
+					</span>
+				</div>
+				<p class="card-text">{{projection.shortDescription}}</p>
+				<p class="card-text">
+					<span class="font-italic">Director:</span>
+					{{projection.producer}}
+					<br/>
+					<span class="font-italic">Stars:</span>
+					{{projection.listOfActors}}
+				</p>
+			</div>
+			<div class="card-footer">
+				<input type="button"
+					class="btn btn-custom"
+					value="Reserve seats"/>
+			</div>
+	</div>
+</div>
