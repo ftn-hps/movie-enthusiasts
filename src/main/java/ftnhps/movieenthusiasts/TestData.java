@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeService;
-import ftnhps.movieenthusiasts.fanzone.PropNew;
-import ftnhps.movieenthusiasts.fanzone.PropNewService;
-import ftnhps.movieenthusiasts.fanzone.PropUsed;
-import ftnhps.movieenthusiasts.fanzone.PropUsedService;
+import ftnhps.movieenthusiasts.fanzone.propnew.PropNew;
+import ftnhps.movieenthusiasts.fanzone.propnew.PropNewService;
+import ftnhps.movieenthusiasts.fanzone.propused.PropUsed;
+import ftnhps.movieenthusiasts.fanzone.propused.PropUsedService;
 import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.hall.HallService;
 import ftnhps.movieenthusiasts.places.Place;

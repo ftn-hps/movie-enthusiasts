@@ -1,4 +1,4 @@
-package ftnhps.movieenthusiasts.fanzone;
+package ftnhps.movieenthusiasts.fanzone.propnew;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
