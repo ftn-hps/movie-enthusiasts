@@ -17,6 +17,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 	
 	List<Reservation> findByDateTime(DateAndTime dateAndTime);
 	
+	List<Reservation> findByUserAndDateTime_TimeStampGreaterThan(User user, Long timeStamp);
+	
+	List<Reservation> findByUserAndDateTime_TimeStampLessThan(User user, Long timeStamp);
+	
 	List<Reservation> findByDateTime_Projection(Projection projection);
 	
 	List<Reservation> findByDateTime_Projection_Place(Place place);

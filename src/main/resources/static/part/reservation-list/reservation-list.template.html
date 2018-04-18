@@ -1,0 +1,54 @@
+<h2 ng-if="$ctrl.type === 'history'">Attendance history:</h2>
+<h2 ng-if="$ctrl.type === 'future'">Reservations:</h2>
+
+<div class="row no-gutters align-items-stretch">
+	<div ng-repeat="reservation in $ctrl.reservations"
+		class="card m-md-1 col-lg-4 col-md-6">
+			<img class="card-img-top" src="/img/placeholder.png"/>
+			<div class="card-body">
+				<h3 class="card-title">
+					{{reservation.dateTime.projection.name}}
+					<br/>
+					{{reservation.dateTime.projection.place.name}}
+				</h3>
+				<div class="card-subtitle mb-2 text-muted">
+					<span class="separate">
+						<i class="fas fa-stopwatch"></i>
+						{{reservation.dateTime.projection.duration}}
+					</span>
+					<span class="separate">
+						<i class="fas fa-tag"></i>
+						{{reservation.dateTime.projection.genre}}
+					</span>
+				</div>
+				<p class="card-text" ng-if="$ctrl.type === 'history'">
+					Your ambient rating:
+					<my-stars rating="reservation.ambientRating" max="5"></my-stars>
+					{{place.rating}}/5
+					<br/>
+					Your projection rating:
+					<my-stars rating="reservation.projectionRating" max="5"></my-stars>
+					{{place.rating}}/5
+				</p>
+				<p class="card-text">
+					<span class="font-italic">
+						<i class="fas fa-clock"></i>
+						Time of projection:
+					</span>
+					{{reservation.dateTime.timeStamp*1000 | date:'medium'}}
+				</p>
+			</div>
+			<div class="card-footer">
+				<a ng-if="$ctrl.type === 'history'"
+					class="btn btn-custom"
+					ui-sref="home.rateReservation({idReservation: reservation.id})">
+					Rate
+				</a>
+				<button ng-if="$ctrl.type === 'future'"
+					class="btn btn-custom"
+					ng-click="$ctrl.cancel(reservation)">
+					Cancel reservation
+				</button>
+			</div>
+	</div>
+</div>

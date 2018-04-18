@@ -33,6 +33,11 @@ angular.module('movie-enthusiasts')
 				component: 'myReservation'
 			})
 			.state({
+				name: 'home.reservations',
+				url: '^/reservations/{type:future|history}',
+				component: 'myReservationList'
+			})
+			.state({
 				name: 'home.placeDetailAdmin',
 				url: '^/placesAdmin/{id:\\d+}',
 				component: 'myPlaceEdit'
@@ -51,16 +56,6 @@ angular.module('movie-enthusiasts')
 				name: 'home.hallForm',
 				url: '^/hallForm/{placeId:\\d+}',
 				component: 'myHallForm'
-			})
-			.state({
-				name: 'home.reservations',
-				url: '^/reservations',
-				template: '<h1>Reservations</h1>'
-			})
-			.state({
-				name: 'home.history',
-				url: '^/history',
-				component: 'myAttendanceHistory'
 			})
 			.state({
 				name: 'userAuth',
