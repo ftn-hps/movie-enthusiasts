@@ -8,5 +8,6 @@ angular.module('home', [
 	'projectionForm',
 	'hallForm',
 	'attendanceHistory',
-	'rateReservation'
+	'rateReservation',
+	'chart'
 ]);

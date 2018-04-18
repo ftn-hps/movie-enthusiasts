@@ -13,6 +13,11 @@ angular.module('movie-enthusiasts')
 				}
 			})
 			.state({
+				name: 'home.chart',
+				url: '^/chart/{id:\\d+}',
+				component: 'myChart'
+			})
+			.state({
 				name: 'home.places',
 				url: '^/places/{placeType:theater|cinema}',
 				component: 'myPlaceList'
