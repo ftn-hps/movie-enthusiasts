@@ -41,6 +41,19 @@ public class ReservationController {
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
 	
+	@GetMapping("/history")
+	public ResponseEntity<List<Reservation>> getHistory() {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		List<Reservation> reservations = reservationService.findHistory(user);
+		if(reservations == null || reservations.isEmpty())
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		return new ResponseEntity<>(reservations, HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<List<Reservation>> add(@RequestBody ReservationDTO input)
 	{
@@ -54,6 +67,24 @@ public class ReservationController {
 		
 		reservations = reservationService.add(reservations);
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
+	}
+	
+	@PostMapping("/rate/{id:\\d+}")
+	public ResponseEntity<Reservation> rate(@PathVariable Long id,@RequestBody RateDTO input)
+	{
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		Reservation reservation = reservationService.findOne(id);
+		if(reservation == null )
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		
+		reservation = reservationService.rate(reservation,input,user);
+		if(reservation == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		return new ResponseEntity<>(reservation, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id:\\d+}")

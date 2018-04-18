@@ -20,7 +20,12 @@ angular.module('movie-enthusiasts')
 			.state({
 				name: 'home.placeDetail',
 				url: '^/places/{id:\\d+}',
-				template: '<h1>Theater/Cinema Detail</h1>'
+				component: 'myPlaceDetail'
+			})
+			.state({
+				name: 'home.reserve',
+				url: '^/places/{placeId:\\d+}/reserve/{projectionId:\\d+}',
+				component: 'myReservation'
 			})
 			.state({
 				name: 'home.placeDetailAdmin',
@@ -31,6 +36,11 @@ angular.module('movie-enthusiasts')
 				name: 'home.projectionForm',
 				url: '^/projectionForm/:idPlace?idProjection',
 				component: 'myProjectionForm'
+			})
+			.state({
+				name: 'home.rateReservation',
+				url: '^/rateReservation/{idReservation:\\d+}',
+				component: 'myRateReservation'
 			})
 			.state({
 				name: 'home.hallForm',
@@ -45,7 +55,7 @@ angular.module('movie-enthusiasts')
 			.state({
 				name: 'home.history',
 				url: '^/history',
-				template: '<h1>Attendance History</h1>'
+				component: 'myAttendanceHistory'
 			})
 			.state({
 				name: 'userAuth',

@@ -8,7 +8,7 @@ angular.module('core.dateTime')
 		this.getOne = (id) => {
 			return $http.get('/api/dateAndTimeOfProjections/'+id);
 		};
-		this.getDateAndTimeByPlaceId = (id) =>{
+		this.getByProjectionId = (id) =>{
 			return $http.get('/api/dateAndTimeOfProjections/projection/' + id);
 		};
 		this.add = (data) => {

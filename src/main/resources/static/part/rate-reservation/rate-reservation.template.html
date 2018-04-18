@@ -1,0 +1,42 @@
+<h1> Rate Reservation {{$ctrl.reservationId}}</h1>
+
+<div class="row justify-content-md-left">
+	<form name="rateForm">
+	
+	<div class="form-group row">
+    <label for="nameInput">Ambient Rating:</label>
+	<input type="number"
+		max = 5
+		min = 0
+		id="ambientInput"
+		class="form-group form-control"
+		placeholder="rating"
+		ng-model="$ctrl.rateDTO.rateAmbient"
+		ng-required="true"/>
+	</div>
+	
+	<div class="form-group row">
+    <label for="nameInput">Projection Rating:</label>
+	<input type="number"
+		max = 5
+		min = 0
+		id="projectionInput"
+		class="form-group form-control"
+		placeholder="rating"
+		ng-model="$ctrl.rateDTO.rateProjection"
+		ng-required="true"/>
+	</div>
+	
+	<input type="submit"
+		class="btn btn-custom"
+		value="Send"
+		ng-click="rateForm.$valid && $ctrl.send()"/>
+		
+	<p>
+		{{$ctrl.status}}
+	</p>
+	</form>
+	
+</div>
+	
+	

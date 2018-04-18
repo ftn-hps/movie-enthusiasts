@@ -2,6 +2,7 @@ package ftnhps.movieenthusiasts.projections;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftnhps.movieenthusiasts.places.Place;
 import ftnhps.movieenthusiasts.places.PlaceService;
+import ftnhps.movieenthusiasts.users.User;
+import ftnhps.movieenthusiasts.users.UserType;
 
 @RestController
 @RequestMapping("/api/projections")
@@ -25,6 +28,8 @@ public class ProjectionController {
 	private ProjectionService projectionService;
 	@Autowired
 	private PlaceService placeService;
+	@Autowired
+	private HttpSession session;
 	
 	@GetMapping
 	public ResponseEntity<List<Projection>> getProjections(){
@@ -58,14 +63,28 @@ public class ProjectionController {
 	@PostMapping
 	public ResponseEntity<Projection> add (@RequestBody @Valid Projection input)
 	{
-//		Place place = placeService.findOne(input.getPlace().getId());
-//		input.setPlace(place);
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		
 		Projection projection = projectionService.add(input);
+		if(projection == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(projection,HttpStatus.OK);
 	}
 	
 	@PostMapping("/edit")
 	public ResponseEntity<Projection> edit( @RequestBody @Valid Projection input){
+		
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		Projection projection = projectionService.edit(input.getId(), input);
 		if(projection == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

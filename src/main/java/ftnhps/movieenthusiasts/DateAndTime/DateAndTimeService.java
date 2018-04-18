@@ -4,6 +4,7 @@ import java.util.List;
 
 import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.projections.Projection;
+import ftnhps.movieenthusiasts.users.User;
 
 public interface DateAndTimeService {
 
@@ -20,5 +21,6 @@ public interface DateAndTimeService {
 	
 	DateAndTime edit(Long id, DateAndTime input);
 	
+	boolean remove(Long id);
 	
 }

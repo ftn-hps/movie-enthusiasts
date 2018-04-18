@@ -2,17 +2,17 @@
 	<div ng-repeat="projection in $ctrl.projections" class="card mx-md-1 col-lg-4 col-md-6">
 		<div class="card-body">
 			<h3 class="card-title">
-				<a ui-sref="home.placeDetail({id: 1})">
+				<a ui-sref="home.placeDetail({id: projection.id})">
 					{{projection.name}}
 				</a><br>
 				<!- TODO kad se u USER doda type staviti $root.user.type == ADMIN da se proveri -->
-				<a ng-if="$root.user" ui-sref="home.projectionForm({idPlace: 1, idProjection: 1})">
+				<a ng-if="$root.user" ui-sref="home.projectionForm({idPlace: projection.place.id, idProjection: projection.id})">
 					Edit
 				</a>
 			</h3>
 			<div class="card-subtitle mb-2 text-muted">
-				<my-stars rating="projection.averateRating" max="5"></my-stars>
-				{{projection.averateRating}}/5
+				<my-stars rating="projection.averageRating" max="5"></my-stars>
+				{{projection.averageRating}}/5
 			</div>
 			<p class="card-text">{{place.description}}</p>
 		</div>

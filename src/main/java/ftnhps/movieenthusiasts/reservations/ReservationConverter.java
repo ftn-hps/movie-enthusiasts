@@ -42,14 +42,16 @@ public class ReservationConverter {
 		dateAndTimeService.edit(dto.getDateAndTimeId(), dateAndTime);
 		
 		// Reserve for self
-		ret.add(new Reservation(0, 0,
+		ret.add(new Reservation(0,
 				dateAndTime,
 				dto.getSeats().get(0),
 				forUser));
+		if(dto.getFriends() == null)
+			return ret;
 		// Reserve for friends
 		for(int i = 0; i < dto.getFriends().size(); i++)
 		{
-			ret.add(new Reservation(0, 0,
+			ret.add(new Reservation(0,
 					dateAndTime,
 					dto.getSeats().get(i+1),
 					dto.getFriends().get(i)));

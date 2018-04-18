@@ -33,26 +33,32 @@ angular.module('projectionForm')
 				if(dateTimeForm.$invalid)
 					return ;
 				this.newDateTime.projection = this.projection;
-				this.newDateTime.date = this.date.getFullYear();
-				if(this.date.getMonth()+1 < 10)
-					this.newDateTime.date += '-0'+(this.date.getMonth()+1)
-				else 
-					this.newDateTime.date += '-'+(this.date.getMonth()+1)
-				if(this.date.getDate() < 10)
-					this.newDateTime.date += '-0'+(this.date.getDate())
-				else 
-					this.newDateTime.date += '-'+(this.date.getDate())
-					
-				this.newDateTime.time = "";
-				if(this.time.getHours() < 10)
-					this.newDateTime.time = '0'+(this.time.getHours())
-				else 
-					this.newDateTime.time = (this.time.getHours())
-					
-				if(this.time.getMinutes() < 10)
-					this.newDateTime.time += ':0'+(this.time.getMinutes())
-				else 
-					this.newDateTime.time += ':'+(this.time.getMinutes())
+				
+				this.date.setHours(this.time.getHours());
+				this.date.setMinutes(this.time.getMinutes());
+				
+				this.newDateTime.timeStamp = this.date.getTime()/1000;
+				
+//				this.newDateTime.date = this.date.getFullYear();
+//				if(this.date.getMonth()+1 < 10)
+//					this.newDateTime.date += '-0'+(this.date.getMonth()+1)
+//				else 
+//					this.newDateTime.date += '-'+(this.date.getMonth()+1)
+//				if(this.date.getDate() < 10)
+//					this.newDateTime.date += '-0'+(this.date.getDate())
+//				else 
+//					this.newDateTime.date += '-'+(this.date.getDate())
+//					
+//				this.newDateTime.time = "";
+//				if(this.time.getHours() < 10)
+//					this.newDateTime.time = '0'+(this.time.getHours())
+//				else 
+//					this.newDateTime.time = (this.time.getHours())
+//					
+//				if(this.time.getMinutes() < 10)
+//					this.newDateTime.time += ':0'+(this.time.getMinutes())
+//				else 
+//					this.newDateTime.time += ':'+(this.time.getMinutes())
 				
 				this.newDateTime.reservationLayout = 'o'.repeat(this.newDateTime.hall.rows * this.newDateTime.hall.columns);
 				DateTimeService.add(this.newDateTime)

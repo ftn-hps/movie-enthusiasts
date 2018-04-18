@@ -23,6 +23,8 @@ import ftnhps.movieenthusiasts.places.PlaceService;
 import ftnhps.movieenthusiasts.places.PlaceType;
 import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.projections.ProjectionService;
+import ftnhps.movieenthusiasts.reservations.Reservation;
+import ftnhps.movieenthusiasts.reservations.ReservationService;
 import ftnhps.movieenthusiasts.users.User;
 import ftnhps.movieenthusiasts.users.UserService;
 import ftnhps.movieenthusiasts.users.UserType;
@@ -44,12 +46,19 @@ public class TestData {
 	private PropNewService propNewService;
 	@Autowired
 	private PropUsedService propUsedService;
+	@Autowired
+	private ReservationService reservationService;
 	
 	
 	@PostConstruct
 	private void init() {
 		User user1 = new User("ddd@ddd.com", "dddddd", "Ddd", "Ddd", "Ddd", null);
+		user1.setUserType(UserType.VISITOR);
 		userService.register(user1);
+		
+		User user2 = new User("placeAdmin@aaa.com", "aaaaaa", "Aaa", "Aaa", "Aaa", null);
+		user2.setUserType(UserType.PLACEADMIN);
+		userService.register(user2);
 		
 		Place place1 = new Place(PlaceType.CINEMA,
 				"Arena Cineplex",
@@ -106,22 +115,45 @@ public class TestData {
 				"/",
 				5, 
 				"Bbbbbbbbb",
-				333.00);
+				5000.00);
 		projectionService.add(projection3);
 		
-		Hall hall1 = new Hall("sala1",3,4,"layout",place1);
+		Hall hall1 = new Hall("sala1",3,4,"oooooooooooo",place1);
 		hallService.add(hall1);
 		
-		Hall hall2 = new Hall("sala2",3,3,"layout",place1);
+		Hall hall2 = new Hall("sala2",3,3,"ooooooooo",place1);
 		hallService.add(hall2);
 		
-		DateAndTime dateAndTime = new DateAndTime(
-				LocalDate.of(2000,2,2),
-				LocalTime.of(22, 22),
-				"oooooooooooooooooooooooo",
+		Hall hall3 = new Hall("sala3",3,3,"xxoooooxx",place2);
+		hallService.add(hall3);
+		
+		DateAndTime dateAndTime1 = new DateAndTime(
+				new Long(946684800),
+				"oooooooooooo",
 				projection1,
 				hall1);
-		dateAndTimeOfProjectionService.add(dateAndTime);
+		dateAndTimeOfProjectionService.add(dateAndTime1);
+		
+		DateAndTime dateAndTime2 = new DateAndTime(
+				new Long(1273053600),
+				"xxoooooxx",
+				projection3,
+				hall3);
+		dateAndTimeOfProjectionService.add(dateAndTime2);
+		
+		DateAndTime dateAndTime3 = new DateAndTime(
+				new Long(1533722400),
+				"xxoooooxx",
+				projection2,
+				hall2);
+		dateAndTimeOfProjectionService.add(dateAndTime3);
+		
+		Reservation reservation1 = new Reservation(5.0, dateAndTime1, 3, user1);
+		reservationService.add(reservation1);
+		Reservation reservation2 = new Reservation(0.0, dateAndTime2, 4, user1);
+		reservationService.add(reservation2);
+		Reservation reservation3 = new Reservation(0.0, dateAndTime3, 4, user1);
+		reservationService.add(reservation3);
 		
 		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "");
 		propNewService.add(propnew1);
@@ -130,8 +162,8 @@ public class TestData {
 		propused1.setApproved(true);
 		propUsedService.add(propused1);
 		
-		User user2 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
+		User user3 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
 		user2.setUserType(UserType.FANZONEADMIN);
-		userService.register(user2);
+		userService.register(user3);
 	}
 }

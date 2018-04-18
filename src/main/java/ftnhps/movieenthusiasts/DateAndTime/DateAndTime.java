@@ -1,14 +1,10 @@
 package ftnhps.movieenthusiasts.DateAndTime;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -16,6 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.projections.Projection;
 
+/**
+ * @author horva
+ *
+ */
 @Entity
 public class DateAndTime {
 
@@ -24,10 +24,8 @@ public class DateAndTime {
 	@GeneratedValue
 	private Long id;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate date;
-	
-	private LocalTime time;
+	@Min(100)
+	private Long timeStamp;
 	
 	/*
 	 * This field is 1D representation of 2D matrix of seats in hall
@@ -47,11 +45,10 @@ public class DateAndTime {
 	private Hall hall;
 
 	public DateAndTime() {}
-	public DateAndTime(LocalDate date, LocalTime time, String reservationLayout,
+	public DateAndTime(Long timeStamp, String reservationLayout,
 			Projection projection, Hall hall) {
 		super();
-		this.date = date;
-		this.time = time;
+		this.timeStamp = timeStamp;
 		this.reservationLayout = reservationLayout;
 		this.projection = projection;
 		this.hall = hall;
@@ -68,26 +65,12 @@ public class DateAndTime {
 	}
 
 
-	public LocalDate getDate() {
-		return date;
+	public Long getTimeStamp() {
+		return timeStamp;
 	}
-
-
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setTimeStamp(Long timeStamp) {
+		this.timeStamp = timeStamp;
 	}
-
-
-	public LocalTime getTime() {
-		return time;
-	}
-
-
-	public void setTime(LocalTime time) {
-		this.time = time;
-	}
-
-
 	public String getReservationLayout() {
 		return reservationLayout;
 	}
