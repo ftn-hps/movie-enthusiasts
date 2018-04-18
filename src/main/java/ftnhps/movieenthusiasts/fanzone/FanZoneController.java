@@ -1,13 +1,9 @@
 package ftnhps.movieenthusiasts.fanzone;
 
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftnhps.movieenthusiasts.fanzone.bid.Bid;
+import ftnhps.movieenthusiasts.fanzone.bid.BidConverter;
+import ftnhps.movieenthusiasts.fanzone.bid.BidDTO;
 import ftnhps.movieenthusiasts.fanzone.bid.BidService;
 import ftnhps.movieenthusiasts.fanzone.propnew.PropNew;
+import ftnhps.movieenthusiasts.fanzone.propnew.PropNewConverter;
+import ftnhps.movieenthusiasts.fanzone.propnew.PropNewDTO;
 import ftnhps.movieenthusiasts.fanzone.propnew.PropNewService;
 import ftnhps.movieenthusiasts.fanzone.propused.PropUsed;
+import ftnhps.movieenthusiasts.fanzone.propused.PropUsedConverter;
+import ftnhps.movieenthusiasts.fanzone.propused.PropUsedDTO;
 import ftnhps.movieenthusiasts.fanzone.propused.PropUsedService;
 import ftnhps.movieenthusiasts.users.User;
+import ftnhps.movieenthusiasts.users.UserType;
 
 @RestController
 @RequestMapping("/api/fanzone")
@@ -34,14 +37,24 @@ public class FanZoneController {
 	@Autowired
 	private PropNewService propNewService;
 	@Autowired
+	private PropNewConverter propNewConverter;
+	@Autowired
 	private PropUsedService propUsedService;
 	@Autowired
+	private PropUsedConverter propUsedConverter;
+	@Autowired
 	private BidService bidService;
+	@Autowired
+	private BidConverter bidConverter;
 	@Autowired
 	private HttpSession session;
 	
 	@GetMapping("/propsnew")
 	public ResponseEntity<List<PropNew>> getPropsNew() {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		List<PropNew> propsNew = propNewService.findAll();
 		if(propsNew == null || propsNew.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -50,6 +63,10 @@ public class FanZoneController {
 	
 	@GetMapping("/propsnew/place/{placeId:\\d+}")
 	public ResponseEntity<List<PropNew>> getPropsNew(@PathVariable Long placeId) {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		List<PropNew> propsNew = propNewService.findAll(placeId);
 		if(propsNew == null || propsNew.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -58,6 +75,10 @@ public class FanZoneController {
 	
 	@GetMapping("/propsnew/{id:\\d+}")
 	public ResponseEntity<PropNew> getPropNew(@PathVariable Long id) {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		PropNew propNew = propNewService.findOne(id);
 		if(propNew == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -65,14 +86,30 @@ public class FanZoneController {
 	}
 	
 	@PostMapping("/propsnew/add")
-	public ResponseEntity<PropNew> add(@RequestBody @Valid PropNew input) {
-		PropNew propNew = propNewService.add(input);
+	public ResponseEntity<PropNew> add(@RequestBody PropNewDTO input) {
+		User user = (User) session.getAttribute("user");
+		if(user == null || !user.getUserType().equals(UserType.FANZONEADMIN))
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		PropNew propNew = propNewConverter.fromDTO(input);
+		if(propNew == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		
+		propNew = propNewService.add(propNew);
 		return new ResponseEntity<>(propNew, HttpStatus.OK);
 	}
 	
 	@PutMapping("/propsnew/edit/{id:\\d+}")
-	public ResponseEntity<PropNew> edit(@PathVariable Long id, @RequestBody @Valid PropNew input) {
-		PropNew propNew = propNewService.edit(id, input);
+	public ResponseEntity<PropNew> edit(@PathVariable Long id, @RequestBody PropNewDTO input) {
+		User user = (User) session.getAttribute("user");
+		if(user == null || !user.getUserType().equals(UserType.FANZONEADMIN))
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		PropNew propNew = propNewConverter.fromDTO(input);
+		if(propNew == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		
+		propNew = propNewService.edit(id, propNew);
 		if(propNew == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(propNew, HttpStatus.OK);
@@ -80,6 +117,10 @@ public class FanZoneController {
 	
 	@GetMapping("/propsused")
 	public ResponseEntity<List<PropUsed>> getPropsUsed() {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		List<PropUsed> propsUsed = propUsedService.findAll(true);
 		if(propsUsed == null || propsUsed.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -88,9 +129,14 @@ public class FanZoneController {
 	
 	@GetMapping("/propsused/approved/{app:TRUE|FALSE}")
 	public ResponseEntity<List<PropUsed>> getPropsUsed(@PathVariable String app) {
+		User user = (User) session.getAttribute("user");
+		if(user == null || !user.getUserType().equals(UserType.FANZONEADMIN))
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		Boolean a = true;
 		if(app.equals("FALSE"))
 			a = false;
+		
 		List<PropUsed> propsUsed = propUsedService.findAll(a);
 		if(propsUsed == null || propsUsed.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -99,6 +145,10 @@ public class FanZoneController {
 	
 	@GetMapping("/propsused/{id:\\d+}")
 	public ResponseEntity<PropUsed> getPropUsed(@PathVariable Long id) {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		PropUsed propUsed = propUsedService.findOne(id);
 		if(propUsed == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -106,21 +156,42 @@ public class FanZoneController {
 	}
 	
 	@PostMapping("/propsused/add")
-	public ResponseEntity<PropUsed> add(@RequestBody @Valid PropUsed input) {
+	public ResponseEntity<PropUsed> add(@RequestBody PropUsedDTO input) {
 		User user = (User) session.getAttribute("user");
 		if(user == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		input.setUserId(user.getId());
-		input.setApproved(true); //TODO promeniti u false kad se napravi admin fanzone
-		PropUsed propUsed = propUsedService.add(input);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		PropUsed propUsed = propUsedConverter.fromDTO(input, user);
+		if(propUsed == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		
+		//propUsed.setApproved(true); //TODO promeniti u false kad se napravi admin fanzone
+		propUsed = propUsedService.add(propUsed);
 		return new ResponseEntity<>(propUsed, HttpStatus.OK);
 	}
 	
-	@PutMapping("/propsused/edit/{id:\\d+}")
-	public ResponseEntity<PropUsed> edit(@PathVariable Long id, @RequestBody @Valid PropUsed input) {
-		PropUsed propUsed = propUsedService.edit(id, input);
+	@PutMapping("/propsused/{id:\\d+}/approve/{app:TRUE|FALSE}")
+	public ResponseEntity<PropUsed> approvePropUsed(@PathVariable Long id, @PathVariable String app) {
+		User user = (User) session.getAttribute("user");
+		if(user == null || !user.getUserType().equals(UserType.FANZONEADMIN))
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		Boolean a = true;
+		if(app.equals("FALSE"))
+			a = false;
+		
+		PropUsed propUsed = propUsedService.findOne(id);
 		if(propUsed == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		if(a) {
+			propUsed.setApproved(a);
+		} else {
+			propUsed.setApproved(null);
+			//TODO obavestiti o odbijanju oglasa
+		}
+		
+		propUsed = propUsedService.edit(id, propUsed);
 		return new ResponseEntity<>(propUsed, HttpStatus.OK);
 	}
 	
@@ -128,7 +199,8 @@ public class FanZoneController {
 	public ResponseEntity<List<Bid>> getBids(@PathVariable Long propId) {
 		User user = (User) session.getAttribute("user");
 		if(user == null)
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		List<Bid> bids = bidService.findAll(propId);
 		if(bids == null || bids.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -136,14 +208,15 @@ public class FanZoneController {
 	}
 	
 	@PostMapping("/propsused/bids/add")
-	public ResponseEntity<Bid> add(@RequestBody @Valid Bid input) {
+	public ResponseEntity<Bid> add(@RequestBody BidDTO input) {
 		User user = (User) session.getAttribute("user");
-		PropUsed prop = propUsedService.findOne(input.getPropId());
-		if(user == null || prop.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z"))))
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		input.setBidderId(user.getId());
-		input.setBidderName(user.getName() + " " + user.getLastName());
-		Bid bid = bidService.add(input);
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		Bid bid = bidConverter.fromDTO(input, user);
+		if(bid == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		bid = bidService.add(bid);
 		return new ResponseEntity<>(bid, HttpStatus.OK);
 	}
 }

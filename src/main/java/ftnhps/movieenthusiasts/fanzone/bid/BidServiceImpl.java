@@ -26,7 +26,7 @@ public class BidServiceImpl implements BidService {
 
 	@Override
 	public List<Bid> findAll(Long propId) {
-		return bidRepository.findByPropIdOrderByIdDesc(propId);
+		return bidRepository.findByPropUsed_IdOrderByIdDesc(propId);
 	}
 
 	@Override

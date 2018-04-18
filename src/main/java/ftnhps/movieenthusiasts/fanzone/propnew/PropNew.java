@@ -1,14 +1,16 @@
 package ftnhps.movieenthusiasts.fanzone.propnew;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
+import javax.persistence.ManyToOne;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import ftnhps.movieenthusiasts.places.Place;
 
 @Entity
 public class PropNew {
@@ -18,8 +20,8 @@ public class PropNew {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@NotNull
-	private Long placeId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Place place;
 	
 	@NotBlank
 	private String name;
@@ -31,8 +33,8 @@ public class PropNew {
 	
 	public PropNew() {}
 	
-	public PropNew(Long placeId, String name, String description, String imagePath) {
-		this.placeId = placeId;
+	public PropNew(Place place, String name, String description, String imagePath) {
+		this.place = place;
 		this.name = name;
 		this.description = description;
 		this.imagePath = imagePath;
@@ -54,12 +56,12 @@ public class PropNew {
 		this.name = name;
 	}
 
-	public Long getPlaceId() {
-		return placeId;
+	public Place getPlace() {
+		return place;
 	}
 
-	public void setPlaceId(Long placeId) {
-		this.placeId = placeId;
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 
 	public String getDescription() {

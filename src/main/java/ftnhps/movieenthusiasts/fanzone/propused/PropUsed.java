@@ -3,14 +3,18 @@ package ftnhps.movieenthusiasts.fanzone.propused;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import ftnhps.movieenthusiasts.users.User;
 
 @Entity
 public class PropUsed {
@@ -20,8 +24,8 @@ public class PropUsed {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@NotNull
-	private Long userId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private User user;
 	
 	@NotBlank
 	private String name;
@@ -32,15 +36,14 @@ public class PropUsed {
 	@NotNull
 	private LocalDateTime date;
 	
-	@NotNull
 	private Boolean approved;
 	
 	private String imagePath;
 	
 	public PropUsed() {}
 
-	public PropUsed(Long userId, String name, String description, LocalDateTime date, String imagePath) {
-		this.userId = userId;
+	public PropUsed(User user, String name, String description, LocalDateTime date, String imagePath) {
+		this.user = user;
 		this.name = name;
 		this.description = description;
 		this.date = date;
@@ -56,20 +59,20 @@ public class PropUsed {
 		this.id = id;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
+	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getDescription() {

@@ -1,0 +1,19 @@
+<div class="col-md-4 order-2 order-md-0">
+	<form name="propnew">
+		<input type="text" class="form-group form-control" placeholder="Name" ng-model="$ctrl.prop.name" required/>
+		<input type="text" class="form-group form-control" placeholder="Description" ng-model="$ctrl.prop.description" required/>
+		<select class="form-group form-control" ng-model="$ctrl.placeType" ng-change="$ctrl.placeChange($ctrl.placeType)">
+			<option value="CINEMA" selected>Cinemas</option>
+			<option value="THEATER">Theaters</option>
+		</select>
+		<select class="form-group form-control" ng-model="$ctrl.prop.placeId" required>
+			<option value="">None</option>
+			<option ng-repeat="place in $ctrl.places" value="{{place.id}}">{{place.name}}</option>
+		</select>
+		<input type="submit" class="btn btn-custom" value="Add" ng-click="propnew.$valid && $ctrl.send()"/>
+		<p>
+			{{$ctrl.status}}
+			{{$ctrl.prop.placeId}}
+		</p>
+	</form>
+</div>

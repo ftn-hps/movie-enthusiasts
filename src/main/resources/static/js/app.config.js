@@ -93,6 +93,26 @@ angular.module('movie-enthusiasts')
 				component: 'myPropUsedForm'
 			})
 			.state({
+				name: 'fanzoneAdmin',
+				url: '/fanzone/admin',
+				component: 'myFanzoneAdmin'
+			})
+			.state({
+				name: 'fanzoneAdmin.addNewProp',
+				url: '/add',
+				component: 'myPropNewForm'
+			})
+			.state({
+				name: 'fanzoneAdmin.approveUsedProps',
+				url: '/approve',
+				component: 'myPropsUsedAdminDisplay'
+			})
+			.state({
+				name: 'fanzoneAdmin.approveUsedProp',
+				url: '/approve/{id:\\d+}',
+				component: 'myPropUsedAdminDisplay'
+			})
+			.state({
 				name: 'error',
 				url: '/error',
 				template: '<h1>Error 404</h1>'

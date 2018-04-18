@@ -25,6 +25,7 @@ import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.projections.ProjectionService;
 import ftnhps.movieenthusiasts.users.User;
 import ftnhps.movieenthusiasts.users.UserService;
+import ftnhps.movieenthusiasts.users.UserType;
 
 @Component
 public class TestData {
@@ -122,11 +123,15 @@ public class TestData {
 				hall1);
 		dateAndTimeOfProjectionService.add(dateAndTime);
 		
-		PropNew propnew1 = new PropNew(place1.getId(), "rekbioskop1", "opsi opis", "");
+		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "");
 		propNewService.add(propnew1);
 		
-		PropUsed propused1 = new PropUsed(user1.getId(), "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "");
+		PropUsed propused1 = new PropUsed(user1, "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "");
 		propused1.setApproved(true);
 		propUsedService.add(propused1);
+		
+		User user2 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
+		user2.setUserType(UserType.FANZONEADMIN);
+		userService.register(user2);
 	}
 }

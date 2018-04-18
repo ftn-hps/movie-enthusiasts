@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PropNewRepository extends JpaRepository<PropNew, Long> {
 	
-	List<PropNew> findByPlaceId(Long placeId);
+	List<PropNew> findByPlace_Id(Long placeId);
 	
 }

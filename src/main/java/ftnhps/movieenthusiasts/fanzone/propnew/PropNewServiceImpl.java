@@ -26,7 +26,7 @@ public class PropNewServiceImpl implements PropNewService {
 
 	@Override
 	public List<PropNew> findAll(Long placeId) {
-		return propNewRepository.findByPlaceId(placeId);
+		return propNewRepository.findByPlace_Id(placeId);
 	}
 
 	@Override

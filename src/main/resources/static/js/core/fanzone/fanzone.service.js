@@ -29,8 +29,8 @@ angular.module('core.fanzone').service('FanZoneService', function($http) {
 		this.addPropUsed = (data) => {
 			return $http.post('/api/fanzone/propsused/add', data);
 		};
-		this.editPropUsed = (id, data) => {
-			return $http.put(`/api/fanzone/propsused/edit/${id}`, data);
+		this.approvePropUsed = (id, app) => {
+			return $http.put(`/api/fanzone/propsused/${id}/approve/${app}`);
 		};
 		this.getBids = (propId)  => {
 			return $http.get(`/api/fanzone/propsused/bids/${propId}`);
