@@ -17,7 +17,7 @@ angular.module('reservation')
 			this.selectedDate = null;
 			this.selectedFilteredDate = null;
 
-			DateTimeService.getByProjectionId(this.projectionId)
+			DateTimeService.getFutureByProjectionId(this.projectionId)
 				.then( (response) => {
 					this.dates = response.data;
 				});

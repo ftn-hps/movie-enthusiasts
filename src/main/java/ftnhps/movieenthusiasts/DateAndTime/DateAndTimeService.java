@@ -10,9 +10,13 @@ public interface DateAndTimeService {
 
 	DateAndTime findOne(Long id);
 	
+	DateAndTime findFutureOne(Long id);
+	
 	List<DateAndTime> findAll();
 	
 	List<DateAndTime> findByProjection(Projection projection);
+	
+	List<DateAndTime> findFutureByProjection(Projection projection);
 	
 	List<DateAndTime> findByProjectionAndHall(Projection projection,
 			Hall hall);
