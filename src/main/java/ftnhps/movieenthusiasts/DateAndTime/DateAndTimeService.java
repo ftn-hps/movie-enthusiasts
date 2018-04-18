@@ -14,6 +14,8 @@ public interface DateAndTimeService {
 	
 	List<DateAndTime> findByProjection(Projection projection);
 	
+	List<DateAndTime> findFutureByProjection(Projection projection);
+	
 	List<DateAndTime> findByProjectionAndHall(Projection projection,
 			Hall hall);
 	

@@ -84,6 +84,19 @@ public class DateAndTimeController {
 		
 	}
 	
+	@GetMapping("/projection/{idProjection:\\d+}/future")
+	public ResponseEntity<List<DateAndTime>> getFutureDatesOfProjection(@PathVariable Long idProjection){
+		Projection projection = projectionService.findOne(idProjection);
+		
+		if(projection == null )
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		List<DateAndTime> dateAndTimeOfProjection = dateAndTimeOfProjectionService.findFutureByProjection(projection);
+		if(dateAndTimeOfProjection == null )
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(dateAndTimeOfProjection,HttpStatus.OK);
+		
+	}
+	
 	
 	@PostMapping
 	public ResponseEntity<DateAndTime> add (@RequestBody @Valid DateAndTime input)

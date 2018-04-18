@@ -14,5 +14,7 @@ public interface DateAndTimeRepository extends JpaRepository<DateAndTime, Long>{
 
 	List<DateAndTime> findByProjection(Projection projection);
 	
+	List<DateAndTime> findByProjectionAndTimeStampGreaterThan(Projection projection, Long timeStamp);
+	
 	List<DateAndTime> findByProjectionAndHall(Projection projection,Hall hall);
 }
