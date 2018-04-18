@@ -45,9 +45,12 @@ public class User {
 	private String phoneNumber;
 	
 	@Enumerated(EnumType.STRING)
+	@JsonProperty(access = Access.READ_ONLY)
 	private UserType userType;
 
-	public User() {}
+	public User() {
+		this.userType = UserType.VISITOR;
+	}
 
 	public User(String email,
 			String password,
@@ -61,6 +64,7 @@ public class User {
 		this.lastName = lastName;
 		this.city = city;
 		this.phoneNumber = phoneNumber;
+		this.userType = UserType.VISITOR;
 	}
 
 	public Long getId() {
