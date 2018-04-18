@@ -155,11 +155,15 @@ public class TestData {
 		Reservation reservation3 = new Reservation(0.0, dateAndTime3, 4, user1);
 		reservationService.add(reservation3);
 		
-		PropNew propnew1 = new PropNew(place1.getId(), "rekbioskop1", "opsi opis", "");
+		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "");
 		propNewService.add(propnew1);
 		
-		PropUsed propused1 = new PropUsed(user1.getId(), "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "");
+		PropUsed propused1 = new PropUsed(user1, "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "");
 		propused1.setApproved(true);
 		propUsedService.add(propused1);
+		
+		User user3 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
+		user3.setUserType(UserType.FANZONEADMIN);
+		userService.register(user3);
 	}
 }

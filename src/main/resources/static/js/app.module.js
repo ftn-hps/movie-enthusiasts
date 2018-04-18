@@ -8,5 +8,6 @@ angular.module('movie-enthusiasts', [
 	'profile',
 	'home',
 	'propsnew',
-	'propsused'
+	'propsused',
+	'fanzone.admin'
 ]);

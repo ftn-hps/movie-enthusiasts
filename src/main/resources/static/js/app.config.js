@@ -28,6 +28,11 @@ angular.module('movie-enthusiasts')
 				component: 'myPlaceDetail'
 			})
 			.state({
+				name: 'home.reserve',
+				url: '^/places/{placeId:\\d+}/reserve/{projectionId:\\d+}',
+				component: 'myReservation'
+			})
+			.state({
 				name: 'home.placeDetailAdmin',
 				url: '^/placesAdmin/{id:\\d+}',
 				component: 'myPlaceEdit'
@@ -101,6 +106,26 @@ angular.module('movie-enthusiasts')
 				name: 'propsused.add',
 				url: '/add',
 				component: 'myPropUsedForm'
+			})
+			.state({
+				name: 'fanzoneAdmin',
+				url: '/fanzone/admin',
+				component: 'myFanzoneAdmin'
+			})
+			.state({
+				name: 'fanzoneAdmin.addNewProp',
+				url: '/add',
+				component: 'myPropNewForm'
+			})
+			.state({
+				name: 'fanzoneAdmin.approveUsedProps',
+				url: '/approve',
+				component: 'myPropsUsedAdminDisplay'
+			})
+			.state({
+				name: 'fanzoneAdmin.approveUsedProp',
+				url: '/approve/{id:\\d+}',
+				component: 'myPropUsedAdminDisplay'
 			})
 			.state({
 				name: 'error',

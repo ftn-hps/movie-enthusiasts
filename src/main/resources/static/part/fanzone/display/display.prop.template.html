@@ -1,4 +1,4 @@
-<div ng-if="$ctrl.prop.userId" class="card text-center">
+<div ng-if="$ctrl.prop.user" class="card text-center">
 	<h5 class="card-header">{{$ctrl.prop.name}}</h5>
   	<div class="card-body">
     	<h5 class="card-title">Description</h5>
@@ -20,7 +20,7 @@
 				<th></th>
 			</tr>
 			<tr ng-repeat="bid in $ctrl.bids">
-				<td>{{bid.bidderName}}</td>
+				<td>{{bid.user.name + ' ' + bid.user.lastName}}</td>
 				<td>{{bid.bid}}</td>
 				<td ng-if="$ctrl.canAccept"><a class="btn btn-custom">Accept</a></td>
 			</tr>
@@ -28,11 +28,11 @@
 	</div>
 </div>
 
-<div ng-if="$ctrl.prop.placeId" class="card text-center">
+<div ng-if="$ctrl.prop.place" class="card text-center">
 	<h5 class="card-header">{{$ctrl.prop.name}}</h5>
 	<div class="card-body">
 	    <h5 class="card-title">Description</h5>
 	    <p class="card-text">{{$ctrl.prop.description}}</p>
-	    <a ng-if="$ctrl.prop.placeId" class="btn btn-custom">Reservation</a>
+	    <a class="btn btn-custom">Reservation</a>
 	</div>
 </div>

@@ -1,15 +1,19 @@
 package ftnhps.movieenthusiasts.fanzone.bid;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import ftnhps.movieenthusiasts.fanzone.propused.PropUsed;
+import ftnhps.movieenthusiasts.users.User;
 
 @Entity
 public class Bid {
@@ -19,14 +23,11 @@ public class Bid {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@NotNull
-	private Long propId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private PropUsed propUsed;
 	
-	@NotNull
-	private Long bidderId;
-	
-	@NotBlank
-	private String bidderName;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private User user;
 
 	@NotNull
 	@Min(0)
@@ -34,9 +35,9 @@ public class Bid {
 	
 	public Bid() {}
 
-	public Bid(Long propId, Long bidderId, Double bid) {
-		this.propId = propId;
-		this.bidderId = bidderId;
+	public Bid(PropUsed propUsed, User user, Double bid) {
+		this.propUsed = propUsed;
+		this.user = user;
 		this.bid = bid;
 	}
 
@@ -48,28 +49,20 @@ public class Bid {
 		this.id = id;
 	}
 
-	public Long getPropId() {
-		return propId;
+	public PropUsed getPropUsed() {
+		return propUsed;
 	}
 
-	public void setPropId(Long propId) {
-		this.propId = propId;
+	public void setPropUsed(PropUsed propUsed) {
+		this.propUsed = propUsed;
 	}
 
-	public Long getBidderId() {
-		return bidderId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setBidderId(Long bidderId) {
-		this.bidderId = bidderId;
-	}
-	
-	public String getBidderName() {
-		return bidderName;
-	}
-
-	public void setBidderName(String bidderName) {
-		this.bidderName = bidderName;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Double getBid() {

@@ -1,0 +1,12 @@
+<div>
+	<table class="table">
+		<tr>
+			<th>Prop name</th>
+			<th>Description</th>
+		</tr>
+		<tr ng-repeat="prop in $ctrl.props">
+			<td><a ui-sref="fanzoneAdmin.approveUsedProp({id: prop.id})">{{prop.name}}</a></td>
+			<td>{{prop.description}}</td>
+		</tr>
+	</table>
+</div>
