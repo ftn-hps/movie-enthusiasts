@@ -97,6 +97,26 @@ my-stars .fa-star {
 	content: ' | ';
 }
 
+.seat.o {
+	background-color: var(--green);
+}
+
+.seat.r {
+	background-color: var(--orange);
+}
+
+.seat.x {
+	background-color: var(--red);
+}
+
+.seat.v {
+	background-color: var(--indigo);
+}
+
+.seat.a {
+	background-color: var(--blue);
+}
+
 .dropdown-menu {
 	 background-color: var(--bg_color);
 }
