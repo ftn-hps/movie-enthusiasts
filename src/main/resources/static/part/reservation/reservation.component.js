@@ -6,7 +6,7 @@ angular.module('reservation')
 		controller: function($stateParams, ProjectionService, DateTimeService, ReservationService) {
 			this.placeId = $stateParams.placeId;
 			this.projectionId = $stateParams.projectionId;
-			this.discount = 0;
+
 			ProjectionService.getOne(this.projectionId)
 				.then( (response) => {
 					this.projection = response.data;
@@ -16,6 +16,7 @@ angular.module('reservation')
 
 			this.selectedDate = null;
 			this.selectedFilteredDate = null;
+			this.discount = 0;
 
 			DateTimeService.getFutureByProjectionId(this.projectionId)
 				.then( (response) => {
@@ -36,8 +37,6 @@ angular.module('reservation')
 			this.seatsChanged = (output) => {
 				this.seats = output;
 			};
-			
-			
 
 			this.send = () => {
 				let reservation = {
@@ -51,7 +50,7 @@ angular.module('reservation')
 						this.status = 'Error';
 					});
 			};
-			
+
 			this.sendFast = () => {
 				let reservation = {
 					dateAndTimeId: this.selectedFilteredDate.id,
@@ -60,7 +59,7 @@ angular.module('reservation')
 				};
 				ReservationService.addFast(reservation)
 					.then( () => {
-						this.status = 'FastReservation created successfully';
+						this.status = 'Fast reservation created successfully';
 					}, () => {
 						this.status = 'Error';
 					});

@@ -36,12 +36,10 @@
 					max = 100
 					min = 0
 					id="discountInput"
-					class="form-group form-control"
+					class="form-control"
 					placeholder="Discount"
-					ng-model="$ctrl.discount"
-					/>
+					ng-model="$ctrl.discount"/>
 			</div>
-			
 			<div>
 				<label>Seats:</label>
 				<my-seats seats="$ctrl.selectedFilteredDate.reservationLayout"
@@ -53,10 +51,9 @@
 				class="btn btn-custom"
 				value="Reserve"
 				ng-click="reservationForm.$valid && $ctrl.send()"/>
-				
 			<input type="submit" ng-if="$root.user.userType == 'PLACEADMIN'"
 				class="btn btn-custom"
-				value="Fast reservation"
+				value="Prepare a fast reservation"
 				ng-click="reservationForm.$valid && $ctrl.sendFast()"/>
 			<p>
 				{{$ctrl.status}}
