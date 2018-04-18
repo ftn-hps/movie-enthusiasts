@@ -163,6 +163,8 @@ public class TestData {
 		reservationService.add(reservation3);
 		Reservation reservation4 = new Reservation(10.0, dateAndTime4, 4, user1);
 		reservationService.add(reservation4);
+		Reservation reservation5 = new Reservation(10.0, dateAndTime4, 4, null);
+		reservationService.add(reservation5);
 		
 		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "");
 		propNewService.add(propnew1);

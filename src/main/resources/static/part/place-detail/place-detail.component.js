@@ -3,7 +3,7 @@
 angular.module('placeDetail')
 	.component('myPlaceDetail', {
 		templateUrl: '/part/place-detail/place-detail.template.html',
-		controller: function($stateParams, PlaceService, ProjectionService) {
+		controller: function($stateParams, PlaceService, ProjectionService, ReservationService) {
 			this.placeId = $stateParams.id;
 
 			PlaceService.getOne(this.placeId)
@@ -19,5 +19,27 @@ angular.module('placeDetail')
 				}, () => {
 					this.projections = null;
 				});
+			
+			ReservationService.getFast(this.placeId)
+				.then( (response) => {
+					this.fastReservations = response.data;
+				}, () => {
+					this.fastReservations = null;
+				});
+			
+			this.sendFastReservation= (id)=>{
+				ReservationService.reserveFast(id)
+				.then( (response) => {
+					// Ako sam uspeo opet povalcim sada 
+					ReservationService.getFast(this.placeId)
+					.then( (response) => {
+						this.fastReservations = response.data;
+					}, () => {
+						this.fastReservations = null;
+					});
+				}, () => {
+					alert("Fast resevation was not successful");
+				});
+			};
 		}
 	});

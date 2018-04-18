@@ -14,6 +14,7 @@ angular.module('core.projection')
 		this.add = (data) => {
 			return $http.post('/api/projections/', data);
 		};
+		
 		this.edit = (id, data) => {
 			return $http.post('/api/projections/edit/', data);
 		};

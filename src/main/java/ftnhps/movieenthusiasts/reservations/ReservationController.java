@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftnhps.movieenthusiasts.users.User;
+import ftnhps.movieenthusiasts.users.UserType;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -54,6 +56,21 @@ public class ReservationController {
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
 	
+	@GetMapping("/fast/{id:\\d+}")
+	public ResponseEntity<List<Reservation>> getFastReservations(@PathVariable Long id) {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//		if(user.getUserType() != UserType.VISITOR)
+//			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		List<Reservation> reservations = reservationService.findFastReservations(id);
+		if(reservations == null || reservations.isEmpty())
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		return new ResponseEntity<>(reservations, HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<List<Reservation>> add(@RequestBody ReservationDTO input)
 	{
@@ -65,6 +82,31 @@ public class ReservationController {
 		if(reservations == null || reservations.isEmpty())
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		
+		reservations = reservationService.add(reservations);
+		return new ResponseEntity<>(reservations, HttpStatus.OK);
+	}
+	
+	@PostMapping("/fast")
+	public ResponseEntity<List<Reservation>> addFast(@RequestBody ReservationDTO input)
+	{
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		List<Reservation> reservations = reservationConverter.fromDTOFast(input, user);
+		if(reservations == null || reservations.isEmpty())
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		
+		//null the users and add discount
+		for(Reservation r:reservations) {
+			r.setUser(null);
+			if(input.getDiscount() >= 0 && input.getDiscount() <= 100)
+				r.setDicount(input.getDiscount());
+			else
+				r.setDicount(0);
+		}
 		reservations = reservationService.add(reservations);
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
@@ -87,6 +129,20 @@ public class ReservationController {
 		return new ResponseEntity<>(reservation, HttpStatus.OK);
 	}
 	
+	@PutMapping("/reserveFast/{id:\\d+}")
+	public ResponseEntity<Reservation> reserveFast(@PathVariable Long id){
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		Reservation reservation = reservationService.findOne(id);
+		if(reservation == null )
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		reservation.setUser(user);
+		reservationService.edit(id, reservation);
+		return new ResponseEntity<>(reservation, HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/{id:\\d+}")
 	public ResponseEntity<?> remove(@PathVariable Long id) {
 		User user = (User) session.getAttribute("user");
@@ -100,4 +156,6 @@ public class ReservationController {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 	}
+	
+	
 }
