@@ -27,9 +27,13 @@
 						<option value="">---Please select a hall---</option>
 				</select>
 			</div>
-			<p>
-				{{$ctrl.selectedFilteredDate.reservationLayout}}
-			</p>
+			<div>
+				<label>Seats:</label>
+				<my-seats seats="$ctrl.selectedFilteredDate.reservationLayout"
+					columns="$ctrl.selectedFilteredDate.hall.columns"
+					on-change="$ctrl.seatsChanged(output)">
+				</my-seats>
+			</div>
 			<input type="submit"
 				class="btn btn-custom"
 				value="Reserve"

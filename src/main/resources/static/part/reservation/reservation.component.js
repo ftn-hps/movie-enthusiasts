@@ -33,10 +33,14 @@ angular.module('reservation')
 				}
 			};
 
+			this.seatsChanged = (output) => {
+				this.seats = output;
+			};
+
 			this.send = () => {
 				let reservation = {
 					dateAndTimeId: this.selectedFilteredDate.id,
-					seats: [2]
+					seats: this.seats
 				};
 				ReservationService.add(reservation)
 					.then( () => {
