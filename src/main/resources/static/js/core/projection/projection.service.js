@@ -17,4 +17,7 @@ angular.module('core.projection')
 		this.edit = (id, data) => {
 			return $http.post('/api/projections/edit/', data);
 		};
+		this.deleteProjection = (id) =>{
+			return $http.delete('/api/projections/'+ id);
+		};
 	});

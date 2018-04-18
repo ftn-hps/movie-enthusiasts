@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,6 +74,22 @@ public class ProjectionController {
 		Projection projection = projectionService.add(input);
 		if(projection == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(projection,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{id:\\d+}")
+	public ResponseEntity<Projection> delete (@PathVariable Long id)
+	{
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		
+		Projection projection = projectionService.delete(id);
+		if(projection == null)
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 		return new ResponseEntity<>(projection,HttpStatus.OK);
 	}
 	

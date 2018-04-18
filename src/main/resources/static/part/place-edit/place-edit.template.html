@@ -1,5 +1,8 @@
 <h2> You are now in admin view of place {{ $ctrl.placeId }} </h2>
-
+<button id="button-1" class="btn btn-custom" 
+	ui-sref="home.chart({id: $ctrl.placeId})">
+	DisplayChart 
+	</button>
 <div class="row justify-content-md-left">
 	<form name="place-edit-form">
 	

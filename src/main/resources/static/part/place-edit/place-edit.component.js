@@ -13,7 +13,7 @@ angular.module('placeEdit')
 			}, () => {
 				this.place = null;
 			});
-			
+			 
 			this.send = () => {
 				PlaceService.edit(this.placeId,this.place)
 				.then(

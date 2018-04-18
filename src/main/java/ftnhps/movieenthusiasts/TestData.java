@@ -128,14 +128,14 @@ public class TestData {
 		hallService.add(hall3);
 		
 		DateAndTime dateAndTime1 = new DateAndTime(
-				new Long(946684800),
+				new Long(1520352000),
 				"oooooooooooo",
 				projection1,
 				hall1);
 		dateAndTimeOfProjectionService.add(dateAndTime1);
 		
 		DateAndTime dateAndTime2 = new DateAndTime(
-				new Long(1273053600),
+				new Long(1517569200),
 				"xxoooooxx",
 				projection3,
 				hall3);
@@ -148,12 +148,21 @@ public class TestData {
 				hall2);
 		dateAndTimeOfProjectionService.add(dateAndTime3);
 		
+		DateAndTime dateAndTime4 = new DateAndTime(
+				new Long(1514800800),
+				"xxoooooxx",
+				projection2,
+				hall2);
+		dateAndTimeOfProjectionService.add(dateAndTime4);
+		
 		Reservation reservation1 = new Reservation(5.0, dateAndTime1, 3, user1);
 		reservationService.add(reservation1);
 		Reservation reservation2 = new Reservation(0.0, dateAndTime2, 4, user1);
 		reservationService.add(reservation2);
 		Reservation reservation3 = new Reservation(0.0, dateAndTime3, 4, user1);
 		reservationService.add(reservation3);
+		Reservation reservation4 = new Reservation(10.0, dateAndTime4, 4, user1);
+		reservationService.add(reservation4);
 		
 		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "");
 		propNewService.add(propnew1);

@@ -6,7 +6,8 @@
 			<div class="card-body">
 				<h3 class="card-title">
 					<p>
-						{{reservation.dateTime.projection.name}}
+						{{reservation.dateTime.projection.name}}<br>
+						{{reservation.dateTime.projection.place.name}}
 					</p>
 					<p>
 						{{ $ctrl.getDate(reservation.dateTime.timeStamp *1000) }}

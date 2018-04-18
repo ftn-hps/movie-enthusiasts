@@ -73,6 +73,20 @@ public class ProjectionServiceImpl implements ProjectionService{
 		projection.setAverageRating((int)sum/number);
 		
 	}
+
+	@Override
+	public Projection delete(Long id) {
+		
+		Projection projection = projectionRepository.findOne(id);
+		if(projection == null)
+			return null;
+		try {
+		projectionRepository.delete(projection);
+		}catch (Exception e) {
+			System.out.println("Can't deleti projection which is already referenced");
+		}
+		return projection;
+	}
 	
 
 }

@@ -17,5 +17,7 @@ public interface ProjectionService {
 	Projection edit(Long id, Projection input);
 
 	void recalculateRation(Projection projection);
+
+	Projection delete(Long id);
 	
 }
