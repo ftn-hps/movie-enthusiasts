@@ -30,6 +30,12 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 	public DateAndTime findOne(Long id) {
 		return dateAndTimeOfProjectionRepository.findOne(id);
 	}
+	
+	@Override
+	public DateAndTime findFutureOne(Long id) {
+		return dateAndTimeOfProjectionRepository
+				.findByIdAndTimeStampGreaterThan(id, System.currentTimeMillis()/1000);
+	}
 
 	@Override
 	public List<DateAndTime> findAll() {

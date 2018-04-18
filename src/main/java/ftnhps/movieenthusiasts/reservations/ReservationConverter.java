@@ -27,9 +27,11 @@ public class ReservationConverter {
 				return null;
 		
 		// Reserve available seats in DateAndTime
-		DateAndTime dateAndTime = dateAndTimeService.findOne(dto.getDateAndTimeId());
-		String layout = dateAndTime.getReservationLayout();
+		DateAndTime dateAndTime = dateAndTimeService.findFutureOne(dto.getDateAndTimeId());
+		if(dateAndTime == null)
+			return null;
 		
+		String layout = dateAndTime.getReservationLayout();
 		for(Integer seat : dto.getSeats()) {
 			if(layout.charAt(seat) != 'o')
 				return null;
