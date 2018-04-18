@@ -163,7 +163,7 @@ public class TestData {
 		propUsedService.add(propused1);
 		
 		User user3 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
-		user2.setUserType(UserType.FANZONEADMIN);
+		user3.setUserType(UserType.FANZONEADMIN);
 		userService.register(user3);
 	}
 }
