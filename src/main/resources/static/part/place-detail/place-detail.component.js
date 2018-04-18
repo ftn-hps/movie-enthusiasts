@@ -19,27 +19,27 @@ angular.module('placeDetail')
 				}, () => {
 					this.projections = null;
 				});
-			
+
 			ReservationService.getFast(this.placeId)
 				.then( (response) => {
 					this.fastReservations = response.data;
 				}, () => {
 					this.fastReservations = null;
 				});
-			
-			this.sendFastReservation= (id)=>{
+
+			this.sendFastReservation = (id) => {
 				ReservationService.reserveFast(id)
-				.then( (response) => {
-					// Ako sam uspeo opet povalcim sada 
-					ReservationService.getFast(this.placeId)
-					.then( (response) => {
-						this.fastReservations = response.data;
+					.then( () => {
+						// Ako sam uspeo opet povalcim sada
+						ReservationService.getFast(this.placeId)
+							.then( (response) => {
+								this.fastReservations = response.data;
+							}, () => {
+								this.fastReservations = null;
+							});
 					}, () => {
-						this.fastReservations = null;
+						alert('Fast resevation was not successful');
 					});
-				}, () => {
-					alert("Fast resevation was not successful");
-				});
 			};
 		}
 	});
