@@ -120,14 +120,14 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public List<Reservation> findHistory(User user) {
-		List<Reservation> reservations = reservationRepository.findByUser(user);
-		Long timestamp = System.currentTimeMillis()/1000;
-		List<Reservation> ret = new ArrayList<Reservation>();
-		for(Reservation reservation : reservations) {
-			if(timestamp >reservation.getDateTime().getTimeStamp())
-				ret.add(reservation);
-		}
-		return ret;
+		return reservationRepository
+				.findByUserAndDateTime_TimeStampLessThan(user, System.currentTimeMillis()/1000);
+	}
+	
+	@Override
+	public List<Reservation> findFuture(User user) {
+		return reservationRepository
+				.findByUserAndDateTime_TimeStampGreaterThan(user, System.currentTimeMillis()/1000);
 	}
 
 	@Override

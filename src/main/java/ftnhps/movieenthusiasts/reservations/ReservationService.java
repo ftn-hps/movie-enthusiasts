@@ -32,6 +32,8 @@ public interface ReservationService {
 	Reservation rate(Reservation reservation, RateDTO input, User user);
 
 	List<Reservation> findHistory(User user);
+	
+	List<Reservation> findFuture(User user);
 
 	List<Reservation> findFastReservations(Long id);
 	

@@ -43,13 +43,17 @@ public class ReservationController {
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
 	
-	@GetMapping("/history")
-	public ResponseEntity<List<Reservation>> getHistory() {
+	@GetMapping("/{type:future|history}")
+	public ResponseEntity<List<Reservation>> getAll(@PathVariable String type) {
 		User user = (User) session.getAttribute("user");
 		if(user == null)
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		
-		List<Reservation> reservations = reservationService.findHistory(user);
+		List<Reservation> reservations = null;
+		if(type.equals("history"))
+			reservations = reservationService.findHistory(user);
+		else
+			reservations = reservationService.findFuture(user);
 		if(reservations == null || reservations.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
