@@ -46,6 +46,8 @@ public class TestData {
 	private PropUsedService propUsedService;
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private CronJobs cron;
 	
 	
 	@PostConstruct
@@ -174,5 +176,10 @@ public class TestData {
 		User user3 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
 		user3.setUserType(UserType.FANZONEADMIN);
 		userService.register(user3);
+		
+		// This has to be the last statement
+		// Don't add anything bellow
+		cron.rewardUsers();
+		// STOP!
 	}
 }

@@ -117,6 +117,12 @@ public class ReservationServiceImpl implements ReservationService{
 		projectionService.recalculateRation(ret.getDateTime().getProjection());
 		return ret;
 	}
+	
+	@Override
+	public List<Reservation> findHistory() {
+		return reservationRepository
+				.findByDateTime_TimeStampLessThan(System.currentTimeMillis()/1000);
+	}
 
 	@Override
 	public List<Reservation> findHistory(User user) {

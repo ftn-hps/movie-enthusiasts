@@ -5,6 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -46,11 +47,17 @@ public class User {
 	
 	@Enumerated(EnumType.STRING)
 	@JsonProperty(access = Access.READ_ONLY)
-	private UserType userType;
+	private UserType userType = UserType.VISITOR;
+	
+	@Min(0)
+	@JsonProperty(access = Access.READ_ONLY)
+	private int points = 0;
+	
+	@Enumerated(EnumType.STRING)
+	@JsonProperty(access = Access.READ_ONLY)
+	private MedalType medal = MedalType.BRONZE;
 
-	public User() {
-		this.userType = UserType.VISITOR;
-	}
+	public User() {}
 
 	public User(String email,
 			String password,
@@ -64,7 +71,6 @@ public class User {
 		this.lastName = lastName;
 		this.city = city;
 		this.phoneNumber = phoneNumber;
-		this.userType = UserType.VISITOR;
 	}
 
 	public Long getId() {
@@ -129,6 +135,26 @@ public class User {
 
 	public void setUserType(UserType userType) {
 		this.userType = userType;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
+	public void incrementPoints(int increment) {
+		this.points += increment;
+	}
+
+	public MedalType getMedal() {
+		return medal;
+	}
+
+	public void setMedal(MedalType medal) {
+		this.medal = medal;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Transactional
@@ -13,6 +14,11 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Value("${threshold.silver}")
+	private int thresholdSilver;
+	@Value("${threshold.gold}")
+	private int thresholdGold;
 
 	@Override
 	public User findOne(Long id) {
@@ -55,6 +61,21 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(existing.getEmail());
 		user.setPassword(existing.getPassword());
 		return userRepository.save(user);
+	}
+	
+	@Override
+	public User rewardUser(Long id, int increment) {
+		User user = findOne(id);
+		
+		int oldPoints = user.getPoints();
+		user.incrementPoints(increment);
+		
+		if(oldPoints < thresholdSilver && user.getPoints() >= thresholdSilver)
+			user.setMedal(MedalType.SILVER);
+		if(oldPoints < thresholdGold && user.getPoints() >= thresholdGold)
+			user.setMedal(MedalType.GOLD);
+		
+		return user;
 	}
 
 }

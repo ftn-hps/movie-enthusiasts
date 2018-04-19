@@ -13,5 +13,7 @@ public interface UserService {
 	User logIn(User user);
 
 	User edit(Long id, User user);
+	
+	User rewardUser(Long id, int increment);
 
 }
