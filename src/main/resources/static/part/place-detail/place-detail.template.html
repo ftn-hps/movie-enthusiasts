@@ -5,7 +5,7 @@
 		<div class="row no-gutters align-items-stretch">
 			<div ng-repeat="projection in $ctrl.projections"
 				class="card m-md-1 col-lg-4 col-md-6">
-					<img class="card-img-top" src="/img/placeholder.png"/>
+					<img class="card-img-top" ng-src="{{projection.imagePath}}" /> <!-- src="projection.imagePath"/>  -->
 					<div class="card-body">
 						<h3 class="card-title">
 							{{projection.name}}

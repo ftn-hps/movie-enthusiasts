@@ -88,7 +88,7 @@ public class TestData {
 				"Drama", 
 				"Paja",
 				120, 
-				"/",
+				"/img/placeholder.png",
 				3, 
 				"Klasicni romeo i julija",
 				333.00);
@@ -100,7 +100,7 @@ public class TestData {
 				"Aaaaa", 
 				"Aaaaa",
 				120, 
-				"/",
+				"/img/placeholder.png",
 				5, 
 				"Aaaaaaa",
 				333.00);
@@ -112,7 +112,7 @@ public class TestData {
 				"Bbbbbbb", 
 				"Bbbbbb",
 				120, 
-				"/",
+				"/img/placeholder.png",
 				5, 
 				"Bbbbbbbbb",
 				5000.00);
