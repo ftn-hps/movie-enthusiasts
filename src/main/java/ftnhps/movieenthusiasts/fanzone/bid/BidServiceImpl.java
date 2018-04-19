@@ -34,4 +34,18 @@ public class BidServiceImpl implements BidService {
 		return bidRepository.save(input);
 	}
 
+	@Override
+	public Bid edit(Long id, Bid input) {
+		if(findOne(id) == null)
+			return null;
+
+		input.setId(id);
+		return bidRepository.save(input);
+	}
+
+	@Override
+	public Bid findAccepted(Long propId) {
+		return bidRepository.findOneByPropUsed_Id(propId);
+	}
+	
 }

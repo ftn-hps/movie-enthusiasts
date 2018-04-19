@@ -6,11 +6,12 @@
 			<option value="CINEMA" selected>Cinemas</option>
 			<option value="THEATER">Theaters</option>
 		</select>
-		<select class="form-group form-control" ng-model="$ctrl.prop.placeId" required>
+		<select class="form-group form-control" ng-model="$ctrl.prop.placeId" id="placeList" required>
 			<option value="">None</option>
-			<option ng-repeat="place in $ctrl.places" value="{{place.id}}">{{place.name}}</option>
+			<option ng-repeat="place in $ctrl.places" value="{{place.id}}">{{place.name}}</option>>
 		</select>
-		<input type="submit" class="btn btn-custom" value="Add" ng-click="propnew.$valid && $ctrl.send()"/>
+		<input ng-if="$ctrl.edit" type="submit" class="btn btn-custom" value="Edit" ng-click="propnew.$valid && $ctrl.send()"/>
+		<input ng-if="!$ctrl.edit" type="submit" class="btn btn-custom" value="Add" ng-click="propnew.$valid && $ctrl.send()"/>
 		<p>
 			{{$ctrl.status}}
 			{{$ctrl.prop.placeId}}
