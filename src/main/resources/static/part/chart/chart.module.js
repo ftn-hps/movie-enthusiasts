@@ -1,3 +1,6 @@
 'use strict';
 
-angular.module('chart', ['chart.js']);
+angular.module('chart', [
+	'chart.js',
+	'core.place'
+	]);

@@ -11,6 +11,9 @@ angular.module('core.place')
 		this.getOne = (id) => {
 			return $http.get(`/api/places/${id}`);
 		};
+		this.getChartData = (id) => {
+			return $http.get('/api/places/chart/'+id);
+		};
 		this.add = (data) => {
 			return $http.post('/api/places/', data);
 		};

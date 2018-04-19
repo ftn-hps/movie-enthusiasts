@@ -15,5 +15,7 @@ public interface PlaceService {
 	Place edit(Long id, Place input);
 
 	void recalculateRating( Place place);
+
+	ChartDTO getChartData(Place place);
 	
 }

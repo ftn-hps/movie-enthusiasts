@@ -46,6 +46,16 @@ public class PlaceController {
 		return new ResponseEntity<>(place, HttpStatus.OK);
 	}
 	
+	@GetMapping("/chart/{id:\\d+}")
+	public ResponseEntity<ChartDTO> getChartForPlace(@PathVariable Long id) {
+		Place place = placeService.findOne(id);
+		if(place == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		ChartDTO chartDTO = placeService.getChartData( place);
+		
+		return new ResponseEntity<>(chartDTO, HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Place> add(@RequestBody @Valid Place input) {
 		Place place = placeService.add(input);
