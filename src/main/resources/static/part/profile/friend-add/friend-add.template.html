@@ -1,11 +1,18 @@
 <h2>Add a friend:</h2>
 <form name="addFriendForm">
 	<input type="text"
+		list="userDataSet"
 		class="form-group form-control"
-		placeholder="User ID*"
+		placeholder="Search by email, name, last name"
 		ng-model="$ctrl.search"
 		required
 		autofocus/>
+	<datalist id="userDataSet">
+		<option ng-repeat="user in $ctrl.users track by user.id"
+			value="{{user.id}}">
+				{{user.email}} - {{user.name}} - {{user.lastName}}
+		</option>
+	</datalist>
 	<input type="submit"
 		class="btn btn-custom"
 		value="Send request"
