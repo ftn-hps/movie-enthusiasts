@@ -5,8 +5,8 @@
 				<a ui-sref="home.placeDetail({id: projection.id})">
 					{{projection.name}}
 				</a><br>
-				<!- TODO kad se u USER doda type staviti $root.user.type == ADMIN da se proveri -->
-				<a ng-if="$root.user" ui-sref="home.projectionForm({idPlace: projection.place.id, idProjection: projection.id})">
+				
+				<a class="btn btn-custom" ng-if="$root.user.userType == 'PLACEADMIN'" ui-sref="home.projectionForm({idPlace: projection.place.id, idProjection: projection.id})">
 					Edit
 				</a>
 				<br>
@@ -16,7 +16,7 @@
 				</button>
 			</h3>
 			<div class="card-subtitle mb-2 text-muted">
-				<my-stars rating="projection.averageRating" max="5"></my-stars>
+				<my-stars rating="projection.averageRating" max="5"></my-stars> 
 				{{projection.averageRating}}/5
 			</div>
 			<p class="card-text">{{place.description}}</p>

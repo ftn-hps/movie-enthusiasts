@@ -14,6 +14,9 @@ angular.module('core.hall')
 		this.add = (data) => {
 			return $http.post('/api/halls/', data);
 		};
+		this.delete = (id) => {
+			return $http.delete('/api/halls/'+ id);
+		};
 		this.edit = (id, data) => {
 			return $http.put(`/api/halls/${id}`, data);
 		};

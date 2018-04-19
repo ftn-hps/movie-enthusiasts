@@ -15,6 +15,7 @@ angular.module('projectionForm')
 				this.projection = null;
 			});
 			
+			//Ako editujem neku projekciju
 			if( this.placeId > 0)
 			{
 				HallService.getHallByPlaceId(this.placeId)
@@ -26,9 +27,64 @@ angular.module('projectionForm')
 					this.halls = null;
 				}
 				);
-					
+				
+				DateTimeService.getByProjectionId(this.projectionId)
+				.then(
+				(response) =>{
+					this.dateTimes = response.data;
+				},
+				() =>{
+					this.dateTimes = null;
+				}
+				);
 				
 			}
+			
+			this.deleteDateTime = (id) =>{
+				
+				DateTimeService.delete(id)
+				.then(
+				(response) =>{
+					
+					DateTimeService.getByProjectionId(this.projectionId)
+					.then(
+					(response) =>{
+						this.dateTimes = response.data;
+					},
+					() =>{
+						this.dateTimes = null;
+					}
+					);
+					
+				},
+				() =>{
+					alert("DateTime can't be deleted");
+				}
+				);
+				
+			};
+			this.deleteHall = (id) =>{
+				HallService.delete(id)
+				.then(
+				(response) =>{
+					
+					HallService.getHallByPlaceId(this.placeId)
+					.then(
+					(response) =>{
+						this.halls = response.data;
+					},
+					() =>{
+						this.halls = null;
+					}
+					);
+					
+				},
+				() =>{
+					alert("Hall can't be deleted");
+				}
+				);
+				
+			};
 			this.sendDateTime = () => {
 				if(dateTimeForm.$invalid)
 					return ;
@@ -45,6 +101,7 @@ angular.module('projectionForm')
 				.then(
 						(response) =>{
 							this.status1 = response.status;
+							this.dateTimes.push(response.data)
 						},
 						() =>{
 							this.status1 = 'Adding failed';

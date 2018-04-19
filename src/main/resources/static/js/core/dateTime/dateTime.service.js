@@ -17,6 +17,9 @@ angular.module('core.dateTime')
 		this.add = (data) => {
 			return $http.post('/api/dateAndTimeOfProjections/', data);
 		};
+		this.delete = (id) => {
+			return $http.delete('/api/dateAndTimeOfProjections/'+ id);
+		};
 		this.edit = (id, data) => {
 			return $http.put('/api/dateAndTimeOfProjections/'+id, data);
 		};

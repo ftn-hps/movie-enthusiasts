@@ -128,5 +128,20 @@ public class DateAndTimeController {
 		}
 	}
 	
+//	@DeleteMapping("/{id:\\d+}")
+//	public ResponseEntity<DateAndTime> delete (@PathVariable Long id)
+//	{
+//		User user = (User) session.getAttribute("user");
+//		if(user == null)
+//			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//		if(user.getUserType() != UserType.PLACEADMIN)
+//			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//		
+//		
+//		DateAndTime dateAndTime = dateAndTimeOfProjectionService.delete(id);
+//		if(dateAndTime == null)
+//			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+//		return new ResponseEntity<>(dateAndTime,HttpStatus.OK);
+//	}
 	
 }

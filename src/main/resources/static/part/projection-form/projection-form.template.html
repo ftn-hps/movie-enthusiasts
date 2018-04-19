@@ -143,4 +143,56 @@
 </div>
 
 	
+<div ng-if = "$ctrl.projectionId > 0">
+<h2> Date and Times of projection {{ctrl.projection.name}}:</h2>
+<div class="row flex-column">
+	<div ng-repeat="dateTime in $ctrl.dateTimes" class="card mx-md-1 col-lg-4 col-md-6">
+		<div class="card-body">
+			<h4 class="card-title">
+				<p class="card-text">
+					<span class="font-italic">
+						<i class="fas fa-clock"></i>
+						Time of projection:
+					</span>
+					{{dateTime.timeStamp*1000 | date:'medium'}}
+				</p>
+				<p > 
+					In Hall: {{dateTime.hall.name}}
+				</p>
+				<button
+				ng-if="$root.user.userType == 'PLACEADMIN'" 
+				class="btn btn-custom"
+				ng-click="$ctrl.deleteDateTime(dateTime.id)">Delete
+				</button>
+			</h3>
+		</div>
+
+	</div>
+</div>
+</div>
+	
+	
+	
+<div ng-if = "$ctrl.projectionId > 0">
+<h2> Halls of place {{$ctrl.projection.place.name}}:</h2>
+<div class="row flex-column">
+	<div ng-repeat="hall in $ctrl.halls" class="card mx-md-1 col-lg-4 col-md-6">
+		<div class="card-body">
+			<h3 class="card-title">
+				<p > 
+					{{hall.name}}
+				</p><br>
+				<button
+				ng-if="$root.user.userType == 'PLACEADMIN'" 
+				class="btn btn-custom"
+				ng-click="$ctrl.deleteHall(hall.id)">Delete
+				</button>
+			</h3>
+			<p class="card-text">Rows:{{hall.rows}}</p>
+			<p class="card-text">Columns:{{hall.columns}}</p>
+		</div>
+
+	</div>
+</div>
+</div>
 	

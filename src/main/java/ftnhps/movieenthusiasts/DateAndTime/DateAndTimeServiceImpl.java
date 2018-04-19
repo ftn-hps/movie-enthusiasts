@@ -87,10 +87,16 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 		DateAndTime dateAndTime = dateAndTimeOfProjectionRepository.findOne(id);
 		if(dateAndTime == null)
 			return false;
+		try {
 		dateAndTimeOfProjectionRepository.delete(dateAndTime);
+		}catch (Exception e) {
+			System.out.println("DateAndTime can't be deleted if used");
+			return false;
+		}
 		return true;
 		
 	}
+
 
 	
 }

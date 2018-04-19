@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftnhps.movieenthusiasts.places.Place;
 import ftnhps.movieenthusiasts.places.PlaceService;
+import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.users.User;
 import ftnhps.movieenthusiasts.users.UserType;
 
@@ -86,4 +88,21 @@ public class HallController {
 		Hall hall = hallService.edit(id, input);
 		return new ResponseEntity<Hall>(hall,HttpStatus.OK);
 	}
+	
+	@DeleteMapping("/{id:\\d+}")
+	public ResponseEntity<Hall> delete (@PathVariable Long id)
+	{
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		if(user.getUserType() != UserType.PLACEADMIN)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		
+		Hall hall = hallService.delete(id);
+		if(hall == null)
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		return new ResponseEntity<>(hall,HttpStatus.OK);
+	}
+	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ftnhps.movieenthusiasts.places.Place;
+import ftnhps.movieenthusiasts.projections.Projection;
 
 @Service
 public class HallServiceImpl implements HallService{
@@ -39,6 +40,20 @@ public class HallServiceImpl implements HallService{
 			return null;
 		input.setId(id);
 		return hallRepository.save(input);
+	}
+
+	@Override
+	public Hall delete(Long id) {
+		Hall hall = hallRepository.findOne(id);
+		if(hall == null)
+			return null;
+		try {
+		hallRepository.delete(hall);
+		}catch (Exception e) {
+			System.out.println("Can't deleti hall which is already referenced");
+			return null;
+		}
+		return hall;
 	}
 	
 	

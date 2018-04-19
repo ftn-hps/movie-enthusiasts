@@ -84,6 +84,7 @@ public class ProjectionServiceImpl implements ProjectionService{
 		projectionRepository.delete(projection);
 		}catch (Exception e) {
 			System.out.println("Can't deleti projection which is already referenced");
+			return null;
 		}
 		return projection;
 	}

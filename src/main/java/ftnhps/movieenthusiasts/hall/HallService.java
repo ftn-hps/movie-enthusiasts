@@ -15,4 +15,6 @@ public interface HallService {
 	Hall add(Hall input);
 	
 	Hall edit(Long id, Hall input);
+
+	Hall delete(Long id);
 }
