@@ -3,7 +3,7 @@
 angular.module('reservation')
 	.component('myReservation', {
 		templateUrl: '/part/reservation/reservation.template.html',
-		controller: function($stateParams, ProjectionService, DateTimeService, ReservationService) {
+		controller: function($stateParams, ProjectionService, DateTimeService, FriendshipService, ReservationService) {
 			this.placeId = $stateParams.placeId;
 			this.projectionId = $stateParams.projectionId;
 
@@ -14,8 +14,16 @@ angular.module('reservation')
 					this.projection = null;
 				});
 
+			FriendshipService.getAll()
+				.then( (response) => {
+					this.friendships = response.data;
+				}, () => {
+					this.friendships = null;
+				});
+
 			this.selectedDate = null;
 			this.selectedFilteredDate = null;
+			this.selectedFriendships = [];
 			this.discount = 0;
 
 			DateTimeService.getFutureByProjectionId(this.projectionId)
@@ -39,9 +47,26 @@ angular.module('reservation')
 			};
 
 			this.send = () => {
+				if(this.seats.length < 1)
+				{
+					this.status = 'Select a seat you want to reserve';
+					return;
+				}
+				if(this.seats.length != this.selectedFriendships.length + 1)
+				{
+					this.status = `You have to invite
+						${this.selectedFriendships.length + 1} friends
+						because you reserved ${this.seats.length} seats`;
+					return;
+				}
+
+				let friendIds = [];
+				for(let friendship of this.selectedFriendships)
+					friendIds.push(friendship.friend.id);
 				let reservation = {
 					dateAndTimeId: this.selectedFilteredDate.id,
-					seats: this.seats
+					seats: this.seats,
+					friendIds: friendIds
 				};
 				ReservationService.add(reservation)
 					.then( () => {

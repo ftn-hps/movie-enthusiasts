@@ -9,12 +9,15 @@ import org.springframework.stereotype.Component;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeService;
 import ftnhps.movieenthusiasts.users.User;
+import ftnhps.movieenthusiasts.users.UserService;
 
 @Component
 public class ReservationConverter {
 	
 	@Autowired
 	private DateAndTimeService dateAndTimeService;
+	@Autowired
+	private UserService userService;
 
 	public List<Reservation> fromDTO(ReservationDTO dto, User forUser) {
 		List<Reservation> ret = new ArrayList<>();
@@ -22,8 +25,8 @@ public class ReservationConverter {
 		if(dto.getSeats() == null || dto.getSeats().size() < 1)
 			return null;
 		
-		if(dto.getFriends() != null
-			&& dto.getFriends().size() != dto.getSeats().size() + 1)
+		if(dto.getFriendIds() != null && dto.getFriendIds().size() > 0)
+			if(dto.getFriendIds().size() + 1 != dto.getSeats().size())
 				return null;
 		
 		// Reserve available seats in DateAndTime
@@ -48,15 +51,16 @@ public class ReservationConverter {
 				dateAndTime,
 				dto.getSeats().get(0),
 				forUser));
-		if(dto.getFriends() == null)
+		if(dto.getFriendIds() == null || dto.getFriendIds().size() < 1)
 			return ret;
 		// Reserve for friends
-		for(int i = 0; i < dto.getFriends().size(); i++)
+		for(int i = 0; i < dto.getFriendIds().size(); i++)
 		{
+			User friend = userService.findOne(dto.getFriendIds().get(i));
 			ret.add(new Reservation(0,
 					dateAndTime,
 					dto.getSeats().get(i+1),
-					dto.getFriends().get(i)));
+					friend));
 		}
 		return ret;
 	}
