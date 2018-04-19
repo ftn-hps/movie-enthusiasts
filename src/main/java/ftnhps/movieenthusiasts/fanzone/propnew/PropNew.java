@@ -5,7 +5,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -29,6 +32,9 @@ public class PropNew {
 	@NotBlank
 	private String description;
 	
+	@NotNull
+	private Boolean deleted;
+	
 	private String imagePath;
 	
 	public PropNew() {}
@@ -38,6 +44,7 @@ public class PropNew {
 		this.name = name;
 		this.description = description;
 		this.imagePath = imagePath;
+		this.deleted = false;
 	}
 
 	public Long getId() {
@@ -78,6 +85,14 @@ public class PropNew {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 }

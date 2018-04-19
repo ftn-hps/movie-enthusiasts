@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -14,6 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import ftnhps.movieenthusiasts.fanzone.bid.Bid;
 import ftnhps.movieenthusiasts.users.User;
 
 @Entity
@@ -24,7 +26,7 @@ public class PropUsed {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private User user;
 	
 	@NotBlank
@@ -38,6 +40,9 @@ public class PropUsed {
 	
 	private Boolean approved;
 	
+	@OneToOne(optional = true)
+	private Bid acceptedBid;
+	
 	private String imagePath;
 	
 	public PropUsed() {}
@@ -49,6 +54,7 @@ public class PropUsed {
 		this.date = date;
 		this.approved = false;
 		this.imagePath = imagePath;
+		this.acceptedBid = null;
 	}
 
 	public Long getId() {
@@ -107,4 +113,12 @@ public class PropUsed {
 		this.imagePath = imagePath;
 	}
 
+	public Bid getAcceptedBid() {
+		return acceptedBid;
+	}
+
+	public void setAcceptedBid(Bid acceptedBid) {
+		this.acceptedBid = acceptedBid;
+	}
+	
 }

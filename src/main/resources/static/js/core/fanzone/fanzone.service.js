@@ -16,6 +16,9 @@ angular.module('core.fanzone').service('FanZoneService', function($http) {
 		this.editPropNew = (id, data) => {
 			return $http.put(`/api/fanzone/propsnew/edit/${id}`, data);
 		};
+		this.deletePropNew = (id) => {
+			return $http.delete(`/api/fanzone/propsnew/delete/${id}`);
+		};
 		
 		this.getPropsUsed = () => {
 			return $http.get('/api/fanzone/propsused');
@@ -23,6 +26,9 @@ angular.module('core.fanzone').service('FanZoneService', function($http) {
 		this.getPropsUsedOfApproved = (app) => {
 			return $http.get(`/api/fanzone/propsused/approved/${app}`);
 		};
+		this.getUsersPropsUsed = () => {
+			return $http.get('/api/fanzone/propsused/user');
+		}
 		this.getPropUsed = (id) => {
 			return $http.get(`/api/fanzone/propsused/${id}`);
 		};
@@ -32,10 +38,14 @@ angular.module('core.fanzone').service('FanZoneService', function($http) {
 		this.approvePropUsed = (id, app) => {
 			return $http.put(`/api/fanzone/propsused/${id}/approve/${app}`);
 		};
+		
 		this.getBids = (propId)  => {
 			return $http.get(`/api/fanzone/propsused/bids/${propId}`);
 		};
 		this.addBid = (data) => {
 			return $http.post('/api/fanzone/propsused/bids/add', data);
+		};
+		this.acceptBid = (bidId) => {
+			return $http.put(`/api/fanzone/propsused/bids/accept/${bidId}`);
 		};
 });

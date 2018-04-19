@@ -16,17 +16,17 @@ public class PropNewServiceImpl implements PropNewService {
 
 	@Override
 	public PropNew findOne(Long id) {
-		return propNewRepository.findOne(id);
+		return propNewRepository.findOneByIdAndDeleted(id, false);
 	}
 
 	@Override
 	public List<PropNew> findAll() {
-		return propNewRepository.findAll();
+		return propNewRepository.findByDeleted(false);
 	}
 
 	@Override
 	public List<PropNew> findAll(Long placeId) {
-		return propNewRepository.findByPlace_Id(placeId);
+		return propNewRepository.findByPlace_IdAndDeleted(placeId, false);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class PropNewServiceImpl implements PropNewService {
 
 	@Override
 	public PropNew edit(Long id, PropNew input) {
-		if(findOne(id) == null)
+		if(propNewRepository.findOne(id) == null)
 			return null;
 
 		input.setId(id);

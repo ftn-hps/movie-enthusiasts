@@ -1,12 +1,15 @@
 package ftnhps.movieenthusiasts.fanzone;
 
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +52,7 @@ public class FanZoneController {
 	@Autowired
 	private HttpSession session;
 	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@GetMapping("/propsnew")
 	public ResponseEntity<List<PropNew>> getPropsNew() {
 		User user = (User) session.getAttribute("user");
@@ -115,14 +119,45 @@ public class FanZoneController {
 		return new ResponseEntity<>(propNew, HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/propsnew/delete/{id:\\d+}")
+	public ResponseEntity<?> delete(@PathVariable Long id) {
+		User user = (User) session.getAttribute("user");
+		if(user == null || !user.getUserType().equals(UserType.FANZONEADMIN))
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		PropNew propNew = propNewService.findOne(id);
+		if(propNew == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		propNew.setDeleted(true);
+		propNew = propNewService.edit(id, propNew);
+		if(propNew == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	@GetMapping("/propsused")
 	public ResponseEntity<List<PropUsed>> getPropsUsed() {
 		User user = (User) session.getAttribute("user");
 		if(user == null)
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		
-		List<PropUsed> propsUsed = propUsedService.findAll(true);
+		List<PropUsed> propsUsed = propUsedService.findAll(true, null);
 		if(propsUsed == null || propsUsed.isEmpty())
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(propsUsed, HttpStatus.OK);
+	}
+	
+	@GetMapping("/propsused/user")
+	public ResponseEntity<List<List<PropUsed>>> getUsersPropsUsed() {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		List<List<PropUsed>> propsUsed = propUsedService.findAll(user);
+		if(propsUsed == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(propsUsed, HttpStatus.OK);
 	}
@@ -137,7 +172,7 @@ public class FanZoneController {
 		if(app.equals("FALSE"))
 			a = false;
 		
-		List<PropUsed> propsUsed = propUsedService.findAll(a);
+		List<PropUsed> propsUsed = propUsedService.findAll(a, null);
 		if(propsUsed == null || propsUsed.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(propsUsed, HttpStatus.OK);
@@ -152,6 +187,13 @@ public class FanZoneController {
 		PropUsed propUsed = propUsedService.findOne(id);
 		if(propUsed == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		if( (propUsed.getApproved() == null || !propUsed.getApproved()) && (!user.getUserType().equals(UserType.FANZONEADMIN) && user.getId() != propUsed.getUser().getId()) )
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		if( (propUsed.getAcceptedBid() != null || propUsed.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z")))) &&  (!user.getUserType().equals(UserType.FANZONEADMIN) && user.getId() != propUsed.getUser().getId()) )
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		return new ResponseEntity<>(propUsed, HttpStatus.OK);
 	}
 	
@@ -195,16 +237,47 @@ public class FanZoneController {
 		return new ResponseEntity<>(propUsed, HttpStatus.OK);
 	}
 	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	@GetMapping("/propsused/bids/{propId:\\d+}")
 	public ResponseEntity<List<Bid>> getBids(@PathVariable Long propId) {
 		User user = (User) session.getAttribute("user");
 		if(user == null)
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		
+		PropUsed propUsed = propUsedService.findOne(propId);
+		if(propUsed == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		if( (propUsed.getApproved() == null || !propUsed.getApproved()) && (!user.getUserType().equals(UserType.FANZONEADMIN) && user.getId() != propUsed.getUser().getId()) )
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		if( (propUsed.getAcceptedBid() != null || propUsed.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z")))) &&  (!user.getUserType().equals(UserType.FANZONEADMIN) && user.getId() != propUsed.getUser().getId()) )
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
 		List<Bid> bids = bidService.findAll(propId);
 		if(bids == null || bids.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(bids, HttpStatus.OK);
+	}
+	
+	@PutMapping("/propsused/bids/accept/{bidId:\\d+}")
+	public ResponseEntity<PropUsed> acceptBid(@PathVariable Long bidId) {
+		User user = (User) session.getAttribute("user");
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		Bid bid = bidService.findOne(bidId);
+		if(bid == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		PropUsed prop = bid.getPropUsed();
+		if(prop.getAcceptedBid() != null || prop.getUser().getId() != user.getId())
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		prop.setAcceptedBid(bid);
+		prop = propUsedService.edit(prop.getId(), prop);
+		return new ResponseEntity<>(prop, HttpStatus.OK);
 	}
 	
 	@PostMapping("/propsused/bids/add")

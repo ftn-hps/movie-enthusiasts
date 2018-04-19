@@ -5,31 +5,58 @@
     	<p class="card-text">{{$ctrl.prop.description}}</p>
     	<h5 class="card-title">Ends on</h5>
     	<p class="card-text">{{$ctrl.prop.date.toLocaleString()}}</p>
-	    <form name="bid" class="form-inline">
+	    <form ng-if="$ctrl.enableBidding" name="bid" class="form-inline">
 			<div class="form-group mx-sm-3 mb-2">
-			    <input type="number" step="any" class="form-control" placeholder="Your bid" ng-model="$ctrl.bid.bid" required>
+			    <input type="number" step="any" min="0" class="form-control" placeholder="Your bid" ng-model="$ctrl.bid.bid" required>
 			</div>
 	  		<input type="submit" value="Bid" class="btn btn-custom mb-2" ng-click="bid.$valid && $ctrl.send()"/>
 	  		<p class="mx-sm-3 mb-2">{{$ctrl.status}}</p>
 		</form>
-		<h5 class="card-title">Bids</h5>
-		<table class="table">
+		<h5 ng-if="!$ctrl.prop.acceptedBid" class="card-title"><a ng-click="$ctrl.refreshBids()">Bids</a></h5>
+		<h5 ng-if="$ctrl.prop.acceptedBid" class="card-title">Accepted bid</h5>
+		<table ng-if="!$ctrl.prop.acceptedBid" class="table">
+			<tr>
+				<th>
+					<a ng-click="$ctrl.sortBy('user')">User</a>
+					<span ng-show="$ctrl.propertyName === 'user'">
+						<i class="fas fa-sort-up" ng-show="!$ctrl.reverse"></i>
+						<i class="fas fa-sort-down" ng-show="$ctrl.reverse"></i>
+					</span>
+				</th>
+				<th>
+					<a ng-click="$ctrl.sortBy('bid')">Bid</a>
+					<span ng-show="$ctrl.propertyName === 'bid'">
+						<i class="fas fa-sort-up" ng-show="!$ctrl.reverse"></i>
+						<i class="fas fa-sort-down" ng-show="$ctrl.reverse"></i>
+					</span>
+				</th>
+				<th ng-if="$ctrl.canAccept && !$ctrl.prop.acceptedBid"></th>
+			</tr>
+			<tr ng-repeat="bid in $ctrl.bids | orderBy:$ctrl.propertyName:$ctrl.reverse">
+				<td>{{bid.user.name + ' ' + bid.user.lastName}}</td>
+				<td>{{bid.bid}}</td>
+				<td ng-if="$ctrl.canAccept && !$ctrl.prop.acceptedBid"><a class="btn btn-custom" ng-click="$ctrl.acceptBid(bid.id)">Accept</a></td>
+			</tr>
+		</table>
+		<table ng-if="$ctrl.prop.acceptedBid" class="table">
 			<tr>
 				<th>User</th>
 				<th>Bid</th>
-				<th></th>
 			</tr>
-			<tr ng-repeat="bid in $ctrl.bids">
-				<td>{{bid.user.name + ' ' + bid.user.lastName}}</td>
-				<td>{{bid.bid}}</td>
-				<td ng-if="$ctrl.canAccept"><a class="btn btn-custom">Accept</a></td>
+			<tr>
+				<td>{{$ctrl.prop.acceptedBid.user.name + ' ' + $ctrl.prop.acceptedBid.user.lastName}}</td>
+				<td>{{$ctrl.prop.acceptedBid.bid}}</td>
 			</tr>
 		</table>
 	</div>
 </div>
 
 <div ng-if="$ctrl.prop.place" class="card text-center">
-	<h5 class="card-header">{{$ctrl.prop.name}}</h5>
+	<h5 class="card-header">
+		{{$ctrl.prop.name}}
+		<a class="btn btn-custom" ui-sref="fanzoneAdmin.editNewProp({id: $ctrl.prop.id})">Edit</a>
+		<a class="btn btn-custom" ng-click="$ctrl.deleteProp()">Delete</a>
+	</h5>
 	<div class="card-body">
 	    <h5 class="card-title">Description</h5>
 	    <p class="card-text">{{$ctrl.prop.description}}</p>

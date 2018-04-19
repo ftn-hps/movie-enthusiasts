@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -23,10 +23,11 @@ public class Bid {
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private PropUsed propUsed;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private User user;
 
 	@NotNull
@@ -72,5 +73,5 @@ public class Bid {
 	public void setBid(Double bid) {
 		this.bid = bid;
 	}
-	
+
 }

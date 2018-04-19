@@ -93,6 +93,11 @@ angular.module('movie-enthusiasts')
 				component: 'myPropsUsed'
 			})
 			.state({
+				name: 'propsused.user',
+				url: '/user',
+				component: 'myUsersPropsUsedDisplay'
+			})
+			.state({
 				name: 'propsused.prop',
 				url: '/{id:\\d+}',
 				component: 'myPropUsedDisplay'
@@ -121,6 +126,11 @@ angular.module('movie-enthusiasts')
 				name: 'fanzoneAdmin.approveUsedProp',
 				url: '/approve/{id:\\d+}',
 				component: 'myPropUsedAdminDisplay'
+			})
+			.state({
+				name: 'fanzoneAdmin.editNewProp',
+				url: '/edit/{id:\\d+}',
+				component: 'myPropNewEdit'
 			})
 			.state({
 				name: 'error',
