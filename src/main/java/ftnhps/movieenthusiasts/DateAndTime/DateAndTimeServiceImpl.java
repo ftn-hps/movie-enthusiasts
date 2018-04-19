@@ -59,6 +59,9 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 		if(input.getProjection() == null)
 			return null;
 		
+		//postaviti layout dateTime na onaj koji sala ima sama po sebi
+		input.setReservationLayout(input.getHall().getLayout());
+		
 		return dateAndTimeOfProjectionRepository.save(input);
 	}
 
