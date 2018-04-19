@@ -12,6 +12,9 @@ public class ReservationDTO {
 	
 	private List<User> friends;
 	
+	private int discount;
+	
+	
 	public ReservationDTO() {}
 
 	public ReservationDTO(long dateAndTimeId, List<Integer> seats, List<User> friends) {
@@ -20,6 +23,14 @@ public class ReservationDTO {
 		this.friends = friends;
 	}
 
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+	
 	public long getDateAndTimeId() {
 		return dateAndTimeId;
 	}

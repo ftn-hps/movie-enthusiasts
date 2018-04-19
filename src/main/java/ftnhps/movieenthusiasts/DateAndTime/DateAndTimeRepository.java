@@ -12,7 +12,11 @@ import ftnhps.movieenthusiasts.projections.Projection;
 @Repository
 public interface DateAndTimeRepository extends JpaRepository<DateAndTime, Long>{
 
+	DateAndTime findByIdAndTimeStampGreaterThan(Long id, Long timeStamp);
+	
 	List<DateAndTime> findByProjection(Projection projection);
+	
+	List<DateAndTime> findByProjectionAndTimeStampGreaterThan(Projection projection, Long timeStamp);
 	
 	List<DateAndTime> findByProjectionAndHall(Projection projection,Hall hall);
 }

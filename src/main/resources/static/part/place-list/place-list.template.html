@@ -33,8 +33,7 @@
 					<a ui-sref="home.placeDetail({id: place.id})">
 						{{place.name}}
 					</a>
-					<!- TODO kad se u USER doda type staviti $root.user.type == ADMIN da se proveri -->
-					<a ng-if="$root.user"
+					<a ng-if="$root.user.userType == 'PLACEADMIN'"
 						ui-sref="home.placeDetailAdmin({id: place.id})">
 							<i class="fas fa-edit"></i>
 					</a>

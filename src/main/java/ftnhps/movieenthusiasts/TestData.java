@@ -1,8 +1,6 @@
 package ftnhps.movieenthusiasts;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 
 import javax.annotation.PostConstruct;
@@ -88,7 +86,7 @@ public class TestData {
 				"Drama", 
 				"Paja",
 				120, 
-				"/",
+				"/img/placeholder.png",
 				3, 
 				"Klasicni romeo i julija",
 				333.00);
@@ -100,7 +98,7 @@ public class TestData {
 				"Aaaaa", 
 				"Aaaaa",
 				120, 
-				"/",
+				"/img/placeholder.png",
 				5, 
 				"Aaaaaaa",
 				333.00);
@@ -112,7 +110,7 @@ public class TestData {
 				"Bbbbbbb", 
 				"Bbbbbb",
 				120, 
-				"/",
+				"/img/placeholder.png",
 				5, 
 				"Bbbbbbbbb",
 				5000.00);
@@ -128,14 +126,14 @@ public class TestData {
 		hallService.add(hall3);
 		
 		DateAndTime dateAndTime1 = new DateAndTime(
-				new Long(946684800),
+				new Long(1520352000),
 				"oooooooooooo",
 				projection1,
 				hall1);
 		dateAndTimeOfProjectionService.add(dateAndTime1);
 		
 		DateAndTime dateAndTime2 = new DateAndTime(
-				new Long(1273053600),
+				new Long(1517569200),
 				"xxoooooxx",
 				projection3,
 				hall3);
@@ -148,12 +146,23 @@ public class TestData {
 				hall2);
 		dateAndTimeOfProjectionService.add(dateAndTime3);
 		
+		DateAndTime dateAndTime4 = new DateAndTime(
+				new Long(1514800800),
+				"xxoooooxx",
+				projection2,
+				hall2);
+		dateAndTimeOfProjectionService.add(dateAndTime4);
+		
 		Reservation reservation1 = new Reservation(5.0, dateAndTime1, 3, user1);
 		reservationService.add(reservation1);
 		Reservation reservation2 = new Reservation(0.0, dateAndTime2, 4, user1);
 		reservationService.add(reservation2);
 		Reservation reservation3 = new Reservation(0.0, dateAndTime3, 4, user1);
 		reservationService.add(reservation3);
+		Reservation reservation4 = new Reservation(10.0, dateAndTime4, 4, user1);
+		reservationService.add(reservation4);
+		Reservation reservation5 = new Reservation(10.0, dateAndTime4, 4, null);
+		reservationService.add(reservation5);
 		
 		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "");
 		propNewService.add(propnew1);

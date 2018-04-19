@@ -1,41 +1,88 @@
-<h2> Repertoire of {{$ctrl.place.name}}: </h2>
+<div class="row">
+	<div class="col order-2 order-md-0">
+		<h2> Repertoire of {{$ctrl.place.name}}: </h2>
 
-<div class="row no-gutters align-items-stretch">
-	<div ng-repeat="projection in $ctrl.projections"
-		class="card m-md-1 col-lg-4 col-md-6">
-			<img class="card-img-top" src="/img/placeholder.png"/>
-			<div class="card-body">
-				<h3 class="card-title">
-					{{projection.name}}
-				</h3>
-				<div class="card-subtitle mb-2 text-muted">
-					<span class="separate">
-						<my-stars rating="projection.averageRating" max="5"></my-stars>
-						{{projection.averageRating}}/5
-					</span>
-					<span class="separate">
-						<i class="fas fa-stopwatch"></i>
-						{{projection.duration}}
-					</span>
-					<span class="separate">
-						<i class="fas fa-tag"></i>
-						{{projection.genre}}
-					</span>
-				</div>
-				<p class="card-text">{{projection.shortDescription}}</p>
-				<p class="card-text">
-					<span class="font-italic">Director:</span>
-					{{projection.producer}}
-					<br/>
-					<span class="font-italic">Stars:</span>
-					{{projection.listOfActors}}
-				</p>
+		<div class="row no-gutters align-items-stretch">
+			<div ng-repeat="projection in $ctrl.projections"
+				class="card m-md-1 col-lg-4 col-md-6">
+					<img class="card-img-top" ng-src="{{projection.imagePath}}" /> <!-- src="projection.imagePath"/>  -->
+					<div class="card-body">
+						<h3 class="card-title">
+							{{projection.name}}
+						</h3>
+						<div class="card-subtitle mb-2 text-muted">
+							<span class="separate">
+								<my-stars rating="projection.averageRating" max="5"></my-stars>
+								{{projection.averageRating}}/5
+							</span>
+							<span class="separate">
+								<i class="fas fa-stopwatch"></i>
+								{{projection.duration}}
+							</span>
+							<span class="separate">
+								<i class="fas fa-tag"></i>
+								{{projection.genre}}
+							</span>
+						</div>
+						<p class="card-text">{{projection.shortDescription}}</p>
+						<p class="card-text">
+							<span class="font-italic">Director:</span>
+							{{projection.producer}}
+							<br/>
+							<span class="font-italic">Stars:</span>
+							{{projection.listOfActors}}
+						</p>
+					</div>
+					<div class="card-footer" ng-if="$root.user">
+						<a class="btn btn-custom"
+							ui-sref="home.reserve({placeId: $ctrl.placeId, projectionId: projection.id})">
+							Reserve seats for {{ projection.price | currency}}
+						</a>
+					</div>
 			</div>
-			<div class="card-footer">
-				<a class="btn btn-custom"
-					ui-sref="home.reserve({placeId: $ctrl.placeId, projectionId: projection.id})">
-					Reserve seats for {{ projection.price | currency}}
-				</a>
+		</div>
+	</div>
+	<div class="col-md-3" ng-if="$root.user">
+		<h2>Fast reservations:</h2>
+
+		<div class="row no-gutters align-items-stretch">
+			<div ng-repeat="reservation in $ctrl.fastReservations"
+				class="card m-md-1 col-12">
+				<div class="card-body">
+						<h3 class="card-title">
+							{{reservation.dateTime.projection.name}}
+						</h3>
+						<div class="card-subtitle mb-2 text-muted">
+							<span class="separate">
+								<my-stars rating="reservation.dateTime.projection.averageRating" max="5"></my-stars>
+								{{reservation.dateTime.projection.averageRating}}/5
+							</span>
+							<span class="separate">
+								<i class="fas fa-stopwatch"></i>
+								{{reservation.dateTime.projection.duration}}
+							</span>
+							<span class="separate">
+								<i class="fas fa-tag"></i>
+								{{reservation.dateTime.projection.genre}}
+							</span>
+						</div>
+						<p class="card-text">{{reservation.dateTime.projection.shortDescription}}</p>
+						<p class="card-text">
+							<span class="font-italic">Director:</span>
+							{{reservation.dateTime.projection.producer}}
+							<br/>
+							<span class="font-italic">Stars:</span>
+							{{reservation.dateTime.projection.listOfActors}}
+						</p>
+					</div>
+					<div class="card-footer">
+						<button class="btn btn-custom"
+							ng-click="$ctrl.sendFastReservation(reservation.id)">
+							Reserve seat {{reservation.seat}}
+							for {{ reservation.priceWithDiscount | currency}}
+						</button>
+					</div>
 			</div>
+		</div>
 	</div>
 </div>

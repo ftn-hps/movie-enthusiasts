@@ -2,7 +2,7 @@
 <h1 ng-if = "$ctrl.projectionId == -1">Add new Projection</h1>
 
 <div class="row justify-content-md-left">
-	<form name="projectionForm">
+	<form name="projectionForm" >
 	
 	<div class="form-group row">
     <label for="nameInput">Name:</label>
@@ -20,7 +20,7 @@
 		id="artistsInput"
 		class="form-group form-control"
 		placeholder="Artists list"
-		ng-model="$ctrl.projection.listOfActers"
+		ng-model="$ctrl.projection.listOfActors" 
 		ng-required="true"/>
 	</div>
 	
@@ -81,10 +81,16 @@
 		ng-required="true"/>
 	</div>
 	
+	<div ng-if = "$ctrl.projectionId ==-1 ">
+		<label for="nameInput">PosterPicture:</label>
+		<div class="btn btn-custom" ngf-select ng-model="$ctrl.file" name="file" ngf-pattern="'image/*'"
+	    ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+	    ngf-resize="{width: 350, height: 150}">Select</div>
+	    {{$ctrl.file.$ngfName}}
+		<br><br>
+	</div>
 	
-	
-	<div class="form-group row">
-    <label for="nameInput">PosterPicture:(//TODO)</label>
+    <!-- <label for="nameInput">PosterPicture:(//TODO)</label>
 	<input type="file"
 		step = 'any'
 		id="fileInput"
@@ -92,7 +98,7 @@
 		ng-model = "$ctrl.uploadedFile"
 		placeholder="filePath"/>
 	</div>
-	
+	 -->
 	
 	<button class="btn btn-custom"
 		ng-click="projectionForm.$valid && $ctrl.send()">Send

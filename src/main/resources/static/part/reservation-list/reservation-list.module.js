@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('attendanceHistory', [
+angular.module('reservationList', [
 	'ui.router',
 	'core.reservation'
 ]);

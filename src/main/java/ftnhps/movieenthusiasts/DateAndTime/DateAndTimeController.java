@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,6 +77,19 @@ public class DateAndTimeController {
 		if(projection == null )
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		List<DateAndTime> dateAndTimeOfProjection = dateAndTimeOfProjectionService.findByProjection(projection);
+		if(dateAndTimeOfProjection == null )
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(dateAndTimeOfProjection,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/projection/{idProjection:\\d+}/future")
+	public ResponseEntity<List<DateAndTime>> getFutureDatesOfProjection(@PathVariable Long idProjection){
+		Projection projection = projectionService.findOne(idProjection);
+		
+		if(projection == null )
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		List<DateAndTime> dateAndTimeOfProjection = dateAndTimeOfProjectionService.findFutureByProjection(projection);
 		if(dateAndTimeOfProjection == null )
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(dateAndTimeOfProjection,HttpStatus.OK);

@@ -33,4 +33,8 @@ public interface ReservationService {
 
 	List<Reservation> findHistory(User user);
 	
+	List<Reservation> findFuture(User user);
+
+	List<Reservation> findFastReservations(Long id);
+	
 }

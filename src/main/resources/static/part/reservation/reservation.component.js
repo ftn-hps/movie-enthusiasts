@@ -16,8 +16,9 @@ angular.module('reservation')
 
 			this.selectedDate = null;
 			this.selectedFilteredDate = null;
+			this.discount = 0;
 
-			DateTimeService.getByProjectionId(this.projectionId)
+			DateTimeService.getFutureByProjectionId(this.projectionId)
 				.then( (response) => {
 					this.dates = response.data;
 				});
@@ -33,14 +34,32 @@ angular.module('reservation')
 				}
 			};
 
+			this.seatsChanged = (output) => {
+				this.seats = output;
+			};
+
 			this.send = () => {
 				let reservation = {
 					dateAndTimeId: this.selectedFilteredDate.id,
-					seats: [2]
+					seats: this.seats
 				};
 				ReservationService.add(reservation)
 					.then( () => {
 						this.status = 'Reservation created successfully';
+					}, () => {
+						this.status = 'Error';
+					});
+			};
+
+			this.sendFast = () => {
+				let reservation = {
+					dateAndTimeId: this.selectedFilteredDate.id,
+					seats: this.seats,
+					discount: this.discount
+				};
+				ReservationService.addFast(reservation)
+					.then( () => {
+						this.status = 'Fast reservation created successfully';
 					}, () => {
 						this.status = 'Error';
 					});

@@ -27,13 +27,34 @@
 						<option value="">---Please select a hall---</option>
 				</select>
 			</div>
-			<p>
-				{{$ctrl.selectedFilteredDate.reservationLayout}}
-			</p>
+			<div class="form-group" ng-if="$root.user.userType == 'PLACEADMIN'">
+				<label for="discountInput">
+					Discount:
+				</label>
+				<input type="number"
+					value = 0
+					max = 100
+					min = 0
+					id="discountInput"
+					class="form-control"
+					placeholder="Discount"
+					ng-model="$ctrl.discount"/>
+			</div>
+			<div>
+				<label>Seats:</label>
+				<my-seats seats="$ctrl.selectedFilteredDate.reservationLayout"
+					columns="$ctrl.selectedFilteredDate.hall.columns"
+					on-change="$ctrl.seatsChanged(output)">
+				</my-seats>
+			</div>
 			<input type="submit"
 				class="btn btn-custom"
 				value="Reserve"
 				ng-click="reservationForm.$valid && $ctrl.send()"/>
+			<input type="submit" ng-if="$root.user.userType == 'PLACEADMIN'"
+				class="btn btn-custom"
+				value="Prepare a fast reservation"
+				ng-click="reservationForm.$valid && $ctrl.sendFast()"/>
 			<p>
 				{{$ctrl.status}}
 			</p>

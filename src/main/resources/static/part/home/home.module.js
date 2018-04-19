@@ -5,10 +5,10 @@ angular.module('home', [
 	'placeList',
 	'placeDetail',
 	'reservation',
+	'reservationList',
 	'placeEdit',
 	'projectionForm',
 	'hallForm',
-	'attendanceHistory',
 	'rateReservation',
 	'chart'
 ]);

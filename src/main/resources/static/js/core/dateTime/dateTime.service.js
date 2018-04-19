@@ -11,6 +11,9 @@ angular.module('core.dateTime')
 		this.getByProjectionId = (id) =>{
 			return $http.get('/api/dateAndTimeOfProjections/projection/' + id);
 		};
+		this.getFutureByProjectionId = (id) =>{
+			return $http.get(`/api/dateAndTimeOfProjections/projection/${id}/future`);
+		};
 		this.add = (data) => {
 			return $http.post('/api/dateAndTimeOfProjections/', data);
 		};

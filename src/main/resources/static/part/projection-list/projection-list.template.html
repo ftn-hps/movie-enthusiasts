@@ -9,6 +9,11 @@
 				<a ng-if="$root.user" ui-sref="home.projectionForm({idPlace: projection.place.id, idProjection: projection.id})">
 					Edit
 				</a>
+				<br>
+				<button
+				class="btn btn-custom"
+				ng-click="$ctrl.deleteProjection(projection.id)">Delete
+				</button>
 			</h3>
 			<div class="card-subtitle mb-2 text-muted">
 				<my-stars rating="projection.averageRating" max="5"></my-stars>

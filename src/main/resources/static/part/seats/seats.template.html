@@ -1,0 +1,18 @@
+<span ng-repeat="seat in $ctrl.seats.split('') track by $index">
+	<br ng-if="$index % $ctrl.columns === 0"/>
+	<input type="button"
+		class="seat btn"
+		ng-class="seat"
+		ng-click="$ctrl.change($index)"/>
+</span>
+<p class="mt-3">
+	<span class="seat o btn"></span> Available seats
+	<br/>
+	<span class="seat r btn"></span> Reserved seats
+	<br/>
+	<span class="seat x btn"></span> Unavailable seats
+	<br/>
+	<span class="seat v btn"></span> VIP seats
+	<br/>
+	<span class="seat a btn"></span> Selected seats
+</p>

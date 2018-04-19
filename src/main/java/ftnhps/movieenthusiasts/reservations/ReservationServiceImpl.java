@@ -62,9 +62,11 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public List<Reservation> add(List<Reservation> reservations) {
 		List<Reservation> ret = new ArrayList<>();
-		for(Reservation reservation : reservations)
-			ret.add(reservationRepository.save(reservation));
-
+		for(Reservation r : reservations) {
+			r.setPriceWithDiscount(r.getDateTime().getProjection().getPrice() - 
+					r.getDateTime().getProjection().getPrice()*(r.getDicount()/100));
+			ret.add(reservationRepository.save(r));
+		}
 		return ret;
 	}
 	
@@ -118,12 +120,29 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public List<Reservation> findHistory(User user) {
-		List<Reservation> reservations = reservationRepository.findByUser(user);
-		Long timestamp = System.currentTimeMillis()/1000;
-		List<Reservation> ret = new ArrayList<Reservation>();
-		for(Reservation reservation : reservations) {
-			if(timestamp >reservation.getDateTime().getTimeStamp())
-				ret.add(reservation);
+		return reservationRepository
+				.findByUserAndDateTime_TimeStampLessThan(user, System.currentTimeMillis()/1000);
+	}
+	
+	@Override
+	public List<Reservation> findFuture(User user) {
+		return reservationRepository
+				.findByUserAndDateTime_TimeStampGreaterThan(user, System.currentTimeMillis()/1000);
+	}
+
+	@Override
+	public List<Reservation> findFastReservations(Long id) {
+		Place place = placeService.findOne(id);
+		if(place == null)
+			return null;
+		
+		List<Reservation> reservations = findByDateTimeProjectionPlace(place);
+		if(reservations == null || reservations.isEmpty())
+			return null;
+		List<Reservation> ret = new ArrayList<>();
+		for(Reservation r :reservations) {
+			if(r.getUser() == null)
+				ret.add(r);
 		}
 		return ret;
 	}
