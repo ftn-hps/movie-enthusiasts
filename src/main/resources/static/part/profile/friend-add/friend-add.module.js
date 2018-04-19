@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('profile.friendAdd', [
-	'core.friendship'
+	'core.friendship',
+	'core.user'
 ]);
