@@ -37,6 +37,13 @@
 					</span>
 					{{reservation.dateTime.timeStamp*1000 | date:'medium'}}
 				</p>
+				<p class="card-text">
+					<span class="font-italic">
+						<i class="fas fa-bookmark"></i>
+						Reserved seat:
+					</span>
+					{{reservation.seat}}
+				</p>
 			</div>
 			<div class="card-footer">
 				<a ng-if="$ctrl.type === 'history'"

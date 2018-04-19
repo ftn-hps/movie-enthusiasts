@@ -1,5 +1,21 @@
 <div>
 	<h2>{{$ctrl.placeType}} list:</h2>
+	<form class="form-row">
+		<div class="col-md-auto">
+			<div class="form-group input-group">
+				<input type="text"
+					class="form-control"
+					ng-model="$ctrl.search"
+					placeholder="Search {{$ctrl.placeType | lowercase}}s"
+					autofocus/>
+				<div class="input-group-append">
+					<span class="input-group-text">
+						<i class="fas fa-search"></i>
+					</span>
+				</div>
+			</div>
+		</div>
+	</form>
 	Order by:
 	<ul class="list-inline d-inline">
 		<li class="list-inline-item separate">
@@ -26,7 +42,7 @@
 	</ul>
 </div>
 <div class="row no-gutters align-items-stretch">
-	<div ng-repeat="place in $ctrl.places | orderBy:$ctrl.order:$ctrl.isReverse"
+	<div ng-repeat="place in $ctrl.places | filter:$ctrl.search | orderBy:$ctrl.order:$ctrl.isReverse"
 		class="card m-md-1 col-lg-4 col-md-6">
 			<div class="card-body">
 				<h3 class="card-title">

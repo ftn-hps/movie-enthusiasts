@@ -2,25 +2,23 @@ package ftnhps.movieenthusiasts.reservations;
 
 import java.util.List;
 
-import ftnhps.movieenthusiasts.users.User;
-
 public class ReservationDTO {
 
 	private long dateAndTimeId;
 	
 	private List<Integer> seats;
 	
-	private List<User> friends;
+	private List<Long> friendIds;
 	
 	private int discount;
 	
 	
 	public ReservationDTO() {}
 
-	public ReservationDTO(long dateAndTimeId, List<Integer> seats, List<User> friends) {
+	public ReservationDTO(long dateAndTimeId, List<Integer> seats, List<Long> friendIds) {
 		this.dateAndTimeId = dateAndTimeId;
 		this.seats = seats;
-		this.friends = friends;
+		this.friendIds = friendIds;
 	}
 
 	public int getDiscount() {
@@ -47,12 +45,12 @@ public class ReservationDTO {
 		this.seats = seats;
 	}
 
-	public List<User> getFriends() {
-		return friends;
+	public List<Long> getFriendIds() {
+		return friendIds;
 	}
 
-	public void setFriends(List<User> friends) {
-		this.friends = friends;
+	public void setFriendIds(List<Long> friendIds) {
+		this.friendIds = friendIds;
 	}
 
 }

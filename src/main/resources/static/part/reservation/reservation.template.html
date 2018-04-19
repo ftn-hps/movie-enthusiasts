@@ -40,12 +40,23 @@
 					placeholder="Discount"
 					ng-model="$ctrl.discount"/>
 			</div>
-			<div>
+			<div ng-show="$ctrl.selectedFilteredDate">
 				<label>Seats:</label>
 				<my-seats seats="$ctrl.selectedFilteredDate.reservationLayout"
 					columns="$ctrl.selectedFilteredDate.hall.columns"
 					on-change="$ctrl.seatsChanged(output)">
 				</my-seats>
+			</div>
+			<div class="form-group" ng-show="$ctrl.seats.length > 1">
+				<label for="friendSelect">
+					Invite friends:
+				</label>
+				<select multiple id="friendSelect"
+					class="form-control"
+					ng-model="$ctrl.selectedFriendships"
+					ng-options="friendship.friend.email for friendship in $ctrl.friendships track by friendship.id"
+					ng-required="$ctrl.seats.length > 1">
+				</select>
 			</div>
 			<input type="submit"
 				class="btn btn-custom"
