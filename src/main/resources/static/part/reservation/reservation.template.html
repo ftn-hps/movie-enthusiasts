@@ -54,8 +54,7 @@
 				<select multiple id="friendSelect"
 					class="form-control"
 					ng-model="$ctrl.selectedFriendships"
-					ng-options="friendship.friend.email for friendship in $ctrl.friendships track by friendship.id"
-					ng-required="$ctrl.seats.length > 1">
+					ng-options="friendship.friend.email for friendship in $ctrl.friendships track by friendship.id">
 				</select>
 			</div>
 			<input type="submit"
