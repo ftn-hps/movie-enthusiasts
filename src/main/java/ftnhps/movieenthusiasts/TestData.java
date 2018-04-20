@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
+import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeRepository;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeService;
 import ftnhps.movieenthusiasts.fanzone.propnew.PropNew;
 import ftnhps.movieenthusiasts.fanzone.propnew.PropNewService;
@@ -46,6 +47,8 @@ public class TestData {
 	private PropUsedService propUsedService;
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private DateAndTimeRepository dateAndTimeRepository;
 	@Autowired
 	private CronJobs cron;
 	
@@ -140,41 +143,48 @@ public class TestData {
 		
 		DateAndTime dateAndTime1 = new DateAndTime(
 				new Long(1520352000),
-				"oooooooooooo",
+				"rooooooooooo",
 				projection1,
 				hall1);
-		dateAndTimeOfProjectionService.add(dateAndTime1);
+		dateAndTimeRepository.save(dateAndTime1);
 		
 		DateAndTime dateAndTime2 = new DateAndTime(
 				new Long(1517569200),
-				"xxoooooxx",
+				"xxrooooxx",
 				projection3,
 				hall3);
-		dateAndTimeOfProjectionService.add(dateAndTime2);
+		dateAndTimeRepository.save(dateAndTime2);
 		
 		DateAndTime dateAndTime3 = new DateAndTime(
 				new Long(1533722400),
-				"xxoooooxx",
+				"rooooooov",
 				projection2,
 				hall2);
-		dateAndTimeOfProjectionService.add(dateAndTime3);
+		dateAndTimeRepository.save(dateAndTime3);
 		
 		DateAndTime dateAndTime4 = new DateAndTime(
 				new Long(1514800800),
-				"xxoooooxx",
+				"rrooooooo",
 				projection2,
 				hall2);
-		dateAndTimeOfProjectionService.add(dateAndTime4);
+		dateAndTimeRepository.save(dateAndTime4);
 		
-		Reservation reservation1 = new Reservation(5.0, dateAndTime1, 3, user1);
+		DateAndTime dateAndTime5 = new DateAndTime(
+				new Long(1534800800),
+				"xxooooooo",
+				projection2,
+				hall2);
+		dateAndTimeRepository.save(dateAndTime5);
+		
+		Reservation reservation1 = new Reservation(5.0, dateAndTime1, 0, user1);
 		reservationService.add(reservation1);
-		Reservation reservation2 = new Reservation(0.0, dateAndTime2, 4, user1);
+		Reservation reservation2 = new Reservation(0.0, dateAndTime2, 2, user1);
 		reservationService.add(reservation2);
-		Reservation reservation3 = new Reservation(0.0, dateAndTime3, 4, user1);
+		Reservation reservation3 = new Reservation(0.0, dateAndTime3, 0, user1);
 		reservationService.add(reservation3);
-		Reservation reservation4 = new Reservation(10.0, dateAndTime4, 4, user1);
+		Reservation reservation4 = new Reservation(10.0, dateAndTime4, 0, user1);
 		reservationService.add(reservation4);
-		Reservation reservation5 = new Reservation(10.0, dateAndTime4, 4, null);
+		Reservation reservation5 = new Reservation(10.0, dateAndTime4, 1, null);
 		reservationService.add(reservation5);
 		
 		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "/img/placeholder.png");
