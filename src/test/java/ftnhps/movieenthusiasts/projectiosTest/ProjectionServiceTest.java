@@ -34,7 +34,7 @@ public class ProjectionServiceTest {
 	@Test
 	public void testFindAll() {
 		List<Projection> students = projectionService.findAll();
-		assertThat(students).hasSize(DB_COUNT_PROJECTIONS +1); 
+		assertThat(students).hasSize(DB_COUNT_PROJECTIONS ); 
 	}
 	
 	@Test
