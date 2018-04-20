@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,6 +24,9 @@ public class DateAndTime {
 	@JsonProperty(access = Access.READ_ONLY)
 	@GeneratedValue
 	private Long id;
+	
+	@Version
+	private Long version;
 	
 	@Min(100)
 	private Long timeStamp;

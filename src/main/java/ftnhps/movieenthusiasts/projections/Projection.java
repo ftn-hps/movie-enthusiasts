@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -19,6 +20,8 @@ public class Projection {
 	@GeneratedValue
 	private Long id;
 	
+	@Version
+	private Long version;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Place place;

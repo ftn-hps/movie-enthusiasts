@@ -4,15 +4,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ftnhps.movieenthusiasts.reservations.Reservation;
 import ftnhps.movieenthusiasts.reservations.ReservationRepository;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class PlaceServiceImpl implements PlaceService {
 
@@ -37,11 +39,13 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Place add(Place input) {
 		return placeRepository.save(input);
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Place edit(Long id, Place input) {
 		if(findOne(id) == null)
 			return null;
@@ -51,6 +55,7 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public void recalculateRating(Place place) {
 		List<Reservation> reservations = reservationRepository.findByDateTime_Projection_Place(place);
 		int sum = place.getRating();
@@ -62,6 +67,7 @@ public class PlaceServiceImpl implements PlaceService {
 			}		
 		}
 		place.setRating((int)sum/number);
+		placeRepository.save(place);
 	}
 
 	@Override

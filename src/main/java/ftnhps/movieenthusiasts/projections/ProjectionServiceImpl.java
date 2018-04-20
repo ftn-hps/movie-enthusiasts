@@ -2,17 +2,18 @@ package ftnhps.movieenthusiasts.projections;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ftnhps.movieenthusiasts.places.Place;
 import ftnhps.movieenthusiasts.places.PlaceRepository;
 import ftnhps.movieenthusiasts.reservations.Reservation;
 import ftnhps.movieenthusiasts.reservations.ReservationRepository;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class ProjectionServiceImpl implements ProjectionService{
 
@@ -34,6 +35,7 @@ public class ProjectionServiceImpl implements ProjectionService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Projection add(Projection input) {
 		input.setPlace( placeRepository.findOne(input.getPlace().getId())  );
 		if(input.getPlace() == null)
@@ -43,6 +45,7 @@ public class ProjectionServiceImpl implements ProjectionService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Projection edit(Long id, Projection input) {
 		input.setPlace( placeRepository.findOne(input.getPlace().getId())  );
 		if(input.getPlace() == null)
@@ -60,6 +63,7 @@ public class ProjectionServiceImpl implements ProjectionService{
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public void recalculateRation(Projection projection) {
 		List<Reservation> reservations = reservationRepository.findByDateTime_Projection(projection);
 		int sum = projection.getAverageRating();
@@ -71,10 +75,11 @@ public class ProjectionServiceImpl implements ProjectionService{
 			}		
 		}
 		projection.setAverageRating((int)sum/number);
-		
+		projectionRepository.save(projection);
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Projection delete(Long id) {
 		
 		Projection projection = projectionRepository.findOne(id);

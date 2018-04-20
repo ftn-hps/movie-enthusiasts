@@ -2,10 +2,12 @@ package ftnhps.movieenthusiasts.DateAndTime;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.hall.HallRepository;
@@ -13,8 +15,9 @@ import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.projections.ProjectionRepository;
 
 
-@Transactional
+
 @Service
+@Transactional(readOnly = true)
 public class DateAndTimeServiceImpl implements DateAndTimeService{
 
 	@Autowired
@@ -48,6 +51,7 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public DateAndTime add(DateAndTime input) {
 		Hall hall = input.getHall();
 		input.setHall( hallRepository.findOne(hall.getId()) );
@@ -66,6 +70,7 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public DateAndTime edit(Long id, DateAndTime input) {
 		if(findOne(id) == null)
 			return null;
@@ -86,6 +91,7 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 	}
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public boolean remove(Long id) {
 		DateAndTime dateAndTime = dateAndTimeOfProjectionRepository.findOne(id);
 		if(dateAndTime == null)

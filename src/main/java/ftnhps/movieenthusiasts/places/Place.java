@@ -5,6 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
@@ -16,6 +17,9 @@ public class Place {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
+	@Version
+	private Long version;
 	
 	@Enumerated(EnumType.STRING)
 	private PlaceType type;
