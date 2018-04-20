@@ -77,4 +77,27 @@ public class ProjectionServiceTest {
 		assertThat(projection.getGenre()).isEqualTo("Drama");
 		
 	}
+	
+	@Test
+    @Transactional
+    @Rollback(true) 
+	public void testEdit() {
+		
+		Projection projection = projectionService.findOne(new Long(DB_ID));
+		
+		assertThat(projection).isNotNull();
+		assertThat(projection.getName()).isEqualTo(DB_NAME);
+		
+		projection.setName(DB_NEW_NAME);
+		projection.setShortDescription(DB_NEW_DESCRIPTION);
+		
+		projectionService.edit(projection.getId(), projection);
+		
+		projection = projectionService.findOne(new Long(DB_ID));
+		assertThat(projection.getName()).isEqualTo(DB_NEW_NAME);
+		assertThat(projection.getShortDescription()).isEqualTo(DB_NEW_DESCRIPTION);
+		
+	}
+	
+	
 }
