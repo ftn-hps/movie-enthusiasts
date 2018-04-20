@@ -1,18 +1,24 @@
 package ftnhps.movieenthusiasts.users;
 
+import java.net.UnknownHostException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import ftnhps.movieenthusiasts.EmailUtils;
 
 @RestController
 @RequestMapping("/api/user-auth")
@@ -22,13 +28,29 @@ public class UserAuthController {
 	private UserService userService;
 	@Autowired
 	private HttpSession session;
+	@Autowired 
+	private EmailUtils email;
 
 	@PostMapping
-	public ResponseEntity<User> register(@RequestBody @Valid User user) {
+	public ResponseEntity<User> register(@RequestBody @Valid User user) 
+			throws MailException, InterruptedException, UnknownHostException {
 		User registered = userService.register(user);
 		if(registered == null)
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		
+		email.sendEmail(registered, 
+				"Register on Movie Enthusiasts", 
+				"/api/user-auth/confirm/" + registered.getToken());
 		return new ResponseEntity<>(registered, HttpStatus.OK);
+	}
+	
+	@GetMapping("/confirm/{token}")
+	public ResponseEntity<User> confirm(@PathVariable String token) {
+		User user = userService.confirm(token);
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@PutMapping

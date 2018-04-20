@@ -10,6 +10,8 @@ public interface UserService {
 
 	User register(User user);
 
+	User confirm(String token); 
+
 	User logIn(User user);
 
 	User edit(Long id, User user);

@@ -38,6 +38,16 @@ public class UserServiceImpl implements UserService {
 		
 		return null;
 	}
+	
+	@Override
+	public User confirm(String token) {
+		User existing = userRepository.findByToken(token);
+		if(existing == null)
+			return null;
+		
+		existing.setEmailConfirmed(true);
+		return userRepository.save(existing);
+	}
 
 	@Override
 	public User logIn(User user) {
@@ -45,7 +55,8 @@ public class UserServiceImpl implements UserService {
 		if(existing == null)
 			return null;
 		
-		if(existing.getPassword().equals(user.getPassword()))
+		if(existing.getPassword().equals(user.getPassword())
+				&& existing.isEmailConfirmed())
 			return existing;
 		
 		return null;

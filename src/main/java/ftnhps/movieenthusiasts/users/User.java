@@ -1,5 +1,7 @@
 package ftnhps.movieenthusiasts.users;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,6 +34,11 @@ public class User {
 	@NotEmpty
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private boolean isEmailConfirmed = false;
+	@JsonProperty(access = Access.READ_ONLY)
+	private String token = UUID.randomUUID().toString();
 
 	@Pattern(regexp = "(?U)\\p{Alpha}*")
 	private String name;
@@ -95,6 +102,22 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isEmailConfirmed() {
+		return isEmailConfirmed;
+	}
+
+	public void setEmailConfirmed(boolean isEmailConfirmed) {
+		this.isEmailConfirmed = isEmailConfirmed;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public String getName() {
