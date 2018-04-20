@@ -2,15 +2,14 @@ package ftnhps.movieenthusiasts.friendships;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ftnhps.movieenthusiasts.users.User;
 import ftnhps.movieenthusiasts.users.UserService;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class FriendshipServiceImpl implements FriendshipService {
 
@@ -35,6 +34,7 @@ public class FriendshipServiceImpl implements FriendshipService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Friendship add(Long senderId, Long receiverId) {
 		if(senderId == receiverId)
 			return null;
@@ -53,6 +53,7 @@ public class FriendshipServiceImpl implements FriendshipService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Friendship accept(Long id, User receiver) {
 		Friendship friendship = friendshipRepository.findOne(id);
 		if(friendship == null || friendship.getReceiver().getId() != receiver.getId())
@@ -64,6 +65,7 @@ public class FriendshipServiceImpl implements FriendshipService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public boolean remove(Long id, User user) {
 		List<Friendship> usersFriendships = findAllOfUser(user);
 		Friendship friendship = findOne(id);
