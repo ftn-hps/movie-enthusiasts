@@ -1,5 +1,9 @@
 <h1>Add Hall</h1>
 
+<!-- Ako neko nije adnim nema sta da trazi ovde -->
+<div ng-if="$root.user.userType == 'PLACEADMIN'" >
+
+ 
 <div class="row justify-content-md-left">
 	<form name="hallForm">
 	
@@ -61,5 +65,7 @@
 	</p>
 	</form>
 	
+</div>
+
 </div>
 	

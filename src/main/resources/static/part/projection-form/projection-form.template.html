@@ -1,6 +1,9 @@
 <h1 ng-if = "$ctrl.projectionId != -1">Edit Projection {{$ctrl.placeId}}/{{$ctrl.projectionId}}</h1>
 <h1 ng-if = "$ctrl.projectionId == -1">Add new Projection</h1>
 
+<!-- Ako neko nije adnim nema sta da trazi ovde -->
+<div ng-if="$root.user.userType == 'PLACEADMIN'" >
+
 <div class="row justify-content-md-left">
 	<form name="projectionForm" >
 	
@@ -195,4 +198,9 @@
 	</div>
 </div>
 </div>
+
+
+<!-- Kraj zastite(ako neko nije admin) -->
+</div>
+
 	
