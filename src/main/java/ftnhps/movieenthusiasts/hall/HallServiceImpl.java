@@ -33,13 +33,13 @@ public class HallServiceImpl implements HallService{
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public Hall add(Hall input) {
 		return hallRepository.save(input);
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public Hall edit(Long id, Hall input) {
 		if(findOne(id) == null)
 			return null;
@@ -48,7 +48,7 @@ public class HallServiceImpl implements HallService{
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public Hall delete(Long id) {
 		Hall hall = hallRepository.findOne(id);
 		if(hall == null)

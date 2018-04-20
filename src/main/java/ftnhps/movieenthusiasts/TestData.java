@@ -175,7 +175,7 @@ public class TestData {
 		
 		DateAndTime dateAndTime5 = new DateAndTime(
 				new Long(1534800800),
-				"xxooooooo",
+				"ooooooooo",
 				projection2,
 				hall2);
 		dateAndTimeRepository.save(dateAndTime5);

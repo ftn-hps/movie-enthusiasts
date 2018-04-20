@@ -91,6 +91,14 @@ public class Projection {
 		this.place = place;
 	}
 
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	public String getName() {
 		return name;
 	}

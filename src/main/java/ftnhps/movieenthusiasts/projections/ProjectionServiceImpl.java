@@ -35,7 +35,7 @@ public class ProjectionServiceImpl implements ProjectionService{
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public Projection add(Projection input) {
 		input.setPlace( placeRepository.findOne(input.getPlace().getId())  );
 		if(input.getPlace() == null)
@@ -79,7 +79,7 @@ public class ProjectionServiceImpl implements ProjectionService{
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public Projection delete(Long id) {
 		
 		Projection projection = projectionRepository.findOne(id);

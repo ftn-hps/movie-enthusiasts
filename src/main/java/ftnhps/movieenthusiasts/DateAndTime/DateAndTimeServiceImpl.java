@@ -51,7 +51,7 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public DateAndTime add(DateAndTime input) {
 		Hall hall = input.getHall();
 		input.setHall( hallRepository.findOne(hall.getId()) );
@@ -70,7 +70,7 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public DateAndTime edit(Long id, DateAndTime input) {
 		if(findOne(id) == null)
 			return null;
@@ -91,7 +91,7 @@ public class DateAndTimeServiceImpl implements DateAndTimeService{
 	}
 	
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public boolean remove(Long id) {
 		DateAndTime dateAndTime = dateAndTimeOfProjectionRepository.findOne(id);
 		if(dateAndTime == null)
