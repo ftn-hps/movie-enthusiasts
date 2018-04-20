@@ -1,7 +1,9 @@
 <div class="row">
 	<div class="col order-2 order-md-0">
+		<ng-map ng-if="$ctrl.mark" center="{{$ctrl.mark}}" zoom="13" style="display: block; height: 500px;">
+			<marker position="{{$ctrl.mark}}"></marker>
+		</ng-map>
 		<h2> Repertoire of {{$ctrl.place.name}}: </h2>
-
 		<div class="row no-gutters align-items-stretch">
 			<div ng-repeat="projection in $ctrl.projections"
 				class="card m-md-1 col-lg-4 col-md-6">

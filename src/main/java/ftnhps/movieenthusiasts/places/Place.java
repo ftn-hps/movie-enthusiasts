@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -35,6 +34,14 @@ public class Place {
 	
 	@NotBlank
 	private String description;
+	
+	@Min(-90)
+	@Max(90)
+	private Double lat;
+	
+	@Min(-180)
+	@Max(180)
+	private Double lng;
 
 	public Place() {}
 
@@ -42,12 +49,16 @@ public class Place {
 			String name,
 			int rating,
 			String address,
-			String description) {
+			String description,
+			Double lat,
+			Double lng) {
 		this.type = type;
 		this.name = name;
 		this.rating = rating;
 		this.address = address;
 		this.description = description;
+		this.lat = lat;
+		this.lng = lng;
 	}
 
 	public Long getId() {
@@ -98,4 +109,20 @@ public class Place {
 		this.description = description;
 	}
 
+	public Double getLat() {
+		return lat;
+	}
+
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+	
+	public Double getLng() {
+		return lng;
+	}
+
+	public void setLng(Double lng) {
+		this.lat = lng;
+	}
+	
 }

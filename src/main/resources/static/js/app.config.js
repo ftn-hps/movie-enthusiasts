@@ -43,6 +43,11 @@ angular.module('movie-enthusiasts')
 				component: 'myPlaceEdit'
 			})
 			.state({
+				name: 'home.addPlace',
+				url: '^/add-palce',
+				component: 'myAddPlace'
+			})
+			.state({
 				name: 'home.projectionForm',
 				url: '^/projectionForm/:idPlace?idProjection',
 				component: 'myProjectionForm'

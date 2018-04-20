@@ -1,0 +1,20 @@
+<div class="row justify-content-md-left">
+	<div class="col-sm-5">
+		<form name="addPlace">
+			<input type="text" class="form-group form-control" placeholder="Name" ng-model="$ctrl.place.name" required/>
+			<select class="form-group form-control" ng-model="$ctrl.place.type" required>
+				<option value="CINEMA" selected>Cinema</option>
+				<option value="THEATRE">Theatre</option>
+			</select>
+			<input type="text" class="form-group form-control" placeholder="Address" ng-model="$ctrl.place.address" required/>
+			<textarea type="text" id="nameInput" class="form-group form-control input-lg" placeholder="Description" ng-model="$ctrl.place.description" rows = 5 required></textarea>
+			<input type="submit" class="btn btn-custom" value="Add" ng-click="addPlace.$valid && $ctrl.send()"/>
+			<p>{{$ctrl.status}}</p>
+		</form>
+	</div>
+	<div class="col-sm-7">
+		<ng-map center="{{$ctrl.place.address}}" zoom="13" style="display: block; height: 500px;" on-click="$ctrl.getpos($event)">
+			<marker ng-if="$ctrl.marker" position="{{$ctrl.marker}}" draggable="true" on-click="$ctrl.removeMarker()"></marker>
+		</ng-map>
+	</div>
+</div>

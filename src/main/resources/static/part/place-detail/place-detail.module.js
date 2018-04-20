@@ -3,5 +3,6 @@
 angular.module('placeDetail', [
 	'ui.router',
 	'core.place',
-	'core.projection'
+	'core.projection',
+	'ngMap'
 ]);

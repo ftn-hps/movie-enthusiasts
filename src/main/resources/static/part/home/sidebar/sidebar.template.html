@@ -15,6 +15,14 @@
 				Cinemas
 		</a>
 	</li>
+	<li ng-if="$root.user.userType == 'SYSADMIN'" class="nav-item">
+		<a class="nav-link"
+			ui-sref="home.addPlace"
+			ui-sref-active="active">
+				<i class="fas fa-plus"></i>
+				Add place
+		</a>
+	</li>
 	<li class="nav-item" ng-if="$root.user">
 		<a class="nav-link"
 			ui-sref="home.reservations({type: 'future'})"

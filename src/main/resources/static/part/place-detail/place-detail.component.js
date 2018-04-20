@@ -9,6 +9,9 @@ angular.module('placeDetail')
 			PlaceService.getOne(this.placeId)
 				.then((response) => {
 					this.place = response.data;
+					if(this.place.lat){
+						this.mark = [this.place.lat, this.place.lng];
+					}
 				}, () => {
 					this.place = null;
 				});

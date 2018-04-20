@@ -7,6 +7,7 @@ angular.module('home', [
 	'reservation',
 	'reservationList',
 	'placeEdit',
+	'addPlace',
 	'projectionForm',
 	'hallForm',
 	'rateReservation',

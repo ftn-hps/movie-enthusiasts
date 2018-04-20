@@ -2,6 +2,7 @@ package ftnhps.movieenthusiasts.places;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftnhps.movieenthusiasts.users.User;
+import ftnhps.movieenthusiasts.users.UserType;
+
 @RestController
 @RequestMapping("/api/places")
 public class PlaceController {
 
 	@Autowired
 	private PlaceService placeService;
+	@Autowired
+	private PlaceConverter placeConverter;
+	@Autowired
+	private HttpSession session;
 	
 	@GetMapping
 	public ResponseEntity<List<Place>> getPlaces() {
@@ -57,8 +65,16 @@ public class PlaceController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Place> add(@RequestBody @Valid Place input) {
-		Place place = placeService.add(input);
+	public ResponseEntity<Place> add(@RequestBody PlaceDTO input) {
+		User user = (User) session.getAttribute("user");
+		if(user == null || !user.getUserType().equals(UserType.SYSADMIN))
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		Place place = placeConverter.fromDTO(input);
+		if(place == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		
+		place = placeService.add(place);
 		return new ResponseEntity<>(place, HttpStatus.OK);
 	}
 	

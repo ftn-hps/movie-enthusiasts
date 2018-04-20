@@ -60,11 +60,20 @@ public class TestData {
 		user2.setUserType(UserType.PLACEADMIN);
 		userService.register(user2);
 		
+		User user3 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
+		user3.setUserType(UserType.FANZONEADMIN);
+		userService.register(user3);
+		
+		User user4 = new User("sys@sys.com", "dddddd", "Sys", "Admin", "Ddd", null);
+		user4.setUserType(UserType.SYSADMIN);
+		userService.register(user4);
+		
 		Place place1 = new Place(PlaceType.CINEMA,
 				"Arena Cineplex",
 				4,
 				"Novi Sad",
-				"Arena Cineplex je kompletno renovirana 2010. godine u skladu sa najnovijim svetskim standardima.");
+				"Arena Cineplex je kompletno renovirana 2010. godine u skladu sa najnovijim svetskim standardima.", 
+				45.262143, 19.831931);
 		placeService.add(place1);
 		
 		Place place2 = new Place(PlaceType.THEATER,
@@ -72,14 +81,16 @@ public class TestData {
 				5,
 				"Novi Sad",
 				"Srpsko narodno pozoriste je najstariji profesionalni teatar u Srbiji. "
-				+ "Osnovano je 1861. godine u Novom Sadu i od tada neprestano funkcionise.");
+				+ "Osnovano je 1861. godine u Novom Sadu i od tada neprestano funkcionise.", 
+				45.262143, 19.831931);
 		placeService.add(place2);
 		
 		Place place3 = new Place(PlaceType.THEATER,
 				"Pozoriste mladih",
 				3,
 				"Novi Sad",
-				"Pozoriste mladih osnovano je 1932. godine kao Lutkarsko pozoriste, pri Sokolskom drustvu u Novom Sadu.");
+				"Pozoriste mladih osnovano je 1932. godine kao Lutkarsko pozoriste, pri Sokolskom drustvu u Novom Sadu.", 
+				45.262143, 19.831931);
 		placeService.add(place3);
 		
 		Projection projection1 = new Projection(place1,
@@ -172,10 +183,6 @@ public class TestData {
 		PropUsed propused1 = new PropUsed(user1, "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "/img/placeholder.png");
 		propused1.setApproved(true);
 		propUsedService.add(propused1);
-		
-		User user3 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
-		user3.setUserType(UserType.FANZONEADMIN);
-		userService.register(user3);
 		
 		// This has to be the last statement
 		// Don't add anything bellow
