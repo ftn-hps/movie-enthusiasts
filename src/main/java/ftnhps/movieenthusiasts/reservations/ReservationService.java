@@ -31,6 +31,8 @@ public interface ReservationService {
 
 	Reservation rate(Reservation reservation, RateDTO input, User user);
 
+	List<Reservation> findHistory();
+	
 	List<Reservation> findHistory(User user);
 	
 	List<Reservation> findFuture(User user);

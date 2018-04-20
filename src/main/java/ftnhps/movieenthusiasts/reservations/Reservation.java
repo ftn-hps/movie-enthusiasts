@@ -42,6 +42,8 @@ public class Reservation {
 	@Min(0)
 	private int seat;
 	
+	private boolean isRewarded = false;
+	
 	/*
 	 * Ako nema korisnika onda je to ona karta za brzu rezervaciju
 	 */
@@ -127,6 +129,14 @@ public class Reservation {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isRewarded() {
+		return isRewarded;
+	}
+
+	public void setRewarded(boolean isRewarded) {
+		this.isRewarded = isRewarded;
 	}
 	
 	
