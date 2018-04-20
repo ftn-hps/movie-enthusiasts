@@ -10,8 +10,8 @@ angular.module('userAuth.login')
 						$rootScope.user = response.data;
 						$state.go('home');
 					},
-					(response) => {
-						this.status = response.status;
+					() => {
+						this.status = 'Wrong email/password.';
 					});
 			};
 		}

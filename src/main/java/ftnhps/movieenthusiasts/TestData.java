@@ -54,18 +54,22 @@ public class TestData {
 	private void init() {
 		User user1 = new User("ddd@ddd.com", "dddddd", "Ddd", "Ddd", "Ddd", null);
 		user1.setUserType(UserType.VISITOR);
+		user1.setEmailConfirmed(true);
 		userService.register(user1);
 		
 		User user2 = new User("placeAdmin@aaa.com", "aaaaaa", "Aaa", "Aaa", "Aaa", null);
 		user2.setUserType(UserType.PLACEADMIN);
+		user2.setEmailConfirmed(true);
 		userService.register(user2);
 		
 		User user3 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
 		user3.setUserType(UserType.FANZONEADMIN);
+		user3.setEmailConfirmed(true);
 		userService.register(user3);
 		
 		User user4 = new User("sys@sys.com", "dddddd", "Sys", "Admin", "Ddd", null);
 		user4.setUserType(UserType.SYSADMIN);
+		user4.setEmailConfirmed(true);
 		userService.register(user4);
 		
 		Place place1 = new Place(PlaceType.CINEMA,
