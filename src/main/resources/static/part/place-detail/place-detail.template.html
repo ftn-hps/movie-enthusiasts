@@ -70,6 +70,9 @@
 						</div>
 						<p class="card-text">{{reservation.dateTime.projection.shortDescription}}</p>
 						<p class="card-text">
+							<span class="font-italic">Date:</span>
+							{{reservation.dateTime.timeStamp*1000 | date:'medium'}}
+							<br/>
 							<span class="font-italic">Director:</span>
 							{{reservation.dateTime.projection.producer}}
 							<br/>
