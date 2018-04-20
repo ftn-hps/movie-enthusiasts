@@ -98,7 +98,7 @@ public class TestData {
 		
 		Projection projection1 = new Projection(place1,
 				"R&J",
-				"{artists:[\"Paja\" , \"Jare\"]}",
+				"Paja, Jare",
 				"Drama", 
 				"Paja",
 				120, 
@@ -110,7 +110,7 @@ public class TestData {
 		
 		Projection projection2 = new Projection(place1,
 				"aaa",
-				"{artists:[\"aa\" , \"Aa\"]}",
+				"Mika, Pera",
 				"Aaaaa", 
 				"Aaaaa",
 				120, 
