@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -16,6 +17,9 @@ public class Hall {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
+	@Version
+	private Long version;
 	
 	@NotBlank
 	private String name;

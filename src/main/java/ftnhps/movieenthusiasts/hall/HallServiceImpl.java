@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ftnhps.movieenthusiasts.places.Place;
 import ftnhps.movieenthusiasts.projections.Projection;
 
 @Service
+@Transactional(readOnly = true)
 public class HallServiceImpl implements HallService{
 	
 	@Autowired
@@ -30,11 +33,13 @@ public class HallServiceImpl implements HallService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Hall add(Hall input) {
 		return hallRepository.save(input);
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Hall edit(Long id, Hall input) {
 		if(findOne(id) == null)
 			return null;
@@ -43,6 +48,7 @@ public class HallServiceImpl implements HallService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Hall delete(Long id) {
 		Hall hall = hallRepository.findOne(id);
 		if(hall == null)
