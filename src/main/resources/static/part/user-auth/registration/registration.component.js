@@ -12,10 +12,10 @@ angular.module('userAuth.registration')
 				}
 				UserAuthService.register(this.user).then(
 					() => {
-						this.status = 'Registered successfully';
+						this.status = 'Registered successfully. Please confirm your email';
 					},
-					(response) => {
-						this.status = response.status;
+					() => {
+						this.status = 'Error';
 					});
 			};
 		}
