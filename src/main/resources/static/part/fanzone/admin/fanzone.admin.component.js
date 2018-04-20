@@ -44,7 +44,7 @@ angular.module('fanzone.admin').component('myPropUsedAdminDisplay', {
 
 angular.module('fanzone.admin').component('myPropNewForm', {
 	templateUrl: '/part/fanzone/admin/fanzone.admin.prop.form.template.html',
-	controller: function(FanZoneService, PlaceService) {
+	controller: function(FanZoneService, PlaceService, Upload) {
 		this.placeType = 'CINEMA';
 		this.edit = false;
 		
@@ -65,9 +65,15 @@ angular.module('fanzone.admin').component('myPropNewForm', {
 		this.placeChange();
 		
 		this.send = () => {
-			FanZoneService.addPropNew(this.prop).then(
-					() => {
+			FanZoneService.addPropNew(this.prop).then( (response) => {
 						this.status = 'Added succesfully!';
+						if(this.file != null) {
+							Upload.upload({
+						        url: '/api/fanzone/upload',
+						        fields: {'propId': response.data.id, 'propType': 'NEW'}, // additional data to send
+						        file: this.file
+						    });
+						}
 					},
 					(response) => {
 						this.status = response.status;

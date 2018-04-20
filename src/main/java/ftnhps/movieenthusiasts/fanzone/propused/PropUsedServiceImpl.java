@@ -49,7 +49,7 @@ public class PropUsedServiceImpl implements PropUsedService {
 		List<PropUsed> active = new ArrayList<>();
 		List<PropUsed> inactive = new ArrayList<>();
 		for (PropUsed prop : props) {
-			if(prop.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z"))) || prop.getAcceptedBid() != null)
+			if(prop.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z"))) || prop.getAcceptedBid() != null || prop.getApproved() != true)
 				inactive.add(prop);
 			else 
 				active.add(prop);

@@ -5,6 +5,7 @@
     	<p class="card-text">{{$ctrl.prop.description}}</p>
     	<h5 class="card-title">Ends on</h5>
     	<p class="card-text">{{$ctrl.prop.date.toLocaleString()}}</p>
+    	<img ng-src="{{$ctrl.prop.imagePath}}">
 	    <form ng-if="$ctrl.enableBidding" name="bid" class="form-inline">
 			<div class="form-group mx-sm-3 mb-2">
 			    <input type="number" step="any" min="0" class="form-control" placeholder="Your bid" ng-model="$ctrl.bid.bid" required>
@@ -54,12 +55,19 @@
 <div ng-if="$ctrl.prop.place" class="card text-center">
 	<h5 class="card-header">
 		{{$ctrl.prop.name}}
-		<a class="btn btn-custom" ui-sref="fanzoneAdmin.editNewProp({id: $ctrl.prop.id})">Edit</a>
-		<a class="btn btn-custom" ng-click="$ctrl.deleteProp()">Delete</a>
+		<a ng-if="$ctrl.isFanAdmin" class="btn btn-custom" ui-sref="fanzoneAdmin.editNewProp({id: $ctrl.prop.id})">Edit</a>
+		<a ng-if="$ctrl.isFanAdmin" class="btn btn-custom" ng-click="$ctrl.deleteProp()">Delete</a>
 	</h5>
 	<div class="card-body">
 	    <h5 class="card-title">Description</h5>
 	    <p class="card-text">{{$ctrl.prop.description}}</p>
-	    <a class="btn btn-custom">Reservation</a>
+	    <img ng-src="{{$ctrl.prop.imagePath}}">
+	   <form name="reservation" class="form-inline">
+			<div class="form-group mx-sm-3 mb-2">
+			    <input type="number" min="1" class="form-control" placeholder="Quantity" ng-model="$ctrl.reservation.quantity" required>
+			</div>
+	  		<input type="submit" value="Reserve" class="btn btn-custom mb-2" ng-click="reservation.$valid && $ctrl.send()"/>
+	  		<p class="mx-sm-3 mb-2">{{$ctrl.status}}</p>
+		</form>
 	</div>
 </div>

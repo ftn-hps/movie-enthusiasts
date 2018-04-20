@@ -33,8 +33,10 @@
 						ui-sref="propsused">
 							Used props
 					</a>
+					<div ng-if="$root.user.userType == 'FANZONEADMIN'">
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" ui-sref-active="active" ui-sref="fanzoneAdmin">Administration</a>
+					</div>
 				</div>
 			</li>
 			<li class="nav-item" ng-if="$root.user">

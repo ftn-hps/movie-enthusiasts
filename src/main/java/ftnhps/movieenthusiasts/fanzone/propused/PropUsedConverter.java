@@ -20,6 +20,6 @@ public class PropUsedConverter {
 		if( dto.getDate() == null || dto.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z"))) )
 			return null;
 		
-		return new PropUsed(forUser, dto.getName(), dto.getDescription(), dto.getDate(), "");
+		return new PropUsed(forUser, dto.getName(), dto.getDescription(), dto.getDate(), "/img/placeholder.png");
 	}
 }

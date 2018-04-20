@@ -6,5 +6,6 @@ angular.module('fanzone.admin', [
 	'core.fanzone',
 	'core.user',
 	'propsnew',
-	'propsused'
+	'propsused',
+	'ngFileUpload'
 ]);

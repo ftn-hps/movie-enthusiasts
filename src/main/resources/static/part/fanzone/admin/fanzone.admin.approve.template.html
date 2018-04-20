@@ -5,6 +5,7 @@
     	<p class="card-text">{{$ctrl.prop.description}}</p>
     	<h5 class="card-title">Ends on</h5>
     	<p class="card-text">{{$ctrl.prop.date.toLocaleString()}}</p>
+    	<p><img ng-src="{{$ctrl.prop.imagePath}}"></p>
     	<a class="btn btn-custom" ng-click="$ctrl.approve('TRUE')">Approve</a> <a class="btn btn-custom" ng-click="$ctrl.approve('FALSE')">Decline</a>
     	<p>{{$ctrl.status}}</p>
 	</div>

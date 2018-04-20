@@ -10,6 +10,8 @@
 			<option value="">None</option>
 			<option ng-repeat="place in $ctrl.places" value="{{place.id}}">{{place.name}}</option>>
 		</select>
+		<label for="nameInput">PostedPicture: </label>{{$ctrl.file.$ngfName}}
+		<div class="btn btn-custom" ngf-select ng-model="$ctrl.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 350, height: 150}">Select</div><br><br>
 		<input ng-if="$ctrl.edit" type="submit" class="btn btn-custom" value="Edit" ng-click="propnew.$valid && $ctrl.send()"/>
 		<input ng-if="!$ctrl.edit" type="submit" class="btn btn-custom" value="Add" ng-click="propnew.$valid && $ctrl.send()"/>
 		<p>

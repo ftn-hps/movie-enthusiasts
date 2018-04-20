@@ -20,6 +20,16 @@ angular.module('core.fanzone').service('FanZoneService', function($http) {
 			return $http.delete(`/api/fanzone/propsnew/delete/${id}`);
 		};
 		
+		this.getPropReservations = () => {
+			return $http.get('/api/fanzone/propsnew/reservations')
+		};
+		this.addPropReservation = (data) => {
+			return $http.post('/api/fanzone/propsnew/reservations/add', data);
+		};
+		this.cancelReservation = (resId) => {
+			return $http.delete(`/api/fanzone/propsnew/reservations/delete/${resId}`);
+		};
+		
 		this.getPropsUsed = () => {
 			return $http.get('/api/fanzone/propsused');
 		};

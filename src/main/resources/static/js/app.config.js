@@ -83,6 +83,11 @@ angular.module('movie-enthusiasts')
 				component: 'myPropsNewDisplay'
 			})
 			.state({
+				name: 'propsnew.userReservations',
+				url: '/reservations',
+				component: 'myPropReservations'
+			})
+			.state({
 				name: 'propsnew.prop',
 				url: '/{id:\\d+}',
 				component: 'myPropNewDisplay'

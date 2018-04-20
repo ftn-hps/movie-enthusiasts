@@ -27,6 +27,6 @@ public class PropNewConverter {
 		if(dto.getDescription() == null || dto.getDescription().trim().isEmpty())
 			return null;
 		
-		return new PropNew(place, dto.getName(), dto.getDescription(), "");
+		return new PropNew(place, dto.getName(), dto.getDescription(), "/img/placeholder.png");
 	}
 }

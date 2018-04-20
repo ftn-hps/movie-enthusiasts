@@ -164,10 +164,10 @@ public class TestData {
 		Reservation reservation5 = new Reservation(10.0, dateAndTime4, 4, null);
 		reservationService.add(reservation5);
 		
-		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "");
+		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "/img/placeholder.png");
 		propNewService.add(propnew1);
 		
-		PropUsed propused1 = new PropUsed(user1, "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "");
+		PropUsed propused1 = new PropUsed(user1, "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "/img/placeholder.png");
 		propused1.setApproved(true);
 		propUsedService.add(propused1);
 		

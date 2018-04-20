@@ -10,5 +10,6 @@ angular.module('propsnew.display', [
 angular.module('propsused.display', [
 	'ui.router',
 	'core.fanzone',
-	'core.user'
+	'core.user',
+	'ngFileUpload'
 ]);

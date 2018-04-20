@@ -34,8 +34,9 @@ angular.module('propsnew.display').component('myPropsNewDisplay', {
 
 angular.module('propsnew.display').component('myPropNewDisplay', {
 	templateUrl: '/part/fanzone/display/display.prop.template.html',
-	controller: function(FanZoneService, $stateParams, $state) {
+	controller: function(FanZoneService, $rootScope, $stateParams, $state) {
 		this.propId = $stateParams.id;
+		this.isFanAdmin = (($rootScope.user.userType == 'FANZONEADMIN') ? true : false);
 		FanZoneService.getPropNew(this.propId).then( (response) => {
 			this.prop = response.data;
 		}, () => {
@@ -48,8 +49,40 @@ angular.module('propsnew.display').component('myPropNewDisplay', {
 				this.status = response.status;
 			});
 		};
+		this.send = () => {
+			this.reservation.propId = this.propId;
+			FanZoneService.addPropReservation(this.reservation).then( (response) => {
+				this.status = "Reservation successful!"
+			}, (response) => {
+				this.status = response.status;
+			});
+		};
+		
 	}
 });
+
+angular.module('propsnew.display').component('myPropReservations', {
+	templateUrl: '/part/fanzone/display/display.prop.reservations.template.html',
+	controller: function(FanZoneService) {
+		this.getReservations = () => {
+			FanZoneService.getPropReservations().then( (response) => {
+				this.reservations = response.data;
+			}, () => {
+				this.reservations = null;
+			});
+		};
+		this.getReservations();
+		
+		this.cancelRes = (resId) => {
+			FanZoneService.cancelReservation(resId).then( () => {
+				this.getReservations();
+			}, (response) => {
+				this.status = response.status;
+			});
+		};
+	}
+});
+
 
 angular.module('propsused.display').component('myPropsUsedDisplay', {
 	templateUrl: '/part/fanzone/display/display.props.template.html',
@@ -143,12 +176,18 @@ angular.module('propsused.display').component('myPropUsedDisplay', {
 
 angular.module('propsused.display').component('myPropUsedForm', {
 	templateUrl: '/part/fanzone/display/display.prop.form.template.html',
-	controller: function(FanZoneService) {
+	controller: function(FanZoneService, Upload) {
 		this.date = new Date();
 		this.send = () => {
-			FanZoneService.addPropUsed(this.prop).then(
-				() => {
+			FanZoneService.addPropUsed(this.prop).then( (response) => {
 					this.status = 'Added succesfully!';
+					if(this.file != null) {
+						Upload.upload({
+					        url: '/api/fanzone/upload',
+					        fields: {'propId': response.data.id, 'propType': 'USED'}, // additional data to send
+					        file: this.file
+					    });
+					}
 				},
 				(response) => {
 					this.status = response.status;
