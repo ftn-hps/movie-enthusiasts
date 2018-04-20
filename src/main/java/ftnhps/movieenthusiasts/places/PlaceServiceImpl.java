@@ -39,13 +39,13 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public Place add(Place input) {
 		return placeRepository.save(input);
 	}
 
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(readOnly = false)
 	public Place edit(Long id, Place input) {
 		if(findOne(id) == null)
 			return null;
