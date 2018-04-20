@@ -17,5 +17,7 @@ public interface PlaceService {
 	void recalculateRating( Place place);
 
 	ChartDTO getChartData(Place place);
+
+	ChartDTO getChartDataMonth(Place place);
 	
 }

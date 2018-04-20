@@ -1,6 +1,8 @@
 package ftnhps.movieenthusiasts.reservations;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -147,7 +149,8 @@ public class ReservationServiceImpl implements ReservationService{
 			return null;
 		List<Reservation> ret = new ArrayList<>();
 		for(Reservation r :reservations) {
-			if(r.getUser() == null)
+			//provera da li je user null i isto da li je trenutno vreme manje od vremena za kad je rezervacija
+			if(r.getUser() == null && System.currentTimeMillis()/1000 < r.getDateTime().getTimeStamp())
 				ret.add(r);
 		}
 		return ret;

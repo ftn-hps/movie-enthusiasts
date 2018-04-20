@@ -14,6 +14,9 @@ angular.module('core.place')
 		this.getChartData = (id) => {
 			return $http.get('/api/places/chart/'+id);
 		};
+		this.getChartDataMonthTime = (id) => {
+			return $http.get('/api/places/chart/month/'+id);
+		};
 		this.add = (data) => {
 			return $http.post('/api/places/', data);
 		};

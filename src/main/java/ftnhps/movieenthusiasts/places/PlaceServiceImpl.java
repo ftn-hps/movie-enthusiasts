@@ -128,4 +128,50 @@ public class PlaceServiceImpl implements PlaceService {
 		return chartDTO;
 	}
 
+	@Override
+	public ChartDTO getChartDataMonth(Place place) {
+		ChartDTO chartDTO= new ChartDTO(1);
+		
+		//napravim mapu za vrednosti para/posete u mesece
+		HashMap<Integer, Integer[]> dataMap = new HashMap<>();
+		//prvo postavim labele
+		for(int i =0; i < 31 ; i++)
+		{
+			//inicjalizujem mapu
+			dataMap.put(i,new Integer[] {0, 0});
+			//popunim labele
+			StringBuilder sb = new StringBuilder();
+			sb.append("");
+			sb.append(i+1);
+			String strI = sb.toString();
+			chartDTO.lables[i]=strI;
+		}
+		
+		//trenutni datum
+		Date currentDate = new Date();
+		int month = currentDate.getMonth();
+		
+		// izracunavam koliko je rezervacija bilo u tom mesece i koliko je to ukupno kesa
+		List<Reservation> reservations = reservationRepository.findByDateTime_Projection_Place(place);
+		for(Reservation r:reservations) {
+			Date date = new Date(r.getDateTime().getTimeStamp() * 1000);
+			int currentMonth = date.getMonth();
+			if(currentMonth != month)
+				continue;
+			int currentDay = date.getDay();
+			Integer [] currentDayData = dataMap.get(currentDay);
+			currentDayData[0]+=1;
+			currentDayData[1]+=(int) r.getPriceWithDiscount();
+			dataMap.put(currentDay,currentDayData);
+		}
+		
+
+		for (int i =0; i<31; i++) {
+			chartDTO.data[0][30 - i] = dataMap.get(i)[0];
+			chartDTO.data[1][30 - i] = dataMap.get(i)[1];
+		}
+		
+		return chartDTO;
+	}
+
 }
