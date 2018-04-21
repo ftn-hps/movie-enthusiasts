@@ -19,7 +19,19 @@
 				<option value = 'FANZONEADMIN'>FANZONEADMIN</option>
 				<option value = 'SYSADMIN'>SYSADMIN</option>
 			</select>
-			<input type="submit" class="btn btn-custom" value="Change" ng-click="changeRole.$valid && $ctrl.send()"/>
+			<input type="submit" class="btn btn-custom" value="Change role" ng-click="changeRole.$valid && $ctrl.send()"/>
 		</form>
+		<p>{{$ctrl.status}}</p>
+	</div>
+	
+	<div class="col-sm-5">
+		<form name="scale">
+			<label for="silver">Silver medal threshold</label>
+			<input id="silver" type="number" class='form-control form-group' placeholder="Silver threshold" min="0" ng-model="$ctrl.scale.silver" required/">
+			<label for="gold">Gold medal threshold</label>
+			<input id="gold" type="number" class='form-control form-group' placeholder="Gold threshold" min="0" ng-model="$ctrl.scale.gold" required/">
+			<input type="submit" class="btn btn-custom" value="Change scale" ng-click="scale.$valid && $ctrl.sendScale()"/>
+		</form>
+		<p>{{$ctrl.scaleStatus}}</p>
 	</div>
 </div>

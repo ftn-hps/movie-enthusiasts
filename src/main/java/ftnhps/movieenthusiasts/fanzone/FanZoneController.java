@@ -354,7 +354,7 @@ public class FanZoneController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
 		PropUsed prop = bid.getPropUsed();
-		if(prop.getAcceptedBid() != null || prop.getUser().getId() != user.getId())
+		if( prop.getAcceptedBid() != null || prop.getUser().getId() != user.getId() || prop.getDate().isAfter(LocalDateTime.now(ZoneId.of("Z"))) )
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		
 		prop.setAcceptedBid(bid);

@@ -8,6 +8,7 @@
 	DisplayChart(1 month) by days 
 	</button>
 <div class="row justify-content-md-left">
+<div class="col">
 	<form name="place-edit-form">
 	
 	<div class="form-group row">
@@ -65,7 +66,13 @@
 		{{$ctrl.status}}
 	</p>
 	</form>
-	
+</div>
+
+<div class="col-sm-7">
+		<ng-map center="{{$ctrl.place.address}}" zoom="13" style="display: block; height: 500px;" on-click="$ctrl.getpos($event)">
+			<marker ng-if="$ctrl.marker" position="{{$ctrl.marker}}" draggable="true" on-click="$ctrl.removeMarker()"></marker>
+		</ng-map>
+</div>
 </div>
 <h2> Projections: </h2><br>
 <a ui-sref="home.projectionForm({idPlace: $ctrl.place.id, idProjection: -1})">

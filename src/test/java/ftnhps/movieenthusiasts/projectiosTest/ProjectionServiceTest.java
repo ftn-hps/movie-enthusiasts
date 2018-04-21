@@ -1,6 +1,7 @@
 package ftnhps.movieenthusiasts.projectiosTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.intThat;
 import static ftnhps.movieenthusiasts.testingConstants.ProjectionConstants.*;
 
 import java.util.List;
@@ -9,8 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,5 +98,19 @@ public class ProjectionServiceTest {
 		
 	}
 	
+	@Test
+    @Transactional
+    @Rollback(true) 
+	public void testDelete() {
+		
+	int numberBefore = projectionService.findAll().size();
+	projectionService.delete(new Long(DB_COUNT_PROJECTIONS));
+	List<Projection> projections = projectionService.findAll();
+	assertThat(projections).hasSize(numberBefore - 1);
+	
+	Projection projection = projectionService.findOne(new Long(DB_COUNT_PROJECTIONS));
+	assertThat(projection).isNull();
+	
+	}
 	
 }

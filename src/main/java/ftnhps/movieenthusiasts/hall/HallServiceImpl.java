@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ftnhps.movieenthusiasts.places.Place;
+import ftnhps.movieenthusiasts.places.PlaceService;
 import ftnhps.movieenthusiasts.projections.Projection;
 
 @Service
@@ -16,6 +17,8 @@ public class HallServiceImpl implements HallService{
 	
 	@Autowired
 	private HallRepository hallRepository;
+	@Autowired
+	private PlaceService placeService;
 
 	@Override
 	public Hall findOne(Long id) {
@@ -35,6 +38,7 @@ public class HallServiceImpl implements HallService{
 	@Override
 	@Transactional(readOnly = false)
 	public Hall add(Hall input) {
+		input.setPlace(placeService.findOne(input.getPlace().getId()));
 		return hallRepository.save(input);
 	}
 

@@ -134,7 +134,7 @@ public class Place {
 	}
 
 	public void setLng(Double lng) {
-		this.lat = lng;
+		this.lng = lng;
 	}
 	
 }

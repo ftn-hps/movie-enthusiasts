@@ -5,6 +5,7 @@ angular.module('movie-enthusiasts', [
 	'header',
 	'userAuth',
 	'core.user',
+	'core.scale',
 	'profile',
 	'home',
 	'propsnew',

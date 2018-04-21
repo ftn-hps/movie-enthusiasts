@@ -7,12 +7,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ftnhps.movieenthusiasts.users.scale.Scale;
+import ftnhps.movieenthusiasts.users.scale.ScaleService;
+
 @Transactional(readOnly = true)
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ScaleService scaleService;
 	
 	@Value("${threshold.silver}")
 	private int thresholdSilver;
@@ -92,11 +97,18 @@ public class UserServiceImpl implements UserService {
 		int oldPoints = user.getPoints();
 		user.incrementPoints(increment);
 		
-		if(oldPoints < thresholdSilver && user.getPoints() >= thresholdSilver)
-			user.setMedal(MedalType.SILVER);
-		if(oldPoints < thresholdGold && user.getPoints() >= thresholdGold)
-			user.setMedal(MedalType.GOLD);
-		
+		Scale scale = scaleService.getActive();
+		if(scale == null) {
+			if(oldPoints < thresholdSilver && user.getPoints() >= thresholdSilver)
+				user.setMedal(MedalType.SILVER);
+			if(oldPoints < thresholdGold && user.getPoints() >= thresholdGold)
+				user.setMedal(MedalType.GOLD);
+		} else {
+			if(oldPoints < scale.getSilver() && user.getPoints() >= scale.getSilver())
+				user.setMedal(MedalType.SILVER);
+			if(oldPoints < scale.getGold() && user.getPoints() >= scale.getGold())
+				user.setMedal(MedalType.GOLD);
+		}
 		return user;
 	}
 

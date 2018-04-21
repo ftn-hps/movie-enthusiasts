@@ -10,11 +10,12 @@ import org.springframework.stereotype.Component;
 
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeRepository;
-import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeService;
 import ftnhps.movieenthusiasts.fanzone.propnew.PropNew;
 import ftnhps.movieenthusiasts.fanzone.propnew.PropNewService;
 import ftnhps.movieenthusiasts.fanzone.propused.PropUsed;
 import ftnhps.movieenthusiasts.fanzone.propused.PropUsedService;
+import ftnhps.movieenthusiasts.friendships.Friendship;
+import ftnhps.movieenthusiasts.friendships.FriendshipService;
 import ftnhps.movieenthusiasts.hall.Hall;
 import ftnhps.movieenthusiasts.hall.HallService;
 import ftnhps.movieenthusiasts.places.Place;
@@ -34,13 +35,13 @@ public class TestData {
 	@Autowired
 	private UserService userService;
 	@Autowired
+	private FriendshipService friendshipService;
+	@Autowired
 	private PlaceService placeService;
 	@Autowired
 	private ProjectionService projectionService;
 	@Autowired
 	private HallService hallService;
-	@Autowired
-	private DateAndTimeService dateAndTimeOfProjectionService;
 	@Autowired
 	private PropNewService propNewService;
 	@Autowired
@@ -55,25 +56,52 @@ public class TestData {
 	
 	@PostConstruct
 	private void init() {
-		User user1 = new User("ddd@ddd.com", "dddddd", "Ddd", "Ddd", "Ddd", null);
+		if(userService.findOne(1l) != null)
+			return;
+		
+		User user1 = new User("ch@me", "qweqwe", "Chewbacca", "Chewbacca", "Kashyyyk", null);
 		user1.setUserType(UserType.VISITOR);
 		user1.setEmailConfirmed(true);
 		userService.register(user1);
 		
-		User user2 = new User("placeAdmin@aaa.com", "aaaaaa", "Aaa", "Aaa", "Aaa", null);
-		user2.setUserType(UserType.PLACEADMIN);
+		User user2 = new User("rms@me", "qweqwe", "Richard", "Stallman", "New York", null);
+		user2.setUserType(UserType.VISITOR);
 		user2.setEmailConfirmed(true);
 		userService.register(user2);
 		
-		User user3 = new User("fan@fan.com", "dddddd", "Fan", "Zone", "Ddd", null);
-		user3.setUserType(UserType.FANZONEADMIN);
+		User user3 = new User("han@me", "qweqwe", "Han", "Solo", "Corellia", null);
+		user3.setUserType(UserType.VISITOR);
 		user3.setEmailConfirmed(true);
 		userService.register(user3);
 		
-		User user4 = new User("sys@sys.com", "dddddd", "Sys", "Admin", "Ddd", null);
-		user4.setUserType(UserType.SYSADMIN);
+		User user4 = new User("pot@me", "qweqwe", "Lennart", "Poettering", "Guatemala City", null);
+		user4.setUserType(UserType.VISITOR);
 		user4.setEmailConfirmed(true);
 		userService.register(user4);
+		
+		User user5 = new User("placeAdmin@me", "qweqwe", "Ben", "Solo", "Chandrila", null);
+		user5.setUserType(UserType.PLACEADMIN);
+		user5.setEmailConfirmed(true);
+		user5.setPasswordChanged(true);
+		userService.register(user5);
+		
+		User user6 = new User("fan@me", "qweqwe", "Anakin", "Skywalker", "Tatooine", null);
+		user6.setUserType(UserType.FANZONEADMIN);
+		user6.setEmailConfirmed(true);
+		user6.setPasswordChanged(true);
+		userService.register(user6);
+		
+		User user7 = new User("sys@me", "qweqwe", "Sheev", "Palpatine", "Naboo", null);
+		user7.setUserType(UserType.SYSADMIN);
+		user7.setEmailConfirmed(true);
+		user7.setPasswordChanged(true);
+		userService.register(user7);
+		
+		Friendship fs1 = friendshipService.add(user1.getId(), user2.getId());
+		friendshipService.accept(fs1.getId(), user2);
+		friendshipService.add(user3.getId(), user1.getId());
+		friendshipService.add(user4.getId(), user1.getId());
+		
 		
 		Place place1 = new Place(PlaceType.CINEMA,
 				"Arena Cineplex",
@@ -126,7 +154,7 @@ public class TestData {
 		
 		Projection projection3 = new Projection(place2,
 				"Bbbb",
-				"{artists:[\"bbbb\" , \"Bbbbb\"]}",
+				"bbbbb",
 				"Bbbbbbb", 
 				"Bbbbbb",
 				120, 
@@ -135,6 +163,18 @@ public class TestData {
 				"Bbbbbbbbb",
 				5000.00);
 		projectionService.add(projection3);
+		
+		Projection projection4 = new Projection(place2,
+				"cccc",
+				"ccccccc",
+				"cccccc", 
+				"ccccc",
+				120, 
+				"/img/placeholder.png",
+				5, 
+				"ccccc",
+				5000.00);
+		projectionService.add(projection4);
 		
 		Hall hall1 = new Hall("sala1",3,4,"oooooooooooo",place1);
 		hallService.add(hall1);
