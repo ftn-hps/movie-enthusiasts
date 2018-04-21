@@ -85,6 +85,12 @@ public class DateAndTime {
 	}
 
 
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	public Projection getProjection() {
 		return projection;
 	}

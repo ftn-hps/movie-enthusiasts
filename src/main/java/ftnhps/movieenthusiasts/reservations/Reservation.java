@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
@@ -21,6 +22,9 @@ public class Reservation {
 	@GeneratedValue
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
+	
+	@Version
+	private Long version;
 	
 	@Min(0)
 	@Max(5)
@@ -117,6 +121,22 @@ public class Reservation {
 
 	public int getSeat() {
 		return seat;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+	public void setAmbientRating(Integer ambientRating) {
+		this.ambientRating = ambientRating;
+	}
+
+	public void setProjectionRating(Integer projectionRating) {
+		this.projectionRating = projectionRating;
 	}
 
 	public void setSeat(int seat) {

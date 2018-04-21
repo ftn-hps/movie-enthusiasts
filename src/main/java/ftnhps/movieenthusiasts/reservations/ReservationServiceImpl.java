@@ -1,12 +1,12 @@
 package ftnhps.movieenthusiasts.reservations;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTime;
 import ftnhps.movieenthusiasts.DateAndTime.DateAndTimeService;
@@ -16,7 +16,7 @@ import ftnhps.movieenthusiasts.projections.Projection;
 import ftnhps.movieenthusiasts.projections.ProjectionService;
 import ftnhps.movieenthusiasts.users.User;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class ReservationServiceImpl implements ReservationService{
 
@@ -55,11 +55,13 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Reservation add(Reservation reservation) {
 		return reservationRepository.save(reservation);
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public List<Reservation> add(List<Reservation> reservations) {
 		List<Reservation> ret = new ArrayList<>();
 		for(Reservation r : reservations) {
@@ -71,6 +73,7 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 	
 	@Override
+	@Transactional(readOnly = false)
 	public boolean remove(Long id, User user) {
 		List<Reservation> userReservations = findByUser(user);
 		Reservation reservation = findOne(id);
@@ -92,6 +95,7 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Reservation edit(Long id, Reservation reservation) {
 		if(findOne(id) == null)
 			return null;
@@ -105,6 +109,7 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Reservation rate(Reservation reservation, RateDTO input, User user) {
 		List<Reservation> userReservations = findByUser(user);
 		if(!userReservations.contains(reservation))
@@ -147,7 +152,8 @@ public class ReservationServiceImpl implements ReservationService{
 			return null;
 		List<Reservation> ret = new ArrayList<>();
 		for(Reservation r :reservations) {
-			if(r.getUser() == null)
+			//provera da li je user null i isto da li je trenutno vreme manje od vremena za kad je rezervacija
+			if(r.getUser() == null && System.currentTimeMillis()/1000 < r.getDateTime().getTimeStamp())
 				ret.add(r);
 		}
 		return ret;

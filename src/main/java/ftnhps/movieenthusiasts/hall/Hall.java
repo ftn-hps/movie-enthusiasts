@@ -93,6 +93,12 @@ public class Hall {
 		this.layout = layout;
 	}
 
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	public Place getPlace() {
 		return place;
 	}

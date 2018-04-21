@@ -63,6 +63,15 @@ public class PlaceController {
 		
 		return new ResponseEntity<>(chartDTO, HttpStatus.OK);
 	}
+	@GetMapping("/chart/month/{id:\\d+}")
+	public ResponseEntity<ChartDTO> getChartForPlaceOneMonth(@PathVariable Long id) {
+		Place place = placeService.findOne(id);
+		if(place == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		ChartDTO chartDTO = placeService.getChartDataMonth( place);
+		
+		return new ResponseEntity<>(chartDTO, HttpStatus.OK);
+	}
 	
 	@PostMapping
 	public ResponseEntity<Place> add(@RequestBody PlaceDTO input) {

@@ -2,13 +2,12 @@ package ftnhps.movieenthusiasts.users;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -31,6 +30,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public User register(User user) {
 		User existing = userRepository.findByEmail(user.getEmail());
 		if(existing == null)
@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	@Transactional(readOnly = false)
 	public User confirm(String token) {
 		User existing = userRepository.findByToken(token);
 		if(existing == null)
@@ -63,6 +64,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public User edit(Long id, User user) {
 		User existing = findOne(id);
 		if(existing == null)
@@ -83,6 +85,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	@Transactional(readOnly = false)
 	public User rewardUser(Long id, int increment) {
 		User user = findOne(id);
 		

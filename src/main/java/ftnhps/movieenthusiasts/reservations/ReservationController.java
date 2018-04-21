@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ftnhps.movieenthusiasts.EmailUtils;
 import ftnhps.movieenthusiasts.users.User;
 import ftnhps.movieenthusiasts.users.UserType;
 
@@ -29,6 +31,8 @@ public class ReservationController {
 	private HttpSession session;
 	@Autowired
 	private ReservationConverter reservationConverter;
+	@Autowired 
+	private EmailUtils email;
 	
 	@GetMapping
 	public ResponseEntity<List<Reservation>> getAll() {
@@ -76,8 +80,8 @@ public class ReservationController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<List<Reservation>> add(@RequestBody ReservationDTO input)
-	{
+	public ResponseEntity<List<Reservation>> add(@RequestBody ReservationDTO input) 
+			throws MailException, InterruptedException {
 		User user = (User) session.getAttribute("user");
 		if(user == null)
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -87,6 +91,16 @@ public class ReservationController {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		
 		reservations = reservationService.add(reservations);
+		
+		for(Reservation reservation : reservations) {
+			email.sendEmail(reservation.getUser(),
+					"Reservations on Movie Enthusiasts",
+					"You have a new reservation for " 
+					+ reservation.getDateTime().getProjection().getName()
+					+ "\n\nCancel: "
+					+ "/api/reservations/remove/" + reservation.getId());
+		}
+		
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
 	
@@ -161,5 +175,8 @@ public class ReservationController {
 		}
 	}
 	
-	
+	@GetMapping("/remove/{id:\\d+}")
+	public ResponseEntity<?> removeWithGet(@PathVariable Long id) {
+		return remove(id);
+	}
 }

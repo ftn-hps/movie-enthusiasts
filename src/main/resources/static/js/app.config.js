@@ -14,7 +14,7 @@ angular.module('movie-enthusiasts')
 			})
 			.state({
 				name: 'home.chart',
-				url: '^/chart/{id:\\d+}',
+				url: '^/chart/:id?monthTime',
 				component: 'myChart'
 			})
 			.state({

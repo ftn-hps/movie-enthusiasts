@@ -73,6 +73,14 @@ public class Place {
 		this.id = id;
 	}
 
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	public PlaceType getType() {
 		return type;
 	}

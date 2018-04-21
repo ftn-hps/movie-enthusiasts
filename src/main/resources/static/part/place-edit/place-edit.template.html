@@ -1,7 +1,11 @@
 <h2> You are now in admin view of place {{ $ctrl.placeId }} </h2>
 <button id="button-1" class="btn btn-custom" 
-	ui-sref="home.chart({id: $ctrl.placeId})">
-	DisplayChart 
+	ui-sref="home.chart({id: $ctrl.placeId, monthTime: 0})">
+	DisplayChart(6 months) 
+	</button>
+<button id="button-1" class="btn btn-custom" 
+	ui-sref="home.chart({id: $ctrl.placeId, monthTime: 1})">
+	DisplayChart(1 month) by days 
 	</button>
 <div class="row justify-content-md-left">
 	<form name="place-edit-form">
