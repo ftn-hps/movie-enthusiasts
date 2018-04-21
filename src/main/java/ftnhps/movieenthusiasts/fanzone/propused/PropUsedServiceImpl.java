@@ -5,7 +5,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import ftnhps.movieenthusiasts.fanzone.bid.Bid;
 import ftnhps.movieenthusiasts.users.User;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class PropUsedServiceImpl implements PropUsedService {
 	
@@ -49,7 +49,7 @@ public class PropUsedServiceImpl implements PropUsedService {
 		List<PropUsed> active = new ArrayList<>();
 		List<PropUsed> inactive = new ArrayList<>();
 		for (PropUsed prop : props) {
-			if(prop.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z"))) || prop.getAcceptedBid() != null || prop.getApproved() != true)
+			if(prop.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z"))) || prop.getAcceptedBid() != null || prop.getApproved() == null || prop.getApproved() == false)
 				inactive.add(prop);
 			else 
 				active.add(prop);
@@ -61,11 +61,13 @@ public class PropUsedServiceImpl implements PropUsedService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public PropUsed add(PropUsed input) {
 		return propUsedRepository.save(input);
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public PropUsed edit(Long id, PropUsed input) {
 		if(findOne(id) == null)
 			return null;

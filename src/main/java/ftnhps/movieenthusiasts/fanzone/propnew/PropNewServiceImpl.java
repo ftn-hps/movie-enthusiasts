@@ -2,12 +2,12 @@ package ftnhps.movieenthusiasts.fanzone.propnew;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class PropNewServiceImpl implements PropNewService {
 	
@@ -30,11 +30,13 @@ public class PropNewServiceImpl implements PropNewService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public PropNew add(PropNew input) {
 		return propNewRepository.save(input);
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public PropNew edit(Long id, PropNew input) {
 		if(propNewRepository.findOne(id) == null)
 			return null;

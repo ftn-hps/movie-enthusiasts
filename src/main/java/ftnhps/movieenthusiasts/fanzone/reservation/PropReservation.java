@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -21,6 +22,9 @@ public class PropReservation {
 	@GeneratedValue
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
+	
+	@Version
+	private Long version;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private PropNew propNew;
@@ -50,6 +54,14 @@ public class PropReservation {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public PropNew getPropNew() {

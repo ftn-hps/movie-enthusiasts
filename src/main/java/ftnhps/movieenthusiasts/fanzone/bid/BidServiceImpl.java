@@ -2,12 +2,12 @@ package ftnhps.movieenthusiasts.fanzone.bid;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class BidServiceImpl implements BidService {
 	
@@ -30,11 +30,13 @@ public class BidServiceImpl implements BidService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Bid add(Bid input) {
 		return bidRepository.save(input);
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Bid edit(Long id, Bid input) {
 		if(findOne(id) == null)
 			return null;

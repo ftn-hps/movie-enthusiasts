@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,6 +26,9 @@ public class PropUsed {
 	@GeneratedValue
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
+	
+	@Version
+	private Long version;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private User user;
@@ -63,6 +67,14 @@ public class PropUsed {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public User getUser() {

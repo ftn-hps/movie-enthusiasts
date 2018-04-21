@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import ftnhps.movieenthusiasts.EmailUtils;
 import ftnhps.movieenthusiasts.fanzone.bid.Bid;
 import ftnhps.movieenthusiasts.fanzone.bid.BidConverter;
 import ftnhps.movieenthusiasts.fanzone.bid.BidDTO;
@@ -68,6 +71,8 @@ public class FanZoneController {
 	private BidService bidService;
 	@Autowired
 	private BidConverter bidConverter;
+	@Autowired 
+	private EmailUtils email;
 	@Autowired
 	private HttpSession session;
 	
@@ -295,7 +300,7 @@ public class FanZoneController {
 	}
 	
 	@PutMapping("/propsused/{id:\\d+}/approve/{app:TRUE|FALSE}")
-	public ResponseEntity<PropUsed> approvePropUsed(@PathVariable Long id, @PathVariable String app) {
+	public ResponseEntity<PropUsed> approvePropUsed(@PathVariable Long id, @PathVariable String app) throws MailException, InterruptedException {
 		User user = (User) session.getAttribute("user");
 		if(user == null || !user.getUserType().equals(UserType.FANZONEADMIN))
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -312,7 +317,7 @@ public class FanZoneController {
 			propUsed.setApproved(a);
 		} else {
 			propUsed.setApproved(null);
-			//TODO obavestiti o odbijanju oglasa
+			email.sendEmail(propUsed.getUser(), "Prop ad declined", "We are sorry to inform you that your ad for prop " + propUsed.getName() + " was decilined.");
 		}
 		
 		propUsed = propUsedService.edit(id, propUsed);
@@ -344,7 +349,7 @@ public class FanZoneController {
 	}
 	
 	@PutMapping("/propsused/bids/accept/{bidId:\\d+}")
-	public ResponseEntity<PropUsed> acceptBid(@PathVariable Long bidId) {
+	public ResponseEntity<PropUsed> acceptBid(@PathVariable Long bidId) throws MailException, InterruptedException {
 		User user = (User) session.getAttribute("user");
 		if(user == null)
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -354,12 +359,33 @@ public class FanZoneController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
 		PropUsed prop = bid.getPropUsed();
-		if( prop.getAcceptedBid() != null || prop.getUser().getId() != user.getId() || prop.getDate().isAfter(LocalDateTime.now(ZoneId.of("Z"))) )
+		if( prop.getAcceptedBid() != null || prop.getUser().getId() != user.getId() || prop.getDate().isBefore(LocalDateTime.now(ZoneId.of("Z"))) )
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		
 		prop.setAcceptedBid(bid);
 		prop = propUsedService.edit(prop.getId(), prop);
+		sendBidNotifications(prop);
 		return new ResponseEntity<>(prop, HttpStatus.OK);
+	}
+	
+	private void sendBidNotifications(PropUsed prop) throws MailException, InterruptedException {
+		List<Bid> bids = bidService.findAll(prop.getId());
+		Bid acceptedBid = prop.getAcceptedBid();
+		HashMap<Long, User> users = new HashMap<>(); 
+		
+		for (Bid bid : bids) {
+			User user = bid.getUser();
+			if(user.getId() != acceptedBid.getUser().getId()) {
+				if(!users.containsKey(user.getId()))
+					users.put(user.getId(), user);
+			}
+		}
+		
+		for (User u : users.values()) {
+			email.sendEmail(u, "Bid not accepted", "Non of your bids on " + prop.getName() + " was accepted." );
+		}
+		
+		email.sendEmail(acceptedBid.getUser(), "Bid accpeted", "Your bid of " + acceptedBid.getBid() + " on " + prop.getName() + " was accepted.");
 	}
 	
 	@PostMapping("/propsused/bids/add")

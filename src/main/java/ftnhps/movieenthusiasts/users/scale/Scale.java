@@ -3,6 +3,7 @@ package ftnhps.movieenthusiasts.users.scale;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,6 +16,9 @@ public class Scale {
 	@GeneratedValue
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
+	
+	@Version
+	private Long version;
 	
 	@NotNull
 	private Integer silver;
@@ -39,6 +43,14 @@ public class Scale {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public Integer getSilver() {

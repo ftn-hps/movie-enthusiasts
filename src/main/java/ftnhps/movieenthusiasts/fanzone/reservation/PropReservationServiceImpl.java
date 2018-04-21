@@ -2,12 +2,12 @@ package ftnhps.movieenthusiasts.fanzone.reservation;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class PropReservationServiceImpl implements PropReservationService {
 	
@@ -25,11 +25,13 @@ public class PropReservationServiceImpl implements PropReservationService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public PropReservation add(PropReservation input) {
 		return propReservationRepository.save(input);
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public PropReservation edit(Long id, PropReservation input) {
 		if(findOne(id) == null)
 			return null;

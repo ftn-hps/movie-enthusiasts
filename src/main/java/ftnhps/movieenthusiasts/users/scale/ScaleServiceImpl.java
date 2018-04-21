@@ -37,9 +37,7 @@ public class ScaleServiceImpl implements ScaleService {
 				scaleRepository.save(scale);
 			}
 		}
-		scales = scaleRepository.findByActive(true);
 		Scale scale =  scaleRepository.save(input);
-		scales = scaleRepository.findByActive(true);
 		if(scale != null) {
 			List<User> users = userRepository.findAll();
 			if(users != null && !users.isEmpty()) {

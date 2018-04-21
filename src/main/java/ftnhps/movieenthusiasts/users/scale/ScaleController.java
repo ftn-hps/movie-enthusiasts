@@ -28,7 +28,7 @@ public class ScaleController {
 	@GetMapping
 	public ResponseEntity<Scale> getScale() {
 		User user = (User) session.getAttribute("user");
-		if(user == null)
+		if(user == null || !user.getUserType().equals(UserType.SYSADMIN))
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		
 		Scale scale = scaleService.getActive();

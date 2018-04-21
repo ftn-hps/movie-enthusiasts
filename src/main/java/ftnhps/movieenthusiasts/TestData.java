@@ -28,6 +28,8 @@ import ftnhps.movieenthusiasts.reservations.ReservationService;
 import ftnhps.movieenthusiasts.users.User;
 import ftnhps.movieenthusiasts.users.UserService;
 import ftnhps.movieenthusiasts.users.UserType;
+import ftnhps.movieenthusiasts.users.scale.Scale;
+import ftnhps.movieenthusiasts.users.scale.ScaleService;
 
 @Component
 public class TestData {
@@ -46,6 +48,8 @@ public class TestData {
 	private PropNewService propNewService;
 	@Autowired
 	private PropUsedService propUsedService;
+	@Autowired
+	private ScaleService scaleService;
 	@Autowired
 	private ReservationService reservationService;
 	@Autowired
@@ -231,12 +235,23 @@ public class TestData {
 		Reservation reservation5 = new Reservation(10.0, dateAndTime4, 1, null);
 		reservationService.add(reservation5);
 		
-		PropNew propnew1 = new PropNew(place1, "rekbioskop1", "opsi opis", "/img/placeholder.png");
+		PropNew propnew1 = new PropNew(place1, "rek 1", "opsi", "/img/placeholder.png");
+		PropNew propnew2 = new PropNew(place2, "rek 2", "opsi opis", "/img/placeholder.png");
+		PropNew propnew3 = new PropNew(place3, "rek 3", "opsi opis opis", "/img/placeholder.png");
 		propNewService.add(propnew1);
+		propNewService.add(propnew2);
+		propNewService.add(propnew3);
 		
 		PropUsed propused1 = new PropUsed(user1, "koriscenirek1", "opis opis opis", LocalDateTime.now(ZoneId.of("Z")), "/img/placeholder.png");
 		propused1.setApproved(true);
 		propUsedService.add(propused1);
+		
+		Scale scale1 = new Scale(10, 20);
+		Scale scale2 = new Scale(20, 30);
+		Scale scale3 = new Scale(30, 40);
+		scaleService.setActive(scale1);
+		scaleService.setActive(scale2);
+		scaleService.setActive(scale3);
 		
 		// This has to be the last statement
 		// Don't add anything bellow
