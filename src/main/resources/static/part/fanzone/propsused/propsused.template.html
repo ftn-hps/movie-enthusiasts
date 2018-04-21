@@ -1,17 +1,21 @@
-<div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-pills card-header-pills">
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="propsused.add">Sell Prop</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="propsused.user">My props</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    <ui-view>
-    <my-props-used-display></my-props-used-display>
-    </ui-view>
-  </div>
+<div class="row no-gutter">
+
+	<div class="card text-center w-100">
+	  <div class="card-header">
+	    <ul class="nav nav-pills card-header-pills">
+	      <li class="nav-item">
+	        <a class="nav-link" ui-sref-active="active" ui-sref="propsused.add">Sell Prop</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" ui-sref-active="active" ui-sref="propsused.user">My props</a>
+	      </li>
+	    </ul>
+	  </div>
+	  <div class="card-body">
+	    <ui-view>
+	    <my-props-used-display></my-props-used-display>
+	    </ui-view>
+	  </div>
+	</div>
+	
 </div>

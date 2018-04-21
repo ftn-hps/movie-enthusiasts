@@ -138,3 +138,9 @@ my-stars .fa-star {
 .bg-dark {
 	background-color: var(--bg_color) !important;
 }
+
+.angucomplete-dropdown {
+    overflow-y: auto;
+    max-height: 200px;
+}
+

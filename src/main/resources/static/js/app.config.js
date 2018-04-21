@@ -63,6 +63,11 @@ angular.module('movie-enthusiasts')
 				component: 'myHallForm'
 			})
 			.state({
+				name: 'home.changeRole',
+				url: '^/change-role',
+				component: 'myChangeRole'
+			})
+			.state({
 				name: 'userAuth',
 				url: '/user-auth',
 				component: 'myUserAuth'

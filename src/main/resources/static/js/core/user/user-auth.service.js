@@ -17,4 +17,7 @@ angular.module('core.user')
 		this.editUser = (data) => {
 			return $http.put('/api/user-auth/edit', data);
 		};
+		this.changeRole = (data) => {
+			return $http.put('api/user-auth/change-role', data);
+		};
 	});

@@ -7,5 +7,6 @@ angular.module('fanzone.admin', [
 	'core.user',
 	'propsnew',
 	'propsused',
-	'ngFileUpload'
+	'ngFileUpload',
+	'angucomplete-alt'
 ]);

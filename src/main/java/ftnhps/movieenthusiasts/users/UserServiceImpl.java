@@ -70,7 +70,15 @@ public class UserServiceImpl implements UserService {
 
 		user.setId(id);
 		user.setEmail(existing.getEmail());
-		user.setPassword(existing.getPassword());
+		user.setUserType(existing.getUserType());
+		
+		if(user.getPassword() == null || user.getPassword().equals(existing.getPassword())) {
+			user.setPassword(existing.getPassword());
+			user.setPasswordChanged(existing.getPasswordChanged());
+		} else if (!existing.getUserType().equals(UserType.VISITOR)) {
+			user.setPasswordChanged(true);
+		}
+		
 		return userRepository.save(user);
 	}
 	

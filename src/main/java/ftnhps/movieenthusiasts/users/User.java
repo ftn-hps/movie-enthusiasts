@@ -63,6 +63,9 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	@JsonProperty(access = Access.READ_ONLY)
 	private MedalType medal = MedalType.BRONZE;
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private Boolean passwordChanged = null;
 
 	public User() {}
 
@@ -178,6 +181,14 @@ public class User {
 
 	public void setMedal(MedalType medal) {
 		this.medal = medal;
+	}
+
+	public Boolean getPasswordChanged() {
+		return passwordChanged;
+	}
+
+	public void setPasswordChanged(Boolean passwordChanged) {
+		this.passwordChanged = passwordChanged;
 	}
 
 }

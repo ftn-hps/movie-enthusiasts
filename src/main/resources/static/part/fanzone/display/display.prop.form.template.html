@@ -3,8 +3,10 @@
 		<input type="text" class="form-group form-control" placeholder="Name" ng-model="$ctrl.prop.name" required/>
 		<input type="text" class="form-group form-control" placeholder="Description" ng-model="$ctrl.prop.description" required/>
 		<input type="datetime-local" class="form-group form-control" ng-model = '$ctrl.prop.date' min="{{$ctrl.date.toISOString()}}" required/>
-		<label for="nameInput">PostedPicture: </label>{{$ctrl.file.$ngfName}}
-		<div class="btn btn-custom" ngf-select ng-model="$ctrl.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 350, height: 150}">Select</div><br><br>
+		<div class="form-group">
+			<input class="form-control" type="text" value="{{$ctrl.file.$ngfName}}" disabled="disabled"/>
+			<div class="btn btn-custom form-control mt-2" ngf-select ng-model="$ctrl.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 350, height: 150}">Select image</div>
+		</div>
 		<input type="submit" class="btn btn-custom" value="Add" ng-click="propused.$valid && $ctrl.send()"/>
 		<p>
 			{{$ctrl.status}}

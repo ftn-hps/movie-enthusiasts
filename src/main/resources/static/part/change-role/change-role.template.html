@@ -1,0 +1,25 @@
+<div class="row justify-content-md-left">
+	<div class="col-sm-5">
+		<form name="changeRole">
+			<div angucomplete-alt id="placesSelect"
+				 placeholder="Search users by name, email, id"
+			   	 maxlength="50"
+			     pause="100"
+			     selected-object="$ctrl.selectedUser"
+				 local-data="$ctrl.users"
+				 search-fields="name,lastName,email,id"
+				 title-field="name,lastName,email,id"
+			     minlength="1"
+				 input-class="form-control form-group"
+				 match-class="highlight"></div>
+				 <input type="hidden" ng-model="$ctrl.selectedUser" required/>
+			<select class='form-control form-group' ng-model = "$ctrl.selectedUser.description.userType" required>
+				<option value = 'VISITOR'>VISITOR</option>
+				<option value = 'PLACEADMIN'>PLACEADMIN</option>
+				<option value = 'FANZONEADMIN'>FANZONEADMIN</option>
+				<option value = 'SYSADMIN'>SYSADMIN</option>
+			</select>
+			<input type="submit" class="btn btn-custom" value="Change" ng-click="changeRole.$valid && $ctrl.send()"/>
+		</form>
+	</div>
+</div>

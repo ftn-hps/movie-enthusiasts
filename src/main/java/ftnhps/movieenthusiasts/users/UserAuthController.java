@@ -27,6 +27,8 @@ public class UserAuthController {
 	@Autowired
 	private UserService userService;
 	@Autowired
+	private UserConverter userConverter;
+	@Autowired
 	private HttpSession session;
 	@Autowired 
 	private EmailUtils email;
@@ -69,6 +71,9 @@ public class UserAuthController {
 		if(user == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
+		if( !user.getUserType().equals(UserType.VISITOR) && (user.getPasswordChanged() == null || user.getPasswordChanged() == false) )
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		
 		session.invalidate();
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
@@ -83,14 +88,34 @@ public class UserAuthController {
 	}
 
 	@PutMapping("/edit")
-	public ResponseEntity<User> editUser(@RequestBody User input) {
+	public ResponseEntity<User> editUser(@RequestBody EditDTO input) {
 		User sessionUser = (User) session.getAttribute("user");
 		if(sessionUser == null)
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
+		User user = userConverter.fromEditDTO(input, sessionUser);
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 
-		User newUser = userService.edit(sessionUser.getId(), input);
+		User newUser = userService.edit(sessionUser.getId(), user);
+		if(newUser == null)
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		session.setAttribute("user", newUser);
 		return new ResponseEntity<>(newUser, HttpStatus.OK);
 	}
-
+	
+	@PutMapping("/change-role")
+	public ResponseEntity<User> changeRole(@RequestBody ChangeRoleDTO input) {
+		User sessionUser = (User) session.getAttribute("user");
+		if(sessionUser == null || !sessionUser.getUserType().equals(UserType.SYSADMIN))
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		User user = userConverter.fromChangeRoleDTO(input);
+		if(user == null)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		
+		userService.edit(user.getId(), user);
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
 }

@@ -11,5 +11,6 @@ angular.module('home', [
 	'projectionForm',
 	'hallForm',
 	'rateReservation',
-	'chart'
+	'chart',
+	'changeRole'
 ]);

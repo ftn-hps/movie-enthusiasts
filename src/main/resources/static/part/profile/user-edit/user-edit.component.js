@@ -12,7 +12,17 @@ angular.module('profile.userEdit')
 				});
 
 			this.send = () => {
-				UserAuthService.editUser(this.user)
+				if(this.oldPassword) {
+					if(this.oldPassword == this.user.password) {
+						this.status = 'Choose different password!';
+						return;
+					}
+					if(this.user.password != this.user.passwordAgain) {
+						this.status = 'Passwords don\'t match';
+						return;
+					}
+				}
+				UserAuthService.editUser({'user': this.user, 'oldPassword': this.oldPassword})
 					.then( (response) => {
 						this.user = response.data;
 						this.status = 'User updated successfully';

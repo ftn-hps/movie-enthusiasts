@@ -65,6 +65,7 @@ angular.module('fanzone.admin').component('myPropNewForm', {
 		this.placeChange();
 		
 		this.send = () => {
+			this.prop.placeId = this.selectedPlace.description.id;
 			FanZoneService.addPropNew(this.prop).then( (response) => {
 						this.status = 'Added succesfully!';
 						if(this.file != null) {
@@ -84,7 +85,7 @@ angular.module('fanzone.admin').component('myPropNewForm', {
 
 angular.module('fanzone.admin').component('myPropNewEdit', {
 	templateUrl: '/part/fanzone/admin/fanzone.admin.prop.form.template.html',
-	controller: function(FanZoneService, PlaceService, $document, $timeout, $stateParams, $state) {
+	controller: function(FanZoneService, PlaceService, $stateParams, $state, Upload) {
 		this.edit = true;
 		
 		this.placeChange = () => {
@@ -99,7 +100,7 @@ angular.module('fanzone.admin').component('myPropNewEdit', {
 			this.prop = new Object();
 			this.prop.name = response.data.name;
 			this.prop.description = response.data.description;
-			this.prop.placeId = response.data.place.id;
+			this.setAsSelected = response.data.place;
 			this.placeType = response.data.place.type;
 			this.placeChange();
 		}, () => {
@@ -107,9 +108,19 @@ angular.module('fanzone.admin').component('myPropNewEdit', {
 		});
 		
 		this.send = () => {
-			FanZoneService.editPropNew($stateParams.id, this.prop).then(
-					() => {
+			if(this.selectedPlace.originalObject)
+				this.prop.placeId = this.selectedPlace.originalObject.id;
+			else
+				this.prop.placeId = this.selectedPlace.description.id;
+			FanZoneService.editPropNew($stateParams.id, this.prop).then( (response) => {
 						this.status = 'Added succesfully!';
+						if(this.file != null) {
+							Upload.upload({
+						        url: '/api/fanzone/upload',
+						        fields: {'propId': response.data.id, 'propType': 'NEW'}, // additional data to send
+						        file: this.file
+						    });
+						}
 					},
 					(response) => {
 						this.status = response.status;

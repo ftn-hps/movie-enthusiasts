@@ -52,22 +52,35 @@
 	</div>
 </div>
 
-<div ng-if="$ctrl.prop.place" class="card text-center">
-	<h5 class="card-header">
+<div ng-if="$ctrl.prop.place" class="card">
+	<h5 class="card-header text-center">
 		{{$ctrl.prop.name}}
 		<a ng-if="$ctrl.isFanAdmin" class="btn btn-custom" ui-sref="fanzoneAdmin.editNewProp({id: $ctrl.prop.id})">Edit</a>
 		<a ng-if="$ctrl.isFanAdmin" class="btn btn-custom" ng-click="$ctrl.deleteProp()">Delete</a>
 	</h5>
-	<div class="card-body">
-	    <h5 class="card-title">Description</h5>
-	    <p class="card-text">{{$ctrl.prop.description}}</p>
-	    <img ng-src="{{$ctrl.prop.imagePath}}">
-	   <form name="reservation" class="form-inline">
-			<div class="form-group mx-sm-3 mb-2">
-			    <input type="number" min="1" class="form-control" placeholder="Quantity" ng-model="$ctrl.reservation.quantity" required>
-			</div>
-	  		<input type="submit" value="Reserve" class="btn btn-custom mb-2" ng-click="reservation.$valid && $ctrl.send()"/>
-	  		<p class="mx-sm-3 mb-2">{{$ctrl.status}}</p>
-		</form>
+	<div class="card-body card-columns">
+
+		<div class="col">
+		    <h5 class="card-title text-center">Description</h5>
+		    <p class="card-text mx-3">{{$ctrl.prop.description}}</p>
+		    <form name="reservation" class="form-inline">
+				<input type="number" min="1" class="form-control form-group mx-3" placeholder="Quantity" ng-model="$ctrl.reservation.quantity" required>
+		  		<input type="submit" value="Reserve" class="form-control form-group btn btn-custom" ng-click="reservation.$valid && $ctrl.send()"/>
+		   </form>
+			<p>{{$ctrl.status}}</p>
+	    </div>
+	    
+	    <div class="col">
+	    	<img ng-src="{{$ctrl.prop.imagePath}}" style="width: 100%;">
+	    </div>
+	    
 	</div>
 </div>
+
+
+
+
+
+
+
+

@@ -15,6 +15,23 @@
 		placeholder="Email*"
 		ng-model="$ctrl.user.email"
 		disabled/>
+		
+	<input type="password"
+		class="form-group form-control"
+		placeholder="Old password*"
+		ng-model="$ctrl.oldPassword"
+		minlength="6"/>
+	<input type="password"
+		class="form-group form-control"
+		placeholder="New password*"
+		ng-model="$ctrl.user.password"
+		minlength="6"/>
+	<input type="password"
+		class="form-group form-control"
+		placeholder="Enter new password again*"
+		ng-model="$ctrl.user.passwordAgain"
+		minlength="6"/>
+	
 	<input type="text"
 		class="form-group form-control"
 		placeholder="Name"

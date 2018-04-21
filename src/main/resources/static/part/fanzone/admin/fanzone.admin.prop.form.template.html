@@ -1,22 +1,42 @@
-<div class="col-md-4 order-2 order-md-0">
-	<form name="propnew">
-		<input type="text" class="form-group form-control" placeholder="Name" ng-model="$ctrl.prop.name" required/>
-		<input type="text" class="form-group form-control" placeholder="Description" ng-model="$ctrl.prop.description" required/>
-		<select class="form-group form-control" ng-model="$ctrl.placeType" ng-change="$ctrl.placeChange($ctrl.placeType)">
-			<option value="CINEMA" selected>Cinemas</option>
-			<option value="THEATER">Theaters</option>
-		</select>
-		<select class="form-group form-control" ng-model="$ctrl.prop.placeId" id="placeList" required>
-			<option value="">None</option>
-			<option ng-repeat="place in $ctrl.places" value="{{place.id}}">{{place.name}}</option>>
-		</select>
-		<label for="nameInput">PostedPicture: </label>{{$ctrl.file.$ngfName}}
-		<div class="btn btn-custom" ngf-select ng-model="$ctrl.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 350, height: 150}">Select</div><br><br>
-		<input ng-if="$ctrl.edit" type="submit" class="btn btn-custom" value="Edit" ng-click="propnew.$valid && $ctrl.send()"/>
-		<input ng-if="!$ctrl.edit" type="submit" class="btn btn-custom" value="Add" ng-click="propnew.$valid && $ctrl.send()"/>
-		<p>
-			{{$ctrl.status}}
-			{{$ctrl.prop.placeId}}
-		</p>
-	</form>
+<div class="row justify-content-md-left">
+	<div class="col-sm-5">
+		<form name="propnew">
+			<input type="text" class="form-group form-control" placeholder="Name" ng-model="$ctrl.prop.name" required/>
+			<input type="text" class="form-group form-control" placeholder="Description" ng-model="$ctrl.prop.description" required/>
+			<select class="form-group form-control" ng-model="$ctrl.placeType" ng-change="$ctrl.placeChange($ctrl.placeType)">
+				<option value="CINEMA" selected>Cinemas</option>
+				<option value="THEATER">Theaters</option>
+			</select>
+	<!-- 		<select class="form-group form-control" ng-model="$ctrl.prop.placeId" id="placeList" required> -->
+	<!-- 			<option value="">None</option> -->
+	<!-- 			<option ng-repeat="place in $ctrl.places" value="{{place.id}}">{{place.name}}</option>> -->
+	<!-- 		</select> -->
+			<div angucomplete-alt id="placesSelect"
+				 placeholder="Search places by name or address"
+				 maxlength="50"
+			  	 pause="100"
+			     selected-object="$ctrl.selectedPlace"
+			     local-data="$ctrl.places"
+			     search-fields="name,address"
+			     title-field="name"
+			     minlength="1"
+			     input-class="form-control form-group"
+			     match-class="highlight"
+			     initial-value="$ctrl.setAsSelected"></div>
+			<input type="hidden" ng-model="$ctrl.selectedPlace" required/>
+			
+			
+			<div class="form-group">
+				<input class="form-control" type="text" value="{{$ctrl.file.$ngfName}}" disabled="disabled"/>
+				<div class="btn btn-custom form-control mt-2" ngf-select ng-model="$ctrl.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 350, height: 150}">Select image</div>
+			</div>
+			<input ng-if="$ctrl.edit" type="submit" class="btn btn-custom" value="Edit" ng-click="propnew.$valid && $ctrl.send()"/>
+			<input ng-if="!$ctrl.edit" type="submit" class="btn btn-custom" value="Add" ng-click="propnew.$valid && $ctrl.send()"/>
+			<p>
+				{{$ctrl.status}}
+				{{$ctrl.prop.placeId}}
+			</p>
+		</form>
+	</div>
 </div>
+
